@@ -91,6 +91,7 @@ case "$TERM" in
         TITLEBAR="";;
 esac
 
+# PROMPT
 PS1_SHORT="$TITLEBAR\\$ "
 PS1_FULL="$TITLEBAR\
 $(if [ "`id -u`" = 0 ]; then echo ${bldred}; else echo ${bldgrn}; fi)\u@\
@@ -104,28 +105,22 @@ function prepare_prompt()
 {
     PS1_NEXT="$USERNAME$SSH_CLIENT$PWD$(__git_ps1)";
     if [ "$PS1_LAST" = "$PS1_NEXT" ]; then
+        # hide duplicate full prompt
         PS1=$PS1_SHORT;
     elif [ "$PS1_LAST" = "?" ]; then
+        # force full prompt on current prompt line
         PS1="\[u\033[1A\]\[u\033[2D\]$PS1_FULL"
     else
+        # full prompt
         PS1=$PS1_FULL;
     fi
     PS1_LAST=$PS1_NEXT;
 }
 
-alias ?='PS1_LAST=?'
+alias ?='PS1_LAST=?'  # Shortcut to force full prompt
 
 PROMPT_COMMAND=prepare_prompt
 
-
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#    xterm*|rxvt*)
-#        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#        ;;
-#    *)
-#        ;;
-#esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
