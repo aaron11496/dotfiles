@@ -1,4 +1,10 @@
 *~
-*.hi
 *.o
-xmonad-x86_64-linux*
+*.class
+*.elc
+*.hi
+*.pyc
+*.pyo
+\#*\#
+.emacs.d/session*
+xmonad-x86_64-linux
