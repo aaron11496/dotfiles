@@ -7,4 +7,4 @@
 *.pyo
 \#*\#
 .emacs.d/session*
-xmonad-x86_64-linux
+xmonad-*-linux
