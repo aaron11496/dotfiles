@@ -1,8 +1,8 @@
 urxvt.cursorBlink: true
 
-!urxvt*transparent:false
-!urxvt*tintColor:blue
-!urxvt*shading:1000
+urxvt*transparent:false
+urxvt*tintColor:blue
+urxvt*shading:1000
 urxvt*saveLines:10000
 urxvt*foreground: White
 urxvt*background: Black
@@ -10,20 +10,12 @@ urxvt*background: Black
 urxvt.depth: 32
 urxvt.background: rgba:0000/0000/0000/EEEE
 
-urxvt*font: xft:Inconsolata:antialias=false
-urxvt*boldFont: xft:Inconsolata:bold:antialias=false
-!urxvt*font: xft:Bitstream Vera Sans Mono: pixelsize=13
-!urxvt*font: -*-courier-medium-r-normal-*-*-140-*-*-*-*-iso8859-1
-!urxvt*boldFont: -*-courier-bold-r-normal-*-*-140-*-*-*-*-iso8859-1
-!urxvt*color4:RoyalBlue
-!urxvt*color12:RoyalBlue
+urxvt*font: xft:Inconsolata:antialias=true:pixelsize=16
+urxvt*boldFont: xft:Inconsolata:bold
 urxvt*scrollBar:true
 urxvt*scrollBar_right:true
 urxvt*scrollstyle:rxvt
 urxvt*scrollBar_floating: true
-
-! for selecting urls with mouse
-! xterm*charClass:        33:48,35-38:48,39:43,42-47:48,58-59:48,61:48,63-64:48,126:48
 
 ! Tango Color Scheme
 urxvt*color0: #2e3436
@@ -42,4 +34,3 @@ urxvt*color12: #729fcf
 urxvt*color13: #ad7fa8
 urxvt*color14: #00f5e9
 urxvt*color15: #eeeeec
-
