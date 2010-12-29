@@ -131,7 +131,9 @@ fi
 
 export EDITOR='vim'
 
-export PATH=${HOME}/bin:${PATH}
+if [ -d ${HOME}/bin ]; then
+    export PATH=${HOME}/bin:${PATH}
+fi
 
 # Something for work. Ignore this.
 if [ -x /pluto/local/activate-environment ]; then
