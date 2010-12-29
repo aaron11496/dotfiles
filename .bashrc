@@ -1,9 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
-# If not running interactively, don't do anything
-
+# if not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
 # don't put duplicate lines in the history. See bash(1) for more options
@@ -14,8 +11,6 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -34,21 +29,7 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
 #force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
 
 txtblk="\[\033[0;30m\]" # Black - Regular
 txtred="\[\033[0;31m\]" # Red
@@ -85,44 +66,41 @@ bakwht="\[\033[47m\]"   # White
 txtrst="\[\033[0m\]"    # Text Reset
 
 case "$TERM" in
-    xterm*|rxvt*)
+    xterm*|rxvt*|urxvt*)
         TITLEBAR="\[\033]0;\u @ \h : \w\007\]";;
     *)
         TITLEBAR="";;
 esac
 
-# PROMPT
-PS1_SHORT="$TITLEBAR\\$ "
-PS1_FULL="$TITLEBAR\
+# smart prompt
+PS1_SHORT="${txtrst}\$ "
+PS1_FULL="\
 $(if [ "`id -u`" = 0 ]; then echo ${bldred}; else echo ${bldgrn}; fi)\u@\
 $(if [ -n "$SSH_CLIENT" ]; then echo ${bldred}; fi)\h\
 ${txtrst}:\
 ${bldblu}\w\
 ${bldylw}\$(__git_ps1)\
-${txtrst}\n\\$ "
+\n$PS1_SHORT"
 
 function prepare_prompt()
 {
     PS1_NEXT="$USERNAME$SSH_CLIENT$PWD$(__git_ps1)";
     if [ "$PS1_LAST" = "$PS1_NEXT" ]; then
-        # hide duplicate full prompt
+        # hide duplicate full prompts
         PS1=$PS1_SHORT;
     elif [ "$PS1_LAST" = "?" ]; then
         # force full prompt on current prompt line
         PS1="\[u\033[1A\]\[u\033[2D\]$PS1_FULL"
     else
-        # full prompt
+        # full prompt changed, print it
         PS1=$PS1_FULL;
     fi
     PS1_LAST=$PS1_NEXT;
 }
-
-alias ?='PS1_LAST=?'  # Shortcut to force full prompt
-
+alias ?='PS1_LAST=?'  # isortcut to force full prompt
 PROMPT_COMMAND=prepare_prompt
 
-
-# enable color support of ls and also add handy aliases
+# colorful ls/dir/grep
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -135,23 +113,18 @@ if [ -x /usr/bin/dircolors ]; then
     alias zgrep='zgrep --color=auto'
 fi
 
+# common aliases
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 alias lla='ls -lA'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
+# custom aliases file
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# bash completion
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
@@ -159,8 +132,8 @@ fi
 export EDITOR='vim'
 
 export PATH=${HOME}/bin:${PATH}
-export PATH=${PATH}:${HOME}/.gem/ruby/1.8/bin
 
+# Something for work. Ignore this.
 if [ -x /pluto/local/activate-environment ]; then
     source /pluto/local/activate-environment
 fi
