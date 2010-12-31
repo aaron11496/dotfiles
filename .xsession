@@ -1,0 +1,4 @@
+xscreensaver -nosplash &
+pidgin &
+rhythmbox &
+
