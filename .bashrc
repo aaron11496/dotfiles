@@ -1,5 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-
 # if not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -28,8 +26,6 @@ fi
 case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
-
-#force_color_prompt=yes
 
 txtblk="\[\033[0;30m\]" # Black - Regular
 txtred="\[\033[0;31m\]" # Red
@@ -72,6 +68,7 @@ case "$TERM" in
         TITLEBAR="";;
 esac
 
+
 # smart prompt
 PS1_SHORT="${txtrst}\$ "
 PS1_FULL="\
@@ -97,8 +94,10 @@ function prepare_prompt()
     fi
     PS1_LAST=$PS1_NEXT;
 }
-alias ?='PS1_LAST=?'  # isortcut to force full prompt
+
+alias ?='PS1_LAST=?'  # shortcut to force full prompt
 PROMPT_COMMAND=prepare_prompt
+
 
 # colorful ls/dir/grep
 if [ -x /usr/bin/dircolors ]; then
@@ -119,7 +118,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias lla='ls -lA'
 
-# custom aliases file
+# custom aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
