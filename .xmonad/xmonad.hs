@@ -1,5 +1,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
+import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig
 import XMonad.Config.Gnome
 import Data.Bits
@@ -31,6 +33,7 @@ myConfig = defaultConfig
            , modMask     = mod4Mask -- set the mod key to the windows key
            , workspaces  = myWorkspaces
            --, keys        = myKeys
+           , layoutHook  = avoidStruts $ smartBorders $ layoutHook defaultConfig
            , manageHook  = myManageHook <+> manageHook defaultConfig
            }
 
