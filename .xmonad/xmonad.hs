@@ -1,53 +1,74 @@
+import System.IO
+import qualified Data.Map as M
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders
-import XMonad.Util.EZConfig
-import XMonad.Config.Gnome
-import Data.Bits
-import qualified Data.Map as M
+import XMonad.Util.Run(spawnPipe)
 import qualified XMonad.StackSet as W
 
-import Data.Monoid
 
-rb_pause = "rhythmbox-client --no-present --no-start --play-pause"
-rb_next  = "rhythmbox-client --no-present --no-start --next"
-rb_prev = "rhythmbox-client --no-present --no-start --previous"
+-- workspaces names
+myWorkspaces =
+    [ "1-base", "2-mail", "3-chat", "4-term", "5-code" , "6-music"
+    , "7", "8", "9" ]
 
-myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
-    [ ((modMask .|. shiftMask, xK_z), spawn "gnome-session-save --gui --logout-dialog")
-    , ((modMask, xK_x), spawn rb_pause)
+-- keyboard shortcuts
+rb_pause = "rhythmbox-client --no-present --play-pause"
+rb_next  = "rhythmbox-client --no-present --next"
+rb_prev  = "rhythmbox-client --no-present --previous"
+
+myKeys x =
+    [ ((modMask x, xK_x), spawn rb_pause)
+    , ((modMask x, xK_z), spawn rb_prev)
+    , ((modMask x, xK_c), spawn rb_next)
     ]
 
-myWorkspaces = [ "1-base", "2-mail", "3-chat", "4-term", "5-code" , "6-music"
-               , "7", "8", "9" ]
+myKeyMap x = M.union (keys defaultConfig x) (M.fromList (myKeys x))
+
+--
+myLayoutHook = avoidStruts $ smartBorders $ layoutHook defaultConfig
 
 -- launch certain programs only on certain workspaces
-myManageHook = composeAll [ className =? "Pidgin"    --> doF (W.shift "3-chat")
-                          , className =? "Skype"     --> doF (W.shift "3-chat")
-                          , className =? "Rhythmbox" --> doF (W.shift "6-music")
-                          ]
+myManageHook =
+    composeAll
+    [ className =? "Pidgin"    --> doF (W.shift "3-chat")
+    , className =? "Skype"     --> doF (W.shift "3-chat")
+    , className =? "Rhythmbox" --> doF (W.shift "6-music")
+    ]
 
-myConfig = defaultConfig
-           { terminal    = "urxvt"
-           , modMask     = mod4Mask -- set the mod key to the windows key
-           , workspaces  = myWorkspaces
-           --, keys        = myKeys
-           , layoutHook  = avoidStruts $ smartBorders $ layoutHook defaultConfig
-           , manageHook  = myManageHook <+> manageHook defaultConfig
-           }
+-- logging for xmobar to use
+myLogHook h = dynamicLogWithPP $ myPP { ppOutput = hPutStrLn h }
 
-myPP = xmobarPP { ppCurrent = xmobarColor "#00A000" ""
-                , ppVisible = xmobarColor "#C0C0C0" ""
-                , ppHidden = xmobarColor "#909090" ""
-                , ppHiddenNoWindows = xmobarColor "#606060" ""
-                , ppUrgent = xmobarColor "orange" ""
-                , ppSep = "  "
-                , ppWsSep = " "
-                , ppTitle = xmobarColor "#00A000" ""
-                }
+-- xmobar styling
+myPP =
+    xmobarPP
+    { ppCurrent = xmobarColor "#00A000" ""
+    , ppVisible = xmobarColor "#C0C0C0" ""
+    , ppHidden = xmobarColor "#909090" ""
+    , ppHiddenNoWindows = xmobarColor "#606060" ""
+    , ppUrgent = xmobarColor "orange" ""
+    , ppSep = "  "
+    , ppWsSep = " "
+    , ppTitle = xmobarColor "#00A000" ""
+    }
 
--- toggle xmobar on and off with mod-b
-toggleStatusbarKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+-- set mod to windows-key (default is left-alt)
+myModMask = mod4Mask
 
-main = xmonad =<< statusBar "xmobar" myPP toggleStatusbarKey myConfig
+
+main = do
+  xmproc <- spawnPipe "xmobar"  -- start xmobar
+  xmonad $ defaultConfig
+             { manageHook = myManageHook <+> manageHook defaultConfig
+             , layoutHook = myLayoutHook
+	     --, borderWidth = myBorderWidth
+	     --, normalBorderColor = myNormalBorderColor
+	     --, focusedBorderColor = myFocusedBorderColor
+	     , keys = myKeyMap
+	     , logHook = myLogHook xmproc
+             , modMask = myModMask
+             , terminal = "urxvt"
+	     , workspaces = myWorkspaces
+             --, focusFollowsMouse = False
+	     }
