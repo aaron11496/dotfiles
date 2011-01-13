@@ -43,14 +43,15 @@ myLogHook h = dynamicLogWithPP $ myPP { ppOutput = hPutStrLn h }
 -- xmobar styling
 myPP =
     xmobarPP
-    { ppCurrent = xmobarColor "#00A000" ""
-    , ppVisible = xmobarColor "#C0C0C0" ""
-    , ppHidden = xmobarColor "#909090" ""
+    { ppCurrent = xmobarColor "#00B000" ""
+    , ppVisible = xmobarColor "#B0B000" ""
+    , ppHidden = xmobarColor "#B0B0B0" ""
     , ppHiddenNoWindows = xmobarColor "#606060" ""
     , ppUrgent = xmobarColor "orange" ""
-    , ppSep = "  "
+    , ppSep = "   "
     , ppWsSep = " "
-    , ppTitle = xmobarColor "#00A000" ""
+      -- This centers the window title, but fails when there's no window
+    , ppTitle = wrap "}" "{" . xmobarColor "#00A000" ""
     }
 
 -- set mod to windows-key (default is left-alt)
