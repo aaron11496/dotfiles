@@ -12,7 +12,7 @@ urxvt.background: rgba:0000/0000/0000/EEEE
 
 urxvt*font: xft:Inconsolata:antialias=true:pixelsize=16
 urxvt*boldFont: xft:Inconsolata:bold
-urxvt*scrollBar:true
+urxvt*scrollBar: false
 urxvt*scrollBar_right:true
 urxvt*scrollstyle:rxvt
 urxvt*scrollBar_floating: true
