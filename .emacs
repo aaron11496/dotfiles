@@ -48,27 +48,23 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(try-this
- (require 'show-wspace)
- (add-hook 'font-lock-mode-hook))
-
-(try-this
+;(try-this
  (require 'color-theme)
  (color-theme-initialize)
  (require 'color-theme-aaron)
- (color-theme-aaron))
+ (color-theme-aaron);)
 
-(try-this
+;(try-this
 ; (set-frame-font "Menlo-12"))
- (set-frame-font "Terminus-12"))
+ (set-frame-font "Terminus-12");)
 
-(try-this
- (column-number-mode 1))
+;(try-this
+ (column-number-mode 1);)
 
-(try-this
+;(try-this
  (require 'ido)
  (ido-mode t)
- (setq ido-enable-flex-matching t))
+ (setq ido-enable-flex-matching t);)
 ;(try-this
 ; (setq default-frame-alist '((font . "Monaco-9"))))
 
@@ -78,7 +74,7 @@
 
 
 ; Setup menu's etc.
-(try-independently
+;(try-independently
  (show-paren-mode t)
  (scroll-bar-mode -1)
  (tool-bar-mode -1)
@@ -88,14 +84,14 @@
  (setq inhibit-startup-message t)
  (setq require-final-newline t)
  (setq ring-bell-function 'ignore)
- (setq-default indent-tabs-mode nil))
+ (setq-default indent-tabs-mode nil);)
 
 ;(require 'uniquify)
 ;(setq uniquify-buffer-name-style 'forward)g
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(try-this
+;(try-this
 ; Flymake as you work
  (when (load "flymake" t)
    (defun flymake-pylint-init ()
@@ -122,40 +118,32 @@
 ;               '("^[^\*]+\\.py$" flymake-pylint-init)))
 
  (add-hook 'python-mode-hook
-           '(lambda () (if (not (null buffer-file-name)) (flymake-mode)))))
+           '(lambda () (if (not (null buffer-file-name)) (flymake-mode))));)
 
 ;(try-this
-; (autoload 'python-mode "python-mode" "Python Mode." t)
-; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-; (add-to-list 'interpreter-mode-alist '("python" . python-mode)))
+ (autoload 'python-mode "python-mode" "Python Mode." t)
+ (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+ (add-to-list 'interpreter-mode-alist '("python" . python-mode));)
 
-(try-this
+;(try-this
  (autoload 'yaml-mode "yaml-mode" nil t)
- (add-to-list 'auto-mode-alist '("\\.ya?ml$", yaml-mode)))
+ (add-to-list 'auto-mode-alist '("\\.ya?ml$", yaml-mode));)
 
-(try-this
+;(try-this
  (autoload 'css-mode "css-mode" nil t)
- (setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist)))
+ (setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist));)
 
 ; TO COMPILE: $ emacs --batch --eval '(byte-compile-file "js2.el")'
-(try-this
+;(try-this
  (autoload 'js2-mode "js2" nil t)
  (add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
- (add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode)))
+ (add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode));)
 
-;icicles
+
 ;(try-this
-; (add-to-list 'load-path "~/.icicles")
-; (require 'icicles)
-; (icy-mode))
+; (server-start))
 
-; javascript-mode
-
-
-(try-this
- (server-start))
-
-(defun recompile-everything-under-the-sun ()
-  (interactive)
-  (dolist (path load-path)
-    (byte-recompile-directory path 0)))
+;(defun recompile-everything-under-the-sun ()
+;  (interactive)
+;  (dolist (path load-path)
+;    (byte-recompile-directory path 0)))
