@@ -21,7 +21,6 @@
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-;") 'dabbrev-expand)
 (global-set-key (kbd "<M-f12>") 'revert-buffer)
-(global-set-key (kbd "M-c") 'kill-ring-save)
 (global-set-key [C-tab] 'other-window)
 (global-set-key (kbd "C-s-d")
                 (lambda () (interactive)
@@ -80,7 +79,7 @@
                 '("\\.py\\'" flymake-pylint-init)))
 
 (add-hook 'python-mode-hook
-          '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))2
+          '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 
 (autoload 'python-mode "python-mode" "Python Mode." t)
 (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
