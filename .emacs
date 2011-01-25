@@ -4,6 +4,11 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme")
 (add-to-list 'load-path "~/.emacs.d/predictive")
 
+(require 'color-theme)
+(color-theme-initialize)
+(require 'color-theme-aaron)
+(color-theme-aaron)
+
 (defun condense-whitespace ()
   "Kill the whitespace between two non-whitespace characters"
   (interactive "*")
@@ -25,23 +30,14 @@
 (global-set-key (kbd "C-s-d")
                 (lambda () (interactive)
                   (insert "import ipdb; ipdb.set_trace()")))
-(global-set-key [mouse-16] 'revert-buffer)
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(require 'color-theme)
-(color-theme-initialize)
-(require 'color-theme-aaron)
-(color-theme-aaron)
+(setq-default indent-tabs-mode nil)
+(setq require-final-newline t)
 
 (set-frame-font "Terminus-12")
-
 (column-number-mode 1)
-
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t)
 
 ; Setup menu's etc.
 (show-paren-mode t)
@@ -52,54 +48,44 @@
 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
-(setq require-final-newline t)
 (setq ring-bell-function 'ignore)
-(setq-default indent-tabs-mode nil)
-(set-fringe-style 'min)
 
-; Give buffers unique names using their file's paths, not by appending numbers
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t)
+
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-; Y/N questions to be answered with y or n, not yes or no
-(fset 'yes-or-no-p 'y-or-n-p)
+(when (load "flymake" t)
+  (defun flymake-pylint-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "/pluto/pycloud/apps/emacs/bin/lintrunner.py"
+            (list local-file))))
 
-; Flymake as you work
- (when (load "flymake" t)
-   (defun flymake-pylint-init ()
-     (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                        'flymake-create-temp-inplace))
-            (local-file (file-relative-name
-                         temp-file
-                         (file-name-directory buffer-file-name))))
-       (list "/pluto/pycloud/apps/emacs/bin/lintrunner.py"
-             (list local-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pylint-init)))
 
-   (add-to-list 'flymake-allowed-file-name-masks
-                '("\\.py\\'" flymake-pylint-init)))
+;(add-hook 'python-mode-hook
+;          '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 
-(add-hook 'python-mode-hook
-          '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
+;(autoload 'yaml-mode "yaml-mode" nil t)
+;(add-to-list 'auto-mode-alist '("\\.ya?ml$", yaml-mode))
 
-(autoload 'python-mode "python-mode" "Python Mode." t)
-(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
-
-(autoload 'yaml-mode "yaml-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.ya?ml$", yaml-mode))
-
-(autoload 'css-mode "css-mode" nil t)
-(setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist))
+;(autoload 'css-mode "css-mode" nil t)
+;(setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist))
 
 ; TO COMPILE: $ emacs --batch --eval '(byte-compile-file "js2.el")'
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
+;(autoload 'js2-mode "js2" nil t)
+;(add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
 
 ; necessary?
 ;(add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
 
 
-;(defun recompile-everything-under-the-sun ()
-;  (interactive)
-;  (dolist (path load-path)
-;    (byte-recompile-directory path 0)))
