@@ -1,3 +1,8 @@
 Configuration files for git, X, xmonad, xmobar, bash, urxvt, emacs, and vim.
 
 Soft-link to any dot files in here from ~.
+
+Disable gnome desktop:
+gconftool --type boolean --set /apps/nautilus/preferences/show_desktop false
+Set wallpaper:
+gconftool --type string --set /desktop/gnome/background/picture_filename "/home/aaron/wallpaper"
