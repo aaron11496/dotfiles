@@ -4,13 +4,17 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.Grid
+import XMonad.Layout.IM
 import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Reflect
 import XMonad.Util.Run(spawnPipe)
 import qualified XMonad.StackSet as W
 
 
 myWorkspaces =
-    [ "web", "mail", "chat", "term", "code" , "music" , "?", "??", "vm" ]
+    [ "web", "mail", "chat", "term", "code" , "music" , "?", "gimp", "vm" ]
 
 myTerminal = "urxvt"
 
@@ -29,7 +33,16 @@ myKeys x =
     ]
 myKeyMap x = M.union (keys defaultConfig x) (M.fromList (myKeys x))
 
-myLayoutHook = avoidStruts $ smartBorders $ layoutHook defaultConfig
+myLayoutHook = avoidStruts
+               $ smartBorders
+               $ onWorkspace "gimp" gimpLayout
+               $ onWorkspace "chat" pidginLayout
+               $ layoutHook defaultConfig
+    where
+      gimpLayout = withIM (0.11) (Role "gimp-toolbox")
+                   $ reflectHoriz
+                   $ withIM (0.15) (Role "gimp-dock") Full
+      pidginLayout = reflectHoriz $ withIM (0.15) (Role "buddy_list") Grid
 
 myManageHook =
     composeAll
@@ -64,12 +77,11 @@ main = do
              , layoutHook = myLayoutHook
 	     --, borderWidth = myBorderWidth
 	     --, normalBorderColor = myNormalBorderColor
-	     --, focusedBorderColor = myFocusedBorderColo
+	     --, focusedBorderColor = myFocusedBorderColor
              , terminal = myTerminal
              , modMask = myModMask
              , keys = myKeyMap
 	     , workspaces = myWorkspaces
              , logHook = myLogHook xmproc
-
              --, focusFollowsMouse = False
 	     }
