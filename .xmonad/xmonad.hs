@@ -1,5 +1,6 @@
 import System.IO
 import qualified Data.Map as M
+
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -18,8 +19,7 @@ myWorkspaces =
 
 myTerminal = "urxvt"
 
--- set mod to super (default is left-alt)
-myModMask = mod4Mask
+myModMask = mod4Mask -- set mod to super (default is left-alt)
 
 myKeys x =
     [ ((modMask x .|. shiftMask, xK_s), spawn "gnome-screensaver-command -l")
@@ -28,8 +28,6 @@ myKeys x =
     , ((modMask x, xK_x), spawn "rhythmbox-client --no-present --play-pause")
     , ((modMask x, xK_z), spawn "rhythmbox-client --no-present --previous")
     , ((modMask x, xK_c), spawn "rhythmbox-client --no-present --next")
-    --, ((modMask x, xK_b), sendMessage ToggleStruts) -- doesn't work right :(
-
     ]
 myKeyMap x = M.union (keys defaultConfig x) (M.fromList (myKeys x))
 
@@ -39,10 +37,11 @@ myLayoutHook = avoidStruts
                $ onWorkspace "chat" pidginLayout
                $ layoutHook defaultConfig
     where
-      gimpLayout = withIM (0.11) (Role "gimp-toolbox")
-                   $ reflectHoriz
-                   $ withIM (0.15) (Role "gimp-dock") Full
-      pidginLayout = reflectHoriz $ withIM (0.15) (Role "buddy_list") Grid
+      gimpLayout   = withIM (0.11) (Role "gimp-toolbox")
+                     $ reflectHoriz
+                     $ withIM (0.15) (Role "gimp-dock") Full
+      pidginLayout = reflectHoriz
+                     $ withIM (0.15) (Role "buddy_list") Grid
 
 myManageHook =
     composeAll
@@ -59,15 +58,15 @@ myLogHook h = dynamicLogWithPP $ myPP { ppOutput = hPutStrLn h }
 -- xmobar styling
 myPP =
     xmobarPP
-    { ppCurrent = xmobarColor "#00B000" ""
-    , ppVisible = xmobarColor "#B0B000" ""
-    , ppHidden  = xmobarColor "#B0B0B0" ""
+    { ppCurrent         = xmobarColor "#00B000" ""
+    , ppVisible         = xmobarColor "#B0B000" ""
+    , ppHidden          = xmobarColor "#B0B0B0" ""
     , ppHiddenNoWindows = xmobarColor "#606060" ""
-    , ppUrgent  = xmobarColor "orange" ""
-    , ppSep     = "   "
-    , ppWsSep   = "  "
+    , ppUrgent          = xmobarColor "orange" ""
+    , ppSep             = "   "
+    , ppWsSep           = "  "
       -- This centers the window title, but fails when there's no window
-    , ppTitle   = wrap "}" "{" . xmobarColor "#00A000" ""
+    , ppTitle           = wrap "}" "{" . xmobarColor "#00A000" ""
     }
 
 main = do
@@ -78,10 +77,10 @@ main = do
 	     --, borderWidth = myBorderWidth
 	     --, normalBorderColor = myNormalBorderColor
 	     --, focusedBorderColor = myFocusedBorderColor
-             , terminal = myTerminal
-             , modMask = myModMask
-             , keys = myKeyMap
+             , terminal   = myTerminal
+             , modMask    = myModMask
+             , keys       = myKeyMap
 	     , workspaces = myWorkspaces
-             , logHook = myLogHook xmproc
+             , logHook    = myLogHook xmproc
              --, focusFollowsMouse = False
 	     }
