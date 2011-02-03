@@ -20,17 +20,53 @@
           (re-search-forward "[ \t\r\n]+" nil t)
           (replace-match " " nil nil))))))
 
+(require 'term)
+(defun visit-ansi-term ()
+  "Rename, restart if killed, or create and switch to an ansi-term buffer"
+  (interactive)
+  (let ((is-term (string= "term-mode" major-mode))
+        (is-running (term-check-proc (buffer-name)))
+        (term-cmd "/bin/bash")
+        (anon-term (get-buffer "*ansi-term*")))
+    (if is-term
+        (if is-running
+            (if (string= "*ansi-term*" (buffer-name))
+                (call-interactively 'rename-buffer)
+              (if anon-term
+                  (switch-to-buffer "*ansi-term*")
+                (ansi-term term-cmd)))
+          (kill-buffer (buffer-name))
+          (ansi-term term-cmd))
+      (if anon-term
+          (if (term-check-proc "*ansi-term*")
+              (switch-to-buffer "*ansi-term*")
+            (kill-buffer "*ansi-term*")
+            (ansi-term term-cmd))
+        (ansi-term term-cmd)))))
+
+(defun my-custom-frames ()
+  "Set the frames to three even-width columns, my current normal setup"
+  (interactive)
+  (delete-other-windows)
+  (split-window-horizontally)
+  (split-window-horizontally)
+  (balance-windows))
+
 (global-set-key (kbd "RET") 'newline-and-indent)
 ;(global-set-key (kbd "M-RET") 'ns-toggle-fullscreen)
 ;(global-set-key (kbd "M-c") 'whitespace-cleanup)
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-;") 'dabbrev-expand)
-(global-set-key (kbd "<M-f12>") 'revert-buffer)
+(global-set-key [M-f12] 'revert-buffer)
 (global-set-key [C-tab] 'other-window)
 (global-set-key (kbd "C-s-d")
                 (lambda () (interactive)
                   (insert "import ipdb; ipdb.set_trace()")))
 (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key [f2] 'visit-ansi-term)
+(global-set-key [f6] 'buffer-menu)
+(global-set-key [f7] 'my-custom-frames)
+
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
@@ -89,27 +125,7 @@
 ;(add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
 
 
-(require 'term)
-(defun visit-ansi-term ()
-  "Rename, restart if killed, or create and switch to an ansi-term buffer"
-  (interactive)
-  (let ((is-term (string= "term-mode" major-mode))
-        (is-running (term-check-proc (buffer-name)))
-        (term-cmd "/bin/bash")
-        (anon-term (get-buffer "*ansi-term*")))
-    (if is-term
-        (if is-running
-            (if (string= "*ansi-term*" (buffer-name))
-                (call-interactively 'rename-buffer)
-              (if anon-term
-                  (switch-to-buffer "*ansi-term*")
-                (ansi-term term-cmd)))
-          (kill-buffer (buffer-name))
-          (ansi-term term-cmd))
-      (if anon-term
-          (if (term-check-proc "*ansi-term*")
-              (switch-to-buffer "*ansi-term*")
-            (kill-buffer "*ansi-term*")
-            (ansi-term term-cmd))
-        (ansi-term term-cmd)))))
-(global-set-key (kbd "<f2>") 'visit-ansi-term)
+
+
+;; http://user.it.uu.se/~mic/pager.el
+;;(require 'pager)
