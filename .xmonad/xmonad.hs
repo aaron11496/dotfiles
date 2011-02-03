@@ -50,6 +50,7 @@ myManageHook =
     , className =? "Pidgin"    --> doF (W.shift "chat")
     , className =? "Skype"     --> doF (W.shift "chat")
     , className =? "Rhythmbox" --> doF (W.shift "music")
+    , className =? "Gimp"      --> doF (W.shift "gimp")
     ] <+> manageHook defaultConfig
 
 -- logging for xmobar to use
