@@ -1,3 +1,5 @@
+-- http://xmonad.org/xmonad-docs/xmonad/index.html
+-- http://xmonad.org/xmonad-docs/xmonad-contrib/index.html
 import System.IO
 import qualified Data.Map as M
 
@@ -15,7 +17,7 @@ import qualified XMonad.StackSet as W
 
 
 myWorkspaces =
-    [ "web", "mail", "chat", "term", "code" , "music" , "?", "gimp", "vm" ]
+    [ "home", "mail", "chat", "term", "code" , "draw", "virt", "song", "play" ]
 
 myTerminal = "urxvt"
 
@@ -25,17 +27,17 @@ myKeys x =
     [ ((modMask x .|. shiftMask, xK_s), spawn "gnome-screensaver-command -l")
     , ((modMask x, xK_equal), spawn "amixer set 'Master' 5%+")
     , ((modMask x, xK_minus), spawn "amixer set 'Master' 5%-")
-    , ((modMask x, xK_x), spawn "rhythmbox-client --no-present --play-pause")
     , ((modMask x, xK_z), spawn "rhythmbox-client --no-present --previous")
+    , ((modMask x, xK_x), spawn "rhythmbox-client --no-present --play-pause")
     , ((modMask x, xK_c), spawn "rhythmbox-client --no-present --next")
     ]
 myKeyMap x = M.union (keys defaultConfig x) (M.fromList (myKeys x))
 
 myLayoutHook = avoidStruts
                $ smartBorders
-               $ onWorkspace "gimp" gimpLayout
+               $ onWorkspace "draw" gimpLayout
                $ onWorkspace "chat" pidginLayout
-               $ layoutHook defaultConfig
+               $ (Tall 1 (3/100) (1/2) ||| Full)
     where
       gimpLayout   = withIM (0.11) (Role "gimp-toolbox")
                      $ reflectHoriz
@@ -49,8 +51,8 @@ myManageHook =
       -- launch certain programs only on certain workspaces
     , className =? "Pidgin"    --> doF (W.shift "chat")
     , className =? "Skype"     --> doF (W.shift "chat")
-    , className =? "Rhythmbox" --> doF (W.shift "music")
-    , className =? "Gimp"      --> doF (W.shift "gimp")
+    , className =? "Rhythmbox" --> doF (W.shift "song")
+    , className =? "Gimp"      --> doF (W.shift "draw")
     ] <+> manageHook defaultConfig
 
 -- logging for xmobar to use
