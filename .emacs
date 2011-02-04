@@ -57,16 +57,16 @@
 ;(global-set-key (kbd "M-c") 'whitespace-cleanup)
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-;") 'dabbrev-expand)
+(global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key [M-f12] 'revert-buffer)
 (global-set-key [C-tab] 'other-window)
 (global-set-key (kbd "C-s-d")
                 (lambda () (interactive)
                   (insert "import ipdb; ipdb.set_trace()")))
-(global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key [f2] 'visit-ansi-term)
 (global-set-key [f6] 'buffer-menu)
 (global-set-key [f7] 'my-custom-frames)
-
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
@@ -108,8 +108,8 @@
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-pylint-init)))
 
-;(add-hook 'python-mode-hook
-;          '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
+(add-hook 'python-mode-hook
+          '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 
 ;(autoload 'yaml-mode "yaml-mode" nil t)
 ;(add-to-list 'auto-mode-alist '("\\.ya?ml$", yaml-mode))
@@ -118,8 +118,8 @@
 ;(setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist))
 
 ; TO COMPILE: $ emacs --batch --eval '(byte-compile-file "js2.el")'
-;(autoload 'js2-mode "js2" nil t)
-;(add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
 
 ; necessary?
 ;(add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
