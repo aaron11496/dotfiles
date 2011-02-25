@@ -7,7 +7,7 @@ alias k9='sudo killall -9'
 alias k15='sudo killall -15'
 
 # Somethign for work. Ignore this.
-alias rtpal='cd /pluto/pycloud/zillion/apps/rtpal/clients/'
+alias rtpal='cd /pluto/pycloud/milo/apps/rtpal/clients/'
 alias varex='cd /pluto/pycloud/milo/apps/variations/sites/'
 alias sinfo='cd /pluto/pycloud/milo/apps/storeinfo/clients'
 alias pyc='cd /pluto/pycloud/'
