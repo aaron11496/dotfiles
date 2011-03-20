@@ -72,7 +72,9 @@
 (setq-default indent-tabs-mode nil)
 (setq require-final-newline t)
 
-(set-frame-font "Terminus-12")
+;(set-frame-font "Terminus-12")
+(set-frame-font "Monospace-11")
+
 (column-number-mode 1)
 
 ; Setup menu's etc.
