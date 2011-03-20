@@ -17,7 +17,7 @@ import qualified XMonad.StackSet as W
 
 
 myWorkspaces =
-    [ "home", "mail", "chat", "term", "code" , "draw", "virt", "song", "play" ]
+    [ "file", "mail", "chat", "term", "code" , "work", "play", "song", "etc." ]
 
 myTerminal = "urxvt"
 
@@ -27,21 +27,21 @@ myKeys x =
     [ ((modMask x .|. shiftMask, xK_s), spawn "gnome-screensaver-command -l")
     , ((modMask x, xK_equal), spawn "amixer set 'Master' 5%+")
     , ((modMask x, xK_minus), spawn "amixer set 'Master' 5%-")
-    , ((modMask x, xK_z), spawn "rhythmbox-client --no-present --previous")
-    , ((modMask x, xK_x), spawn "rhythmbox-client --no-present --play-pause")
-    , ((modMask x, xK_c), spawn "rhythmbox-client --no-present --next")
+    , ((modMask x, xK_0), spawn "rhythmbox-client --no-present --previous")
+    , ((modMask x, xK_minus), spawn "rhythmbox-client --no-present --play-pause")
+    , ((modMask x, xK_equal), spawn "rhythmbox-client --no-present --next")
     ]
 myKeyMap x = M.union (keys defaultConfig x) (M.fromList (myKeys x))
 
 myLayoutHook = avoidStruts
                $ smartBorders
-               $ onWorkspace "draw" gimpLayout
+              -- $ onWorkspace "draw" gimpLayout
                $ onWorkspace "chat" pidginLayout
                $ (Tall 1 (3/100) (1/2) ||| Full)
     where
-      gimpLayout   = withIM (0.11) (Role "gimp-toolbox")
-                     $ reflectHoriz
-                     $ withIM (0.15) (Role "gimp-dock") Full
+     -- gimpLayout   = withIM (0.11) (Role "gimp-toolbox")
+     --                $ reflectHoriz
+     --                $ withIM (0.15) (Role "gimp-dock") Full
       pidginLayout = reflectHoriz
                      $ withIM (0.15) (Role "buddy_list") Grid
 
@@ -52,7 +52,7 @@ myManageHook =
     , className =? "Pidgin"    --> doF (W.shift "chat")
     , className =? "Skype"     --> doF (W.shift "chat")
     , className =? "Rhythmbox" --> doF (W.shift "song")
-    , className =? "Gimp"      --> doF (W.shift "draw")
+    --, className =? "Gimp"      --> doF (W.shift "draw")
     ] <+> manageHook defaultConfig
 
 -- logging for xmobar to use
@@ -81,7 +81,7 @@ main = do
 	     --, normalBorderColor = myNormalBorderColor
 	     --, focusedBorderColor = myFocusedBorderColor
              , terminal   = myTerminal
-             , modMask    = myModMask
+             --, modMask    = myModMask
              , keys       = myKeyMap
 	     , workspaces = myWorkspaces
              , logHook    = myLogHook xmproc
