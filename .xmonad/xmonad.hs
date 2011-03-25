@@ -1,5 +1,6 @@
 -- http://xmonad.org/xmonad-docs/xmonad/index.html
 -- http://xmonad.org/xmonad-docs/xmonad-contrib/index.html
+-- http://hackage.haskell.org/packages/archive/X11/1.5.0.0/doc/html/Graphics-X11-Types.html#t:KeySym
 import System.IO
 import qualified Data.Map as M
 
@@ -25,8 +26,8 @@ myModMask = mod4Mask -- set mod to super (default is left-alt)
 
 myKeys x =
     [ ((modMask x .|. shiftMask, xK_s), spawn "gnome-screensaver-command -l")
-    , ((modMask x, xK_equal), spawn "amixer set 'Master' 5%+")
-    , ((modMask x, xK_minus), spawn "amixer set 'Master' 5%-")
+    , ((modMask x, xK_bracketright), spawn "amixer set 'Master' 5%+")
+    , ((modMask x, xK_bracketleft), spawn "amixer set 'Master' 5%-")
     , ((modMask x, xK_0), spawn "rhythmbox-client --no-present --previous")
     , ((modMask x, xK_minus), spawn "rhythmbox-client --no-present --play-pause")
     , ((modMask x, xK_equal), spawn "rhythmbox-client --no-present --next")
@@ -35,13 +36,13 @@ myKeyMap x = M.union (keys defaultConfig x) (M.fromList (myKeys x))
 
 myLayoutHook = avoidStruts
                $ smartBorders
-              -- $ onWorkspace "draw" gimpLayout
+               -- $ onWorkspace "draw" gimpLayout
                $ onWorkspace "chat" pidginLayout
                $ (Tall 1 (3/100) (1/2) ||| Full)
     where
-     -- gimpLayout   = withIM (0.11) (Role "gimp-toolbox")
-     --                $ reflectHoriz
-     --                $ withIM (0.15) (Role "gimp-dock") Full
+      -- gimpLayout   = withIM (0.11) (Role "gimp-toolbox")
+      --                $ reflectHoriz
+      --                $ withIM (0.15) (Role "gimp-dock") Full
       pidginLayout = reflectHoriz
                      $ withIM (0.15) (Role "buddy_list") Grid
 
