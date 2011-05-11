@@ -59,7 +59,9 @@
 (global-set-key (kbd "C-;") 'dabbrev-expand)
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key [M-f12] 'revert-buffer)
-(global-set-key [C-tab] 'other-window)
+(global-set-key [C-tab] 'next-multiframe-window)
+(global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
+
 (global-set-key (kbd "C-s-d")
                 (lambda () (interactive)
                   (insert "import ipdb; ipdb.set_trace()")))
@@ -73,7 +75,8 @@
 (setq require-final-newline t)
 
 ;(set-frame-font "Terminus-12")
-(set-frame-font "Monospace-11")
+(set-frame-font "Monospace-10")
+(set-fringe-mode 1)
 
 (column-number-mode 1)
 
