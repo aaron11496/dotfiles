@@ -113,10 +113,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # common aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-alias lla='ls -lA'
+alias ll='ls -l --group-directories-first'
+alias la='ls -A --group-directories-first'
+alias l='ls -CF --group-directories-first'
+alias lla='ls -lA --group-directories-first'
 
 # custom aliases
 if [ -f ~/.bash_aliases ]; then
