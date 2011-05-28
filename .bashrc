@@ -128,7 +128,23 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export EDITOR='vim'
+# set pager
+if ( type -P most &>/dev/null ); then
+    export PAGER="most"
+elif ( type -P less &>/dev/null ); then
+    export PAGER="less"
+else
+    export PAGER=
+fi
+
+
+# set editor
+if ( type -P vim &>/dev/null ); then
+    export EDITOR="vim"
+else
+    export EDITOR=
+fi
+
 
 if [ -d ${HOME}/bin ]; then
     export PATH=${HOME}/bin:${PATH}
