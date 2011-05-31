@@ -107,7 +107,7 @@
            (local-file (file-relative-name
                         temp-file
                         (file-name-directory buffer-file-name))))
-      (list "/pluto/pycloud/apps/emacs/bin/lintrunner.py"
+      (list "~/.emacs.d/lintrunner.py"
             (list local-file))))
 
   (add-to-list 'flymake-allowed-file-name-masks
@@ -128,9 +128,6 @@
 
 ; necessary?
 ;(add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
-
-
-
 
 ;; http://user.it.uu.se/~mic/pager.el
 ;;(require 'pager)

@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+# EASY-INSTALL-ENTRY-SCRIPT: 'pep8==0.6.1','console_scripts','pep8'
+__requires__ = 'pep8==0.6.1'
+import sys
+from pkg_resources import load_entry_point
+
+sys.exit(
+   load_entry_point('pep8==0.6.1', 'console_scripts', 'pep8')()
+)

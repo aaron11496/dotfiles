@@ -1,7 +1,7 @@
 Config { font         = "-xos4-*-*-r-*-*-13-*-*-*-*-*-*-*"
        , bgColor      = "#000000"
        , fgColor      = "#B0B0B0"
-       , position     =  Top
+       , position     = Top
        , lowerOnStart = False
        , commands     =
            [
