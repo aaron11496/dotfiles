@@ -1,18 +1,20 @@
 urxvt.cursorBlink: true
+urxvt*scrollTtyOutput: false
+urxvt*scrollTtyKeypress: true
 !urxvt*transparent:true
 !urxvt*tintColor: gray
 !urxvt*shading: 15
-urxvt*saveLines:10000
-urxvt*foreground: White
-urxvt*background: Black
+urxvt*saveLines: 10000
+urxvt*foreground: white
+urxvt*background: black
 
-urxvt.depth: 32
-urxvt.background: rgba:0000/0000/0000/EEEE
+!urxvt.depth: 32
+!urxvt.background: rgba:0000/0000/0000/EEEE
 urxvt*font: xft:Inconsolata:pixelsize=16
 urxvt*boldFont: xft:Inconsolata:bold:pixelsize=16
 urxvt*scrollBar: false
-urxvt*scrollBar_right:true
-urxvt*scrollstyle:rxvt
+urxvt*scrollBar_right: true
+urxvt*scrollstyle: rxvt
 urxvt*scrollBar_floating: true
 
 ! Tango Color Scheme
