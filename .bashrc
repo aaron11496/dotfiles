@@ -128,16 +128,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# set pager
-if ( type -P most &>/dev/null ); then
-    export PAGER="most"
-elif ( type -P less &>/dev/null ); then
-    export PAGER="less"
-else
-    export PAGER=
-fi
-
-
 # set editor
 if ( type -P vim &>/dev/null ); then
     export EDITOR="vim"
