@@ -70,6 +70,7 @@ esac
 
 
 # smart prompt
+# TODO: make this work if git is not installed
 PS1_SHORT="${txtrst}\$ "
 PS1_FULL="\
 $(if [ "`id -u`" = 0 ]; then echo ${bldred}; else echo ${bldgrn}; fi)\u@\
@@ -137,6 +138,7 @@ fi
 
 
 # Something for work. Ignore this.
-if [ -x /pluto/local/activate-environment ]; then
-    source /pluto/local/activate-environment
+if [ -d /pluto ]; then
+    export MAGIC_ENV=development
+    export PYTHONPATH=/pluto/pycloud:/pluto
 fi
