@@ -1,4 +1,4 @@
-Configuration files for git, X, xmonad, xmobar, bash, urxvt, emacs, vim, ipython.
+Configuration files for git, X, xmonad, xmobar, bash, urxvt, cssh, emacs, vim, ipython.
 
 Disable gnome desktop:
 gconftool --type boolean --set /apps/nautilus/preferences/show_desktop false
