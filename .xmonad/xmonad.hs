@@ -15,6 +15,8 @@ myWorkspaces =
 
 myTerminal = "urxvt"
 
+myModMask = mod4Mask -- set mod key to windows key
+
 myLayoutHook = avoidStruts
                $ smartBorders
                -- $ onWorkspace "draw" gimpLayout
@@ -36,6 +38,7 @@ myManageHook =
 
 main = xmonad $ gnomeConfig
        { manageHook = myManageHook
+--       , modMask = myModMask
        , layoutHook = myLayoutHook
        , terminal   = myTerminal
        , workspaces = myWorkspaces
