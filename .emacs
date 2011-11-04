@@ -1,5 +1,9 @@
 `(require 'cl)
 
+; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
+;(set-frame-font "Terminus-12")
+(set-frame-font "Monospace-10")
+
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/color-theme")
 (add-to-list 'load-path "~/.emacs.d/predictive")
@@ -45,53 +49,33 @@
         (ansi-term term-cmd)))))
 
 (defun my-custom-frames ()
-  "Set the frames to three even-width columns, my current normal setup"
+  "Set the frames to three even-width columns"
   (interactive)
   (delete-other-windows)
   (split-window-horizontally)
   (split-window-horizontally)
   (balance-windows))
 
+(defun ipdb-trace ()
+  (interactive)
+  (insert "import ipdb; ipdb.set_trace()"))
+
 (global-set-key (kbd "RET") 'newline-and-indent)
-;(global-set-key (kbd "M-RET") 'ns-toggle-fullscreen)
-;(global-set-key (kbd "M-c") 'whitespace-cleanup)
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-;") 'dabbrev-expand)
 (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-s-d") 'ipdb-trace)
 (global-set-key [M-f12] 'revert-buffer)
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key [C-tab] 'next-multiframe-window)
 (global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
-
-(global-set-key (kbd "C-s-d")
-                (lambda () (interactive)
-                  (insert "import ipdb; ipdb.set_trace()")))
 (global-set-key [f2] 'visit-ansi-term)
 (global-set-key [f6] 'buffer-menu)
 (global-set-key [f7] 'my-custom-frames)
-(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
 (setq require-final-newline t)
-
-;(set-frame-font "Terminus-12")
-(set-frame-font "Monospace-10")
-(set-fringe-mode 1)
-
-(column-number-mode 1)
-
-; Setup menu's etc.
-(show-paren-mode t)
-(scroll-bar-mode nil)
-(tool-bar-mode nil)
-(menu-bar-mode nil)
-(tooltip-mode nil)
-
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-(setq ring-bell-function 'ignore)
-
-(fset 'yes-or-no-p 'y-or-n-p)
 
 (require 'ido)
 (ido-mode t)
@@ -107,8 +91,7 @@
            (local-file (file-relative-name
                         temp-file
                         (file-name-directory buffer-file-name))))
-      (list "/pluto/pycloud/apps/emacs/bin/lintrunner.py"
-            (list local-file))))
+      (list "~/.emacs.d/bin/lintrunner.py"(list local-file))))
 
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-pylint-init)))
@@ -116,18 +99,24 @@
 (add-hook 'python-mode-hook
           '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 
-;(autoload 'yaml-mode "yaml-mode" nil t)
-;(add-to-list 'auto-mode-alist '("\\.ya?ml$", yaml-mode))
-
-;(autoload 'css-mode "css-mode" nil t)
-;(setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist))
-
 ; TO COMPILE: $ emacs --batch --eval '(byte-compile-file "js2.el")'
+(autoload 'css-mode "css-mode" nil t)
+(autoload 'html-mode "html-mode" nil t)
 (autoload 'js2-mode "js2" nil t)
+(autoload 'yaml-mode "yaml-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
 
-; necessary?
-;(add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
-
-;; http://user.it.uu.se/~mic/pager.el
-;;(require 'pager)
+(set-fringe-mode 1)
+(column-number-mode 1)
+(show-paren-mode t)
+(scroll-bar-mode nil)
+(tool-bar-mode nil)
+(menu-bar-mode nil)
+(tooltip-mode nil)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq ring-bell-function 'ignore)
+(fset 'yes-or-no-p 'y-or-n-p)
