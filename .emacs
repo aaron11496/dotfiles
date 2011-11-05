@@ -101,12 +101,12 @@
 
 ; TO COMPILE: $ emacs --batch --eval '(byte-compile-file "js2.el")'
 (autoload 'css-mode "css-mode" nil t)
-(autoload 'html-mode "html-mode" nil t)
-(autoload 'js2-mode "js2" nil t)
-(autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
+(autoload 'html-mode "html-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
+(autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
+(autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
 
 (set-fringe-mode 1)
