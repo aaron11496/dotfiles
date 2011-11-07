@@ -1,5 +1,5 @@
 # if not running interactively, don't do anything
-[ -z "$PS1" ] && return
+if [[ -n "%PS1" ]]; then
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -136,9 +136,13 @@ else
     export EDITOR=
 fi
 
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # Something for work. Ignore this.
 if [ -d /pluto ]; then
     export MAGIC_ENV=development
     export PYTHONPATH=/pluto:/pluto/pycloud
+fi
+
 fi
