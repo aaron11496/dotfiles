@@ -29,7 +29,6 @@ myManageHook =
       -- launch certain programs only on certain workspaces
     , className =? "Pidgin"    --> doF (W.shift "9")
     , className =? "Skype"     --> doF (W.shift "9")
-    , className =? "Rhythmbox" --> doF (W.shift "7")
     ]
 
 main = xmonad $ gnomeConfig
