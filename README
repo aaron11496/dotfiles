@@ -1,3 +1,3 @@
-Configuration files, customized for my laptop.
+My personal configuration files
 
-Run install.sh to create symlinks.
+Run install.sh to safely create the right symlinks from ~ to ~/config/...

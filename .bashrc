@@ -142,7 +142,7 @@ fi
 # Something for work. Ignore this.
 if [ -d /pluto ]; then
     export MAGIC_ENV=development
-    export PYTHONPATH=/pluto:/pluto/pycloud
+    export PYTHONPATH=/pluto/pycloud:/pluto
 fi
 
 fi

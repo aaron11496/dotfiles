@@ -1,8 +1,6 @@
 #!/bin/bash
 
 FILENAMES=(
-    '.Xdefaults'
-    '.Xmodmap'
     '.bash_aliases'
     '.bashrc'
     '.csshrc'
@@ -12,7 +10,9 @@ FILENAMES=(
     '.gitignore'
     '.profile'
     '.vimrc'
+    '.Xdefaults'
     '.xinitrc'
+    '.Xmodmap'
     '.xmonad'
     'ipy_user_conf.py'
 );

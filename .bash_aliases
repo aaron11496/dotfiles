@@ -22,7 +22,7 @@ alias grr='git remote rm'
 alias gpu='git pull'
 alias gcl='git clone'
 
-# Somethign for work. Ignore this.
+# Something for work. Ignore these.
 alias rtpal='cd ~/codebase/pycloud/milo/apps/rtpal/clients/'
 alias varex='cd ~/codebase/pycloud/milo/apps/variations/sites/'
 alias sinfo='cd ~/codebase/pycloud/milo/apps/storeinfo/clients'
