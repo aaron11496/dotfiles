@@ -14,7 +14,7 @@ FILENAMES=(
     '.xinitrc'
     '.Xmodmap'
     '.xmonad'
-    'ipy_user_conf.py'
+    'ipython_config.py'
 );
 
 for filename in ${FILENAMES[@]};

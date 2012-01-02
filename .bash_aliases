@@ -6,6 +6,8 @@ alias ymd='date +%Y%m%d'
 alias k9='sudo killall -9'
 alias k15='sudo killall -15'
 
+alias wi='whois -H'
+
 alias ga='git add'
 alias gp='git push'
 alias gl='git log'
