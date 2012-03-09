@@ -99,26 +99,6 @@ function prepare_prompt()
 alias ?='PS1_LAST=?'  # shortcut to force full prompt
 PROMPT_COMMAND=prepare_prompt
 
-
-# colorful ls/dir/grep
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-    alias zgrep='zgrep --color=auto'
-fi
-
-# common aliases
-alias ll='ls -l --group-directories-first'
-alias la='ls -A --group-directories-first'
-alias l='ls -CF --group-directories-first'
-alias lla='ls -lA --group-directories-first'
-
 # custom aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -136,13 +116,18 @@ else
     export EDITOR=
 fi
 
+[[ -d "/var/lib/gems/1.8/bin" ]] && export PATH="$PATH:/var/lib/gems/1.8/bin"
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+export PYTHONPATH=.
 
 # Something for work. Ignore this.
 if [ -d /pluto ]; then
     export MAGIC_ENV=development
-    export PYTHONPATH=/pluto/pycloud:/pluto
+    export PYTHONPATH=/pluto/pycloud:/pluto:$PYTHONPATH
 fi
+
+export TERM=rxvt-unicode
 
 fi

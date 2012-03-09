@@ -1,3 +1,21 @@
+alias ll='ls -l --group-directories-first'
+alias la='ls -A --group-directories-first'
+alias l='ls -CF --group-directories-first'
+alias lla='ls -lA --group-directories-first'
+
+# colorful ls/dir/grep
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias zgrep='zgrep --color=auto'
+fi
+
 alias ack='ack-grep'
 alias go='gnome-open'
 alias df='df -T'
