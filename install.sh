@@ -14,7 +14,6 @@ FILENAMES=(
     '.xinitrc'
     '.Xmodmap'
     '.xmonad'
-
 );
 
 for filename in ${FILENAMES[@]};
