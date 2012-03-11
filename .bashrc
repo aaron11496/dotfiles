@@ -122,6 +122,10 @@ fi
 
 export PYTHONPATH=.
 
+if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
 # Something for work. Ignore this.
 if [ -d /pluto ]; then
     export MAGIC_ENV=development
