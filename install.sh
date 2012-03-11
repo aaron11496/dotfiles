@@ -1,4 +1,5 @@
 #!/bin/bash
+# Run from ~
 
 FILENAMES=(
     '.bash_aliases'
@@ -22,3 +23,7 @@ do
 done;
 
 ln -s -v -b --suffix=".bak" config/ipython_config.py ~/.ipython/profile_default
+
+for fn in config/venvwrapperhooks/*; do
+    ln -s -v -b --suffix=".bak" ~/$fn ~/.virtualenvs/ ;
+done;
