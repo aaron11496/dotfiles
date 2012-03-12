@@ -17,9 +17,9 @@ compinit
 
 autoload -U colors && colors
 
-zstyle ':completion:*' auto-description 'specify: %d'
+# zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
+# zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
 eval "$(dircolors -b)"
@@ -87,5 +87,6 @@ zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
 precmd () { vcs_info }
 
-PROMPT='%B%(!.%F{red}.%F{green})%n@%m%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f%b%# '
+PROMPT='%B%(!.%F{red}.%F{green})%n@%m%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f %F{cyan}${VIRTUAL_ENV:t}%b%f
+%# '
 RPROMPT=''
