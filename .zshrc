@@ -1,5 +1,6 @@
 # Set up the prompt
 
+export TERM=rxvt-unicode
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
@@ -82,9 +83,9 @@ zstyle ':vcs_info:*' stagedstr '%F{green}●'  # %c
 zstyle ':vcs_info:*' unstagedstr '%F{red}●'  # %u
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' enable git svn
-zstyle ':vcs_info:git*' formats " %F{yellow}(%b)"
-zstyle ':vcs_info:git*' actionformats " %F{red}(%b|%a)"
+zstyle ':vcs_info:git*' formats " %F{yellow}%b"
+zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
 precmd () { vcs_info }
 
-PROMPT='%B%(!.%F{red}.%F{green})%n@%m%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f%b %# '
+PROMPT='%B%(!.%F{red}.%F{green})%n@%m%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f%b%# '
 RPROMPT=''
