@@ -1,6 +1,7 @@
 # Set up the prompt
 
 export TERM=rxvt-unicode
+export PYTHONPATH=.
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
