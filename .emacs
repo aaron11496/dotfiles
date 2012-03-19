@@ -120,3 +120,16 @@
 (setq initial-scratch-message nil)
 (setq ring-bell-function 'ignore)
 (fset 'yes-or-no-p 'y-or-n-p)
+
+; Custom colors for rst mode
+(custom-set-faces
+ '(rst-level-1-face ((t (:foreground "Red"))) t)
+ '(rst-level-2-face ((t (:foreground "Orange"))) t)
+ '(rst-level-3-face ((t (:foreground "Yellow"))) t)
+ '(rst-level-4-face ((t (:foreground "Green"))) t)
+ '(rst-level-5-face ((t (:foreground "Blue"))) t)
+ '(rst-level-6-face ((t (:foreground "Purple"))) t))
+ ;; (rst-level-7-face ((t (:foreground "LightSteelBlue"))) t)
+ ;; (rst-level-8-face ((t (:foreground "LightSalmon"))) t)
+;; (custom-set-variables
+;;  '(rst-level-face-base-light 50))
