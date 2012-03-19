@@ -1,3 +1,4 @@
+urxvt*termName:rxvt-unicode
 urxvt.cursorBlink: true
 urxvt*scrollTtyOutput: false
 urxvt*scrollTtyKeypress: true

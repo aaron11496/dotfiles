@@ -132,6 +132,4 @@ if [ -d /pluto ]; then
     export PYTHONPATH=/pluto/pycloud:/pluto:$PYTHONPATH
 fi
 
-export TERM=rxvt-unicode
-
 fi
