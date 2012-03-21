@@ -17,16 +17,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
 txtblk="\[\033[0;30m\]" # Black - Regular
 txtred="\[\033[0;31m\]" # Red
 txtgrn="\[\033[0;32m\]" # Green
@@ -120,16 +110,8 @@ fi
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-export PYTHONPATH=.
-
 if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-# Something for work. Ignore this.
-if [ -d /pluto ]; then
-    export MAGIC_ENV=development
-    export PYTHONPATH=/pluto/pycloud:/pluto:$PYTHONPATH
 fi
 
 fi
