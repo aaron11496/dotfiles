@@ -63,7 +63,9 @@ function workon_cwd {
 }
 # New cd function that does the virtualenv magic
 function venv_cd { cd "$@" && workon_cwd }
+function pr_cd { cd "$PROJECT_ROOT" }
 alias cd="venv_cd"
+alias cdpr=pr_cd
 
 autoload -U colors && colors
 autoload -Uz vcs_info
@@ -75,8 +77,11 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' enable git svn
 zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
-
-precmd () { vcs_info }
+precmd () {
+    vcs_info
+    # is this a good idea?
+    RPROMPT=`shuf -n 1 /usr/share/dict/words | sed 's/[^a-zA-Z].*//'`
+}
 
 PROMPT='%B%(!.%F{red}.%F{green})%n@%m%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f %F{cyan}${VIRTUAL_ENV:t}%b%f
 %# '
