@@ -100,11 +100,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # set editor
-if ( type -P vim &>/dev/null ); then
-    export EDITOR="vim"
-else
-    export EDITOR=
-fi
+export EDITOR="vim"
 
 [[ -d "/var/lib/gems/1.8/bin" ]] && export PATH="$PATH:/var/lib/gems/1.8/bin"
 # Load RVM into a shell session *as a function*

@@ -5,8 +5,13 @@
 [[ -d "/var/lib/gems/1.8/bin" ]] && export PATH="$PATH:/var/lib/gems/1.8/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
+export PYTHONPATH=.
+
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
+
+# set editor
+export EDITOR="vim"
 
 # History settings
 setopt histignorealldups sharehistory
@@ -77,11 +82,7 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' enable git svn
 zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
-precmd () {
-    vcs_info
-    # is this a good idea?
-    RPROMPT=`shuf -n 1 /usr/share/dict/words | sed 's/[^a-zA-Z].*//'`
-}
+precmd () { vcs_info }
 
 PROMPT='%B%(!.%F{red}.%F{green})%n@%m%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f %F{cyan}${VIRTUAL_ENV:t}%b%f
 %# '
