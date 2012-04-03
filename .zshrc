@@ -14,7 +14,7 @@ bindkey -e
 export EDITOR="vim"
 
 # History settings
-setopt histignorealldups sharehistory
+setopt hist_ignore_all_dups hist_expire_dups_first share_history
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
