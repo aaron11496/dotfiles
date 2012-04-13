@@ -131,5 +131,5 @@
  '(rst-level-6-face ((t (:foreground "Purple"))) t))
  ;; (rst-level-7-face ((t (:foreground "LightSteelBlue"))) t)
  ;; (rst-level-8-face ((t (:foreground "LightSalmon"))) t)
-;; (custom-set-variables
-;;  '(rst-level-face-base-light 50))
+(custom-set-variables
+ '(rst-level-face-base-light 0))
