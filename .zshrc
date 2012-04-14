@@ -84,6 +84,12 @@ zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
 precmd () { vcs_info }
 
-PROMPT='%B%(!.%F{red}.%F{green})%n@%m%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f %F{cyan}${VIRTUAL_ENV:t}%b%f
+if [ $SSH_CLIENT ]; then
+    DOMAIN='%F{red}%m'
+else
+    DOMAIN='%m'
+fi
+
+PROMPT='%B%(!.%F{red}.%F{green})%n@$DOMAIN%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f %F{cyan}${VIRTUAL_ENV:t}%b%f
 %# '
 RPROMPT=''
