@@ -7,12 +7,13 @@ import XMonad.Layout.IM
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Reflect
+import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
 
 
 myTerminal = "urxvt"
 
-myModMask = mod4Mask -- set mod key to windows key
+-- myModMask = mod4Mask -- set mod key to windows key
 
 myLayoutHook = avoidStruts
                $ smartBorders
@@ -37,3 +38,5 @@ main = xmonad $ gnomeConfig
        , layoutHook = myLayoutHook
        , terminal   = myTerminal
        }
+       `removeKeysP` ["M-b"]
+       `additionalKeysP` [ ("M-0", sendMessage ToggleStruts) ]
