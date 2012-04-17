@@ -13,6 +13,10 @@ urxvt*scrollBar_right: true
 urxvt*scrollstyle: rxvt
 urxvt*scrollBar_floating: true
 
+urxvt.perl-ext-common:  default,matcher
+urxvt.urlLauncher:      /usr/bin/google-chrome
+urxvt.matcher.button:   2
+
 ! Tango Color Scheme
 urxvt*color0: #2e3436
 urxvt*color1: #cc0000
