@@ -19,6 +19,8 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
+setopt autopushd autocd pushd_ignore_dups pushd_silent
+
 # Use modern completion system
 autoload -Uz compinit
 compinit

@@ -133,3 +133,5 @@
  ;; (rst-level-8-face ((t (:foreground "LightSalmon"))) t)
 (custom-set-variables
  '(rst-level-face-base-light 0))
+
+(put 'downcase-region 'disabled nil)
