@@ -50,7 +50,6 @@ function workon_cwd {
     GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
     if [[ $? == 0 ]]; then
         # Find the repo root and check for virtualenv name override
-        GIT_DIR=`\cd $GIT_DIR; pwd`
         PROJECT_ROOT=`dirname "$GIT_DIR"`
         ENV_NAME=`basename "$PROJECT_ROOT"`
         if [ -f "$PROJECT_ROOT/.venv" ]; then
@@ -68,11 +67,6 @@ function workon_cwd {
         deactivate && unset CD_VIRTUAL_ENV
     fi
 }
-# New cd function that does the virtualenv magic
-function venv_cd { cd "$@" && workon_cwd }
-function pr_cd { cd "$PROJECT_ROOT" }
-alias cd="venv_cd"
-alias cdpr=pr_cd
 
 autoload -U colors && colors
 autoload -Uz vcs_info
@@ -84,7 +78,8 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
-chpwd () { vcs_info }
+
+chpwd () { vcs_info; workon_cwd }
 
 if [ $SSH_CLIENT ]; then
     DOMAIN='%F{red}%m'
