@@ -81,10 +81,10 @@ setopt prompt_subst
 zstyle ':vcs_info:*' stagedstr '%F{green}●'  # %c
 zstyle ':vcs_info:*' unstagedstr '%F{red}●'  # %u
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
-precmd () { vcs_info }
+chpwd () { vcs_info }
 
 if [ $SSH_CLIENT ]; then
     DOMAIN='%F{red}%m'
