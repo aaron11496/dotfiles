@@ -50,6 +50,7 @@ function workon_cwd {
     GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
     if [[ $? == 0 ]]; then
         # Find the repo root and check for virtualenv name override
+        GIT_DIR=`readlink -e $GIT_DIR`
         PROJECT_ROOT=`dirname "$GIT_DIR"`
         ENV_NAME=`basename "$PROJECT_ROOT"`
         if [ -f "$PROJECT_ROOT/.venv" ]; then
@@ -79,7 +80,8 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
 
-chpwd () { vcs_info; workon_cwd }
+precmd() { vcs_info }
+chpwd() { workon_cwd }
 
 if [ $SSH_CLIENT ]; then
     DOMAIN='%F{red}%m'
