@@ -8,6 +8,7 @@ FILES=(
     '.csshrc'
     '.emacs'
     '.gitconfig'
+    '.gitignore'
     '.profile'
     '.vimrc'
     '.Xdefaults'

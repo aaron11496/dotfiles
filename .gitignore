@@ -1,0 +1,14 @@
+*~
+\#*\#
+.\#.*
+
+*.class
+*.elc
+*.hi
+*.o
+*.out
+*.pyc
+*.pyo
+*.exe
+
+.venv
