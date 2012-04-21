@@ -28,8 +28,6 @@ do
     ln -s -v -b --suffix=".bak" ~/config/$filename ~/;
 done
 
-ln -s -v -b --suffix=".bak" ~/config/ipython_config.py ~/.ipython/profile_default
-
 for dir in ${DIRS[@]}; do
     if [[ ! -d ~/$dir ]]; then
         mkdir -p ~/$dir;
