@@ -2,38 +2,35 @@
 
 pushd ~
 
-FILENAMES=(
+FILES=(
     '.bash_aliases'
     '.bashrc'
     '.csshrc'
     '.emacs'
     '.gitconfig'
-    '.gitignore'
     '.profile'
     '.vimrc'
     '.Xdefaults'
     '.xinitrc'
     '.Xmodmap'
+    '.zshrc'
 );
 
-DIRS=(
+DIRECTORIES=(
     '.xmonad'
     '.emacs.d'
-    '.virtaulenvs'
+    '.virtualenvs'
     '.ipython/profile_default'
 );
 
-for filename in ${FILENAMES[@]};
-do
-    ln -s -v -b --suffix=".bak" ~/config/$filename ~/;
+for fn in ${FILES[@]}; do
+    ln -s -v ~/config/$fn ~/;
 done
 
-for dir in ${DIRS[@]}; do
-    if [[ ! -d ~/$dir ]]; then
-        mkdir -p ~/$dir;
-    fi
+for dir in ${DIRECTORIES[@]}; do
+    [[ ! -d ~/$dir ]] && mkdir -p ~/$dir;
     for fn in ~/config/$dir/*; do
-        ln -s -v -b --suffix=".bak" $fn ~/$dir/ ;
+        ln -s -v $fn ~/$dir/;
     done
 done
 
