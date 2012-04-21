@@ -46,3 +46,5 @@ if [[ ! -d ~/.emacs.d ]]; then
         ln -s -v -b --suffix=".bak" $fn ~/.emacs.d/  ;
     done
 fi
+
+popd
