@@ -14,7 +14,13 @@ FILENAMES=(
     '.Xdefaults'
     '.xinitrc'
     '.Xmodmap'
+);
+
+DIRS=(
     '.xmonad'
+    '.emacs.d'
+    '.virtaulenvs'
+    '.ipython/profile_default'
 );
 
 for filename in ${FILENAMES[@]};
@@ -24,17 +30,13 @@ done;
 
 ln -s -v -b --suffix=".bak" ~/config/ipython_config.py ~/.ipython/profile_default
 
-if [[ ! -d ~/.virtualenvs ]];
-    mkdir ~/.virtualenvs ;
-    for fn in config/venvwrapperhooks/*; do
-        ln -s -v -b --suffix=".bak" ~/$fn ~/.virtualenvs/ ;
+for dir in DIRS; do
+    if [[ ! -d ~/$dir ]];
+        mkdir -p ~/$dir;
+    fi;
+    for fn in ~/config/$dir/*; do
+        ln -s -v -b --suffix=".bak" $fn ~/$dir/ ;
     done;
-
-if [[ ! -d ~/.emacs.d ]]; then
-    mkdir ~/.emacs.d ;
-    for fn in ~/config/.emacs.d/*; do
-        ln -s -v -b --suffix=".bak" $fn ~/.emacs.d/  ;
-    done
-fi
+done;
 
 popd
