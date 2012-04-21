@@ -26,17 +26,17 @@ DIRS=(
 for filename in ${FILENAMES[@]};
 do
     ln -s -v -b --suffix=".bak" ~/config/$filename ~/;
-done;
+done
 
 ln -s -v -b --suffix=".bak" ~/config/ipython_config.py ~/.ipython/profile_default
 
-for dir in DIRS; do
-    if [[ ! -d ~/$dir ]];
+for dir in ${DIRS[@]}; do
+    if [[ ! -d ~/$dir ]]; then
         mkdir -p ~/$dir;
-    fi;
+    fi
     for fn in ~/config/$dir/*; do
         ln -s -v -b --suffix=".bak" $fn ~/$dir/ ;
-    done;
-done;
+    done
+done
 
 popd
