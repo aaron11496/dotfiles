@@ -6,7 +6,7 @@ if [[ -n "%PS1" ]]; then
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [[ -e /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
 [[ -e ~/.bash_aliases ]] && source ~/.bash_aliases
-[[ -f /etc/bash_completion ] && ! shopt -oq posix && source /etc/bash_completion
+[[ -f /etc/bash_completion ]] && ! shopt -oq posix && source /etc/bash_completion
 
 export EDITOR="vim"
 
