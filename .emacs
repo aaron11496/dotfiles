@@ -76,6 +76,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
 (setq require-final-newline t)
+(setq x-select-enable-clipboard t)
 
 (require 'ido)
 (ido-mode t)
