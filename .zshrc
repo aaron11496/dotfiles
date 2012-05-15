@@ -5,8 +5,6 @@
 [[ -d "/var/lib/gems/1.8/bin" ]] && export PATH="$PATH:/var/lib/gems/1.8/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-export PYTHONPATH=.
-
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
