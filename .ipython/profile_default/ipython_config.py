@@ -177,7 +177,7 @@ c.TerminalIPythonApp.display_banner = False
 # c.TerminalInteractiveShell.color_info = True
 
 #
-# c.TerminalInteractiveShell.history_length = 10000
+c.TerminalInteractiveShell.history_length = 10000
 
 #
 # c.TerminalInteractiveShell.separate_in = '\n'
