@@ -109,6 +109,8 @@
 (add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
 (autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
+(autoload 'coffee-mode "coffee-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 
 (set-fringe-mode 1)
 (column-number-mode 1)
