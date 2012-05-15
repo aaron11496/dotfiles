@@ -12,6 +12,8 @@ import qualified XMonad.StackSet as W
 
 
 myTerminal = "urxvt"
+myFocusedBorderColor = "#606060"
+myNormalBorderColor  = "#202020"
 
 -- myModMask = mod4Mask -- set mod key to windows key
 
@@ -37,6 +39,8 @@ main = xmonad $ gnomeConfig
 --       , modMask = myModMask
        , layoutHook = myLayoutHook
        , terminal   = myTerminal
+       , focusedBorderColor = myFocusedBorderColor
+       , normalBorderColor = myNormalBorderColor
        }
        `removeKeysP` ["M-b"]
        `additionalKeysP` [ ("M-0", sendMessage ToggleStruts) ]
