@@ -1,5 +1,3 @@
-`(require 'cl)
-
 ; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
 ;(set-frame-font "Terminus-12")
 (set-frame-font "Monospace-10")
@@ -100,13 +98,12 @@
 (add-hook 'python-mode-hook
           '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 
-; TO COMPILE: $ emacs --batch --eval '(byte-compile-file "js2.el")'
 (autoload 'css-mode "css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
 (autoload 'html-mode "html-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(html\\|rng\\|xhtml\\)$" . html-mode))
 (autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.\\(js\\|json\\)$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
 (autoload 'coffee-mode "coffee-mode" nil t)
