@@ -16,6 +16,7 @@ myFocusedBorderColor = "#606060"
 myNormalBorderColor  = "#202020"
 
 -- myModMask = mod4Mask -- set mod key to windows key
+myModMask = mod1Mask -- set mod key to alt key
 
 myLayoutHook = avoidStruts
                $ smartBorders
@@ -36,11 +37,16 @@ myManageHook =
 
 main = xmonad $ gnomeConfig
        { manageHook = myManageHook
---       , modMask = myModMask
+       , modMask = myModMask
        , layoutHook = myLayoutHook
        , terminal   = myTerminal
        , focusedBorderColor = myFocusedBorderColor
        , normalBorderColor = myNormalBorderColor
        }
-       `removeKeysP` ["M-b"]
-       `additionalKeysP` [ ("M-0", sendMessage ToggleStruts) ]
+       `removeKeysP` ["M-w", "M-b"]
+       `additionalKeys`
+       [ ((myModMask, xK_0), sendMessage ToggleStruts)
+       , ((0, xK_Print), spawn "gnome-screenshot")
+       , ((myModMask, xK_Print), spawn "gnome-screenshot -w")
+       , ((myModMask .|. shiftMask, xK_Print), spawn "gnome-screenshot -a")
+       ]
