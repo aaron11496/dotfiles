@@ -19,8 +19,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias ack='ack-grep'
-alias go='gnome-open'
 alias df='df -T'
+alias go='gnome-open'
+alias t='py.test'
 alias ymd='date +%Y%m%d'
 
 alias k9='sudo killall -9'
@@ -48,6 +49,7 @@ alias gpu='git pull'
 alias gra='git remote add'
 alias grr='git remote rm'
 alias gs='git status'
+alias gt='git tag'
 
 # Something for work. You cat ignore these.
 alias rtpal='cd ~/codebase/pycloud/milo/apps/rtpal/clients/'
