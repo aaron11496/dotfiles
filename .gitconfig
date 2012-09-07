@@ -24,4 +24,4 @@
     fuckit = reset --hard
 
 [rerere]
-	enabled = 1
+    enabled = 1

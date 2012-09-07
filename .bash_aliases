@@ -50,11 +50,3 @@ alias gra='git remote add'
 alias grr='git remote rm'
 alias gs='git status'
 alias gt='git tag'
-
-# Something for work. You cat ignore these.
-alias rtpal='cd ~/codebase/pycloud/milo/apps/rtpal/clients/'
-alias varex='cd ~/codebase/pycloud/milo/apps/variations/sites/'
-alias sinfo='cd ~/codebase/pycloud/milo/apps/storeinfo/clients'
-alias pyc='cd ~/codebase/pycloud/'
-alias plu='cd ~/codebase/pluto/'
-alias reloadtestdb='sh ~/codebase/pycloud/apps/maint/bin/reload_test_db.sh'
