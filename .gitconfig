@@ -12,7 +12,7 @@
 	br = branch
 	ci = commit
 	co = checkout
-	df = diff
+	df = diff --patience
 	pl = pull
 	ps = push
 	st = status -s
