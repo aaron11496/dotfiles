@@ -21,7 +21,7 @@ fi
 alias ack='ack-grep'
 alias df='df -T'
 alias go='gnome-open'
-alias t='py.test'
+alias t='py.test --tb short'
 alias ymd='date +%Y%m%d'
 
 alias k9='sudo killall -9'
