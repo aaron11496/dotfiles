@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Config.Gnome
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -12,10 +13,10 @@ import qualified XMonad.StackSet as W
 
 
 myTerminal = "urxvt"
-myFocusedBorderColor = "#606060"
+myFocusedBorderColor = "#808080"
 myNormalBorderColor  = "#202020"
 
--- myModMask = mod4Mask -- set mod key to windows key
+--myModMask = mod4Mask -- set mod key to windows key
 myModMask = mod1Mask -- set mod key to alt key
 
 myLayoutHook = avoidStruts
@@ -26,8 +27,7 @@ myLayoutHook = avoidStruts
       pidginLayout = reflectHoriz
                      $ withIM (0.15) (Role "buddy_list") Grid
 
-myManageHook =
-    composeAll
+myManageHook = composeAll
     [ manageHook gnomeConfig
     , isFullscreen --> doFullFloat -- make full-screen windows work
       -- launch certain programs only on certain workspaces
@@ -35,18 +35,19 @@ myManageHook =
     , className =? "Skype"     --> doF (W.shift "9")
     ]
 
-main = xmonad $ gnomeConfig
+main = xmonad $ defaultConfig
        { manageHook = myManageHook
        , modMask = myModMask
        , layoutHook = myLayoutHook
-       , terminal   = myTerminal
+       , terminal = myTerminal
        , focusedBorderColor = myFocusedBorderColor
        , normalBorderColor = myNormalBorderColor
        }
        `removeKeysP` ["M-w", "M-b"]
-       `additionalKeys`
+       `additionalKeys`  -- see /usr/include/X11/keysymdef.h
        [ ((myModMask, xK_0), sendMessage ToggleStruts)
        , ((0, xK_Print), spawn "gnome-screenshot")
+       , ((myModMask, xK_grave), toggleWS)
        , ((myModMask, xK_Print), spawn "gnome-screenshot -w")
        , ((myModMask .|. shiftMask, xK_Print), spawn "gnome-screenshot -a")
        ]
