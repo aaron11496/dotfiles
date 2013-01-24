@@ -70,7 +70,7 @@
 (global-set-key [f2] 'visit-ansi-term)
 (global-set-key [f6] 'buffer-menu)
 (global-set-key [f7] 'my-custom-frames)
-
+(global-auto-revert-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq-default indent-tabs-mode nil)
 (setq require-final-newline t)
