@@ -1,18 +1,10 @@
-[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
-[[ -e ~/.bash_aliases ]] && source ~/.bash_aliases
-
-[[ -e /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
-[[ -d "/var/lib/gems/1.8/bin" ]] && export PATH="$PATH:/var/lib/gems/1.8/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# set editor
-export EDITOR="vim"
+export EDITOR=vim
 
 # History settings
-setopt hist_ignore_all_dups hist_expire_dups_first share_history
+setopt hist_ignore_space hist_ignore_all_dups hist_expire_dups_first share_history
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
@@ -39,6 +31,12 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+[[ -x /usr/bin/lesspipe ]] && eval $(SHELL=/bin/sh lesspipe)
+[[ -e ~/.bash_aliases ]] && source ~/.bash_aliases
+
+[[ -e /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
+[[ -d /var/lib/gems/1.8/bin ]] && export PATH=$PATH:/var/lib/gems/1.8/bin
+[[ -s ~/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
 # Automatically activate Git projects' virtual environments based on the
 # directory name of the project. Virtual environment name can be overridden
