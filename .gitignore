@@ -6,7 +6,8 @@
 *.hi
 *.o
 *.out
-*.pyc
-*.pyo
+*.py[cdo]
 *.exe
 .venv
+*.egg-info/
+.cache
