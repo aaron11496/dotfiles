@@ -5,7 +5,6 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/color-theme")
 (add-to-list 'load-path "~/.emacs.d/predictive")
-
 (require 'color-theme)
 (color-theme-initialize)
 (require 'color-theme-aaron)
@@ -97,16 +96,20 @@
 
 (add-hook 'python-mode-hook
           '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
+(require 'python)
 
 (autoload 'css-mode "css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
 (autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 (autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
 (autoload 'coffee-mode "coffee-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-
+(defun recompile-everything-under-the-sun ()
+  (interactive)
+  (dolist (path load-path)
+    (byte-recompile-directory path 0)))
 (set-fringe-mode 1)
 (column-number-mode 1)
 (show-paren-mode t)
