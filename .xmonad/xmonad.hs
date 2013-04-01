@@ -13,11 +13,11 @@ import qualified XMonad.StackSet as W
 
 
 myTerminal = "urxvt"
-myFocusedBorderColor = "#808080"
+myFocusedBorderColor = "#B00000"
 myNormalBorderColor  = "#202020"
 
---myModMask = mod4Mask -- set mod key to windows key
-myModMask = mod1Mask -- set mod key to alt key
+myModMask = mod4Mask -- set mod key to windows key
+--myModMask = mod1Mask -- set mod key to alt key
 
 myLayoutHook = avoidStruts
                $ smartBorders
@@ -43,7 +43,6 @@ main = xmonad $ defaultConfig
        , focusedBorderColor = myFocusedBorderColor
        , normalBorderColor = myNormalBorderColor
        }
-       `removeKeysP` ["M-w", "M-b"]
        `additionalKeys`  -- see /usr/include/X11/keysymdef.h
        [ ((myModMask, xK_0), sendMessage ToggleStruts)
        , ((0, xK_Print), spawn "gnome-screenshot")

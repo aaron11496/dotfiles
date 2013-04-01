@@ -2,3 +2,7 @@
 remove Lock = Caps_Lock
 keysym Caps_Lock = Control_L
 add Control = Control_L
+
+! make Menu key an extra Super
+keysym Menu = Super_R
+!add Super = Super_R
