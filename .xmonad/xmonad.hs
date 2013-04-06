@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Config.Gnome
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Grid
@@ -37,6 +38,7 @@ myManageHook = composeAll
 
 main = xmonad $ defaultConfig
        { manageHook = myManageHook
+       , handleEventHook = fullscreenEventHook
        , modMask = myModMask
        , layoutHook = myLayoutHook
        , terminal = myTerminal
