@@ -22,3 +22,6 @@ fi
 if [ -f $usermodmap ]; then
     xmodmap $usermodmap
 fi
+
+# options are listed in /usr/share/X11/xkb/rules/base.lst
+setxkbmap -option "compose:menu,ctrl:nocaps"
