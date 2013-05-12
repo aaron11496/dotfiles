@@ -32,7 +32,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 [[ -x /usr/bin/lesspipe ]] && eval $(SHELL=/bin/sh lesspipe)
-[[ -e ~/.bash_aliases ]] && source ~/.bash_aliases
+[[ -e ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
 [[ -e /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
 [[ -d /var/lib/gems/1.8/bin ]] && export PATH=$PATH:/var/lib/gems/1.8/bin

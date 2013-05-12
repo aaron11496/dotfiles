@@ -18,6 +18,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias zgrep='zgrep --color=auto'
 fi
 
+alias alias psm='ps aux | grep'
+
 alias ack='ack-grep'
 alias df='df -T'
 alias go='gnome-open'

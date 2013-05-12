@@ -11,14 +11,13 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Reflect
 import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
-
-
-myTerminal = "urxvt"
-myFocusedBorderColor = "#B00000"
-myNormalBorderColor  = "#202020"
+import XMonad.Config.Desktop
 
 myModMask = mod4Mask -- set mod key to windows key
---myModMask = mod1Mask -- set mod key to alt key
+---myModMask = mod1Mask -- set mod key to alt key
+myTerminal = "urxvt"
+myFocusedBorderColor = "firebrick"
+myNormalBorderColor  = "dim gray"
 
 myLayoutHook = avoidStruts
                $ smartBorders
@@ -46,9 +45,6 @@ main = xmonad $ defaultConfig
        , normalBorderColor = myNormalBorderColor
        }
        `additionalKeys`  -- see /usr/include/X11/keysymdef.h
-       [ ((myModMask, xK_0), sendMessage ToggleStruts)
-       , ((0, xK_Print), spawn "gnome-screenshot")
-       , ((myModMask, xK_grave), toggleWS)
-       , ((myModMask, xK_Print), spawn "gnome-screenshot -w")
-       , ((myModMask .|. shiftMask, xK_Print), spawn "gnome-screenshot -a")
+       [
+         ((myModMask, xK_grave), toggleWS)
        ]

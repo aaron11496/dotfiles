@@ -1,0 +1,5 @@
+alias -g pjson='| python -m json.tool'
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
