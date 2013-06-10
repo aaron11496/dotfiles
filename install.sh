@@ -14,7 +14,7 @@ FILES=(
     '.Xdefaults'
     '.xinitrc'
     '.Xmodmap'
-    '.zsh_alises'
+    '.zsh_aliases'
     '.zshrc'
 );
 
