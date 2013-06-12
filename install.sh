@@ -3,6 +3,7 @@
 pushd ~
 
 FILES=(
+    '.aliases'
     '.bash_aliases'
     '.bashrc'
     '.csshrc'
