@@ -22,5 +22,3 @@ fi
 if [ -f $usermodmap ]; then
     xmodmap $usermodmap
 fi
-
-xfsettingsd &

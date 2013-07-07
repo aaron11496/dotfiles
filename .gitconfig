@@ -23,6 +23,9 @@
 	merge = merge --no-ff
 	fuckit = reset --hard
 
+[log]
+        mailmap = yes
+
 [rerere]
 	enabled = 1
 
