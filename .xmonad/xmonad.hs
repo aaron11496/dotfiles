@@ -33,6 +33,7 @@ myManageHook = composeAll
       -- launch certain programs only on certain workspaces
     , className =? "Pidgin"    --> doF (W.shift "9")
     , className =? "Skype"     --> doF (W.shift "9")
+    , className =? "Xfce4-notifyd" --> doIgnore
     ]
 
 main = xmonad $ defaultConfig
