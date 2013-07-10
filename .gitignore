@@ -1,13 +1,1 @@
-*~
-\#*\#
-.\#*
-*.class
 *.elc
-*.hi
-*.o
-*.out
-*.py[cdo]
-*.exe
-.venv
-*.egg-info/
-.cache

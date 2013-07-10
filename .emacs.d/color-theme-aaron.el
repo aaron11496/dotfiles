@@ -142,7 +142,7 @@
      (font-lock-keyword-face ((t (:foreground "steel blue"))))
      (font-lock-preprocessor-face ((t (:foreground "khaki"))))
      (font-lock-reference-face ((t (:foreground "khaki"))))
-     (font-lock-string-face ((t (:foreground "dark green"))))
+     (font-lock-string-face ((t (:foreground "forest green"))))
      (font-lock-negation-char-face ((t (:forground "dark red"))))
      (font-lock-type-face ((t (:foreground "SeaGreen3" :weight bold))))
      (font-lock-variable-name-face ((t (:foreground "indian red"))))

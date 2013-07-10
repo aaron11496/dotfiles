@@ -3,12 +3,12 @@
 pushd ~
 
 FILES=(
+    '.aliases'
     '.bash_aliases'
     '.bashrc'
     '.csshrc'
     '.emacs'
     '.gitconfig'
-    '.gitignore'
     '.profile'
     '.vimrc'
     '.Xdefaults'
@@ -35,5 +35,7 @@ for dir in ${DIRECTORIES[@]}; do
         ln -s -v $fn ~/$dir/;
     done
 done
+
+ln -s -v ~/config/gitignore ~/.gitignore;
 
 popd
