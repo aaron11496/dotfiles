@@ -41,8 +41,13 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # Automatically activate Git projects' virtual environments based on the
 # directory name of the project. Virtual environment name can be overridden
 # by placing a .venv file in the project root with a virtualenv name in it
+WORKON_CWD_ON="1"
 function workon_cwd {
     # Check that this is a Git repo
+    if [ -z "$WORKON_CWD_ON" ]; then
+        return;  # prevent infinite loops when virtualenv scripts use cd
+    fi
+    WORKON_CWD_ON=""
     GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
     if [[ $? == 0 ]]; then
         # Find the repo root and check for virtualenv name override
@@ -63,6 +68,7 @@ function workon_cwd {
         # Note: this only happens if the virtualenv was activated automatically
         deactivate && unset CD_VIRTUAL_ENV
     fi
+    WORKON_CWD_ON="1"
 }
 
 autoload -U colors && colors
