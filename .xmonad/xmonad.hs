@@ -31,8 +31,9 @@ myManageHook = composeAll
     [ manageHook gnomeConfig
     , isFullscreen --> doFullFloat -- make full-screen windows work
       -- launch certain programs only on certain workspaces
-    , className =? "Pidgin"    --> doF (W.shift "9")
-    , className =? "Skype"     --> doF (W.shift "9")
+    , className =? "Pidgin" --> doF (W.shift "9")
+    , className =? "Skype" --> doF (W.shift "9")
+    , className =? "SkypeTab" --> doF (W.shift "9")
     , className =? "Xfce4-notifyd" --> doIgnore
     ]
 
