@@ -1,6 +1,9 @@
 # Use emacs keybindings even if our EDITOR is set to vi
+
 bindkey -e
 
+autoload -U select-word-style
+select-word-style bash
 export EDITOR=vim
 
 # History settings
@@ -9,7 +12,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
-setopt autopushd autocd pushd_ignore_dups pushd_silent
+setopt autopushd autocd pushd_ignore_dups pushd_silent interactivecomments
 
 # Use modern completion system
 autoload -Uz compinit
