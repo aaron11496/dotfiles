@@ -21,11 +21,7 @@ myNormalBorderColor  = "dim gray"
 
 myLayoutHook = avoidStruts
                $ smartBorders
-               $ onWorkspace "9" pidginLayout
                $ (Tall 1 (3/100) (1/2) ||| Full)
-    where
-      pidginLayout = reflectHoriz
-                     $ withIM (0.15) (Role "buddy_list") Grid
 
 myManageHook = composeAll
     [ manageHook gnomeConfig
