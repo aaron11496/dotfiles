@@ -22,3 +22,16 @@ fi
 if [ -f $usermodmap ]; then
     xmodmap $usermodmap
 fi
+
+
+start-pulseaudio-x11 &
+
+xset r rate 200 30 &  # keyboard rate
+numlockx on &  # activate numlock at start
+
+volnoti &  # popup notifications for volume controls
+xbindkeys &  # see .xkeybindrc
+
+nitrogen --restore &  # set wallpaper
+
+exec xmonad

@@ -1,6 +1,14 @@
+;; (set-frame-font "Terminus-10")
+;; (set-frame-font "UbuntuMono-11")
+;; (set-frame-font "DejaVuSansMono-10")
+(set-frame-font "DroidSansMono-10")
+;; (set-frame-font "AnonymousPro-11")
+;; (set-frame-font "Inconsolata-11")
+;; (set-frame-font "SourceCodePro-10")
+
 ; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
-;(set-frame-font "Terminus-12")
-(set-frame-font "Monospace-10")
+; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
+; !@#$%^&*()[]{}<>-_=+\|;:'",./?
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/color-theme")
@@ -71,7 +79,7 @@
 (global-set-key [f7] 'my-custom-frames)
 (global-auto-revert-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode -1)
 (setq require-final-newline t)
 (setq x-select-enable-clipboard t)
 
@@ -113,12 +121,12 @@
 (set-fringe-mode 1)
 (column-number-mode 1)
 (show-paren-mode t)
-(scroll-bar-mode nil)
-(tool-bar-mode nil)
-(menu-bar-mode nil)
-(tooltip-mode nil)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(tooltip-mode -1)
 (setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
+(setq initial-scratch-message -1)
 (setq ring-bell-function 'ignore)
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -135,4 +143,4 @@
 (custom-set-variables
  '(rst-level-face-base-light 0))
 
-(put 'downcase-region 'disabled nil)
+(put 'downcase-region 'disabled -1)

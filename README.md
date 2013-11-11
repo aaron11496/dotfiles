@@ -2,10 +2,13 @@ My personal configuration files.
 
 The current setup is Xubuntu 12.04+ with the default session with Xmonad subbed in as the window manager.
 
+
     sudo apt-get install xmonad suckless-tools zsh rxvt-unicode emacs vim pidgin git
 
     ./install.sh
 
+
+Things I did to Ubuntu:
 
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
@@ -16,3 +19,11 @@ The current setup is Xubuntu 12.04+ with the default session with Xmonad subbed 
     sudo add-apt-repository ppa:upubuntu-com/chat
 
     sudo add-apt-repository ppa:keks9n/skypetab
+
+
+
+Things I did to Arch:
+
+    https://github.com/davidbrazdil/volnoti
+
+    localectl set-x11-keymap us pc105 'compose:menu,terminate:ctrl_alt_bksp,ctrl:nocaps'

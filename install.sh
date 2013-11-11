@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: this sucks, let's try something else
+
 pushd ~
 
 FILES=(
@@ -11,7 +13,8 @@ FILES=(
     '.gitconfig'
     '.profile'
     '.vimrc'
-    '.Xdefaults'
+    '.xbindkeysrc'
+    '.Xresources'
     '.xinitrc'
     '.Xmodmap'
     '.zsh_aliases'
