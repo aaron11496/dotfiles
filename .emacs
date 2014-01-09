@@ -100,6 +100,8 @@
 
 (autoload 'css-mode "css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
+(autoload 'cython-mode "cython-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.pyx$" . cython-mode))
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 (autoload 'yaml-mode "yaml-mode" nil t)
