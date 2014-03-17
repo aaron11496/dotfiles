@@ -1,3 +1,5 @@
+alias sudo='sudo '  # enable aliases in sudo commands
+
 alias p='popd'
 
 alias ll='ls -l --group-directories-first'
@@ -49,5 +51,5 @@ alias gp='git push'
 alias gpu='git pull'
 alias gra='git remote add'
 alias grr='git remote rm'
-alias gs='git status'
+alias gs='git status -s'
 alias gt='git tag'
