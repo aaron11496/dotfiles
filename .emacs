@@ -1,6 +1,9 @@
 ; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
-;(set-frame-font "Terminus-12")
-(set-frame-font "Monospace-10")
+;; (set-frame-font "Terminus-12")
+;; (set-frame-font "DejaVuSansMono-10")
+;; (set-frame-font "UbuntuMono-12")
+;; (set-frame-font "Inconsolata-12")
+(set-frame-font "DroidSansMono-10")
 
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/color-theme")
@@ -9,6 +12,10 @@
 (color-theme-initialize)
 (require 'color-theme-aaron)
 (color-theme-aaron)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+(require 'ac-python)
 
 (defun condense-whitespace ()
   "Kill the whitespace between two non-whitespace characters"
@@ -82,6 +89,8 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
+; on debian systems:
+; apt-get install pylint pep8 pyflakes
 (when (load "flymake" t)
   (defun flymake-pylint-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -98,12 +107,14 @@
           '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 (require 'python)
 
+(require 'jinja2-mode)
+
 (autoload 'css-mode "css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
 (autoload 'cython-mode "cython-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.pyx$" . cython-mode))
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
+;; (autoload 'js-mode "javascript" nil t)
+;; (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js-mode))
 (autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
 (autoload 'coffee-mode "coffee-mode" nil t)
@@ -138,3 +149,4 @@
  '(rst-level-face-base-light 0))
 
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
