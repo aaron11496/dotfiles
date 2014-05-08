@@ -7,12 +7,13 @@ select-word-style bash
 export EDITOR=vim
 
 # History settings
-setopt hist_ignore_space hist_ignore_all_dups hist_expire_dups_first share_history
+setopt hist_ignore_space hist_ignore_all_dups hist_expire_dups_first share_history extendedglob
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 setopt autopushd autocd pushd_ignore_dups pushd_silent interactivecomments
+setopt rcquotes
 
 # Use modern completion system
 autoload -Uz compinit

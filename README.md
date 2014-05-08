@@ -16,3 +16,19 @@ The current setup is Xubuntu 12.04+ with the default session with Xmonad subbed 
     sudo add-apt-repository ppa:upubuntu-com/chat
 
     sudo add-apt-repository ppa:keks9n/skypetab
+
+
+Debian:
+
+    echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+
+
+    keyboard mute button doesn't unmute:
+    run xfce4-settings-editor
+    go to xfce4-mixer
+    set active-card and sound-card to "PlaybackBuiltinAudioAnalogStereoPulseAudioMixer"
+    change takes effect immediately
+
+    /etc/default/keyboard
+    XKBOPTIONS="compose:menu,ctrl:nocaps"
+

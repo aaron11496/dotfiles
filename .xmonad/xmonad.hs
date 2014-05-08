@@ -17,7 +17,7 @@ myModMask = mod4Mask -- set mod key to windows key
 ---myModMask = mod1Mask -- set mod key to alt key
 myTerminal = "urxvt"
 myFocusedBorderColor = "firebrick"
-myNormalBorderColor  = "dim gray"
+myNormalBorderColor = "dim gray"
 
 myLayoutHook = avoidStruts
                $ smartBorders
@@ -26,11 +26,11 @@ myLayoutHook = avoidStruts
 myManageHook = composeAll
     [ manageHook gnomeConfig
     , isFullscreen --> doFullFloat -- make full-screen windows work
+    , className =? "Xfce4-notifyd" --> doIgnore
       -- launch certain programs only on certain workspaces
-    , className =? "Pidgin" --> doF (W.shift "9")
     , className =? "Skype" --> doF (W.shift "9")
     , className =? "SkypeTab" --> doF (W.shift "9")
-    , className =? "Xfce4-notifyd" --> doIgnore
+
     ]
 
 main = xmonad $ defaultConfig

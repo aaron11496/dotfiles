@@ -19,10 +19,11 @@ FILES=(
 );
 
 DIRECTORIES=(
-    '.xmonad'
+    '.clusterssh'
     '.emacs.d'
-    '.virtualenvs'
     '.ipython/profile_default'
+    '.virtualenvs'
+    '.xmonad'
 );
 
 for fn in ${FILES[@]}; do
