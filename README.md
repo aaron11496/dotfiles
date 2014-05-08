@@ -1,10 +1,11 @@
 My personal configuration files.
 
-The current setup is Xubuntu 12.04+ with the default session with Xmonad subbed in as the window manager.
+    ./install.sh
+
+Ubuntu:
 
     sudo apt-get install xmonad suckless-tools zsh rxvt-unicode emacs vim pidgin git
 
-    ./install.sh
 
 
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -16,6 +17,13 @@ The current setup is Xubuntu 12.04+ with the default session with Xmonad subbed 
     sudo add-apt-repository ppa:upubuntu-com/chat
 
     sudo add-apt-repository ppa:keks9n/skypetab
+
+
+Arch:
+
+    https://github.com/davidbrazdil/volnoti
+
+    localectl set-x11-keymap us pc105 'compose:menu,terminate:ctrl_alt_bksp,ctrl:nocaps'
 
 
 Debian:
