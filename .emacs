@@ -1,19 +1,15 @@
-; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
-; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
-; !@#$%^&*()[]{}<>-_=+\|;:'",./?
-;; (set-frame-font "Terminus-12")
-;; (set-frame-font "DejaVuSansMono-10")
-;; (set-frame-font "UbuntuMono-12")
-;; (set-frame-font "Inconsolata-12")
-(set-frame-font "DroidSansMono-10")
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
 
-(add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/color-theme")
-(add-to-list 'load-path "~/.emacs.d/predictive")
-(require 'color-theme)
-(color-theme-initialize)
-(require 'color-theme-aaron)
-(color-theme-aaron)
+(defun recompile-everything-under-the-sun ()
+  (interactive)
+  (dolist (path load-path)
+    (byte-recompile-directory path 0)))
 
 (defun condense-whitespace ()
   "Kill the whitespace between two non-whitespace characters"
@@ -62,23 +58,45 @@
   (interactive)
   (insert "import ipdb; ipdb.set_trace()"))
 
+;(package-refresh-contents)
+; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
+; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
+; !@#$%^&*()[]{}<>-_=+\|;:'",./?
+;; (set-frame-font "Terminus-12")
+;; (set-frame-font "DejaVuSansMono-10")
+;; (set-frame-font "UbuntuMono-12")
+;; (set-frame-font "Inconsolata-12")
+(set-frame-font "DroidSansMono-10")
+
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/color-theme")
+(add-to-list 'load-path "~/.emacs.d/predictive")
+(require 'color-theme)
+(color-theme-initialize)
+(require 'color-theme-aaron)
+(color-theme-aaron)
+
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-;") 'dabbrev-expand)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-s-d") 'ipdb-trace)
 (global-set-key [M-f12] 'revert-buffer)
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key [C-tab] 'next-multiframe-window)
 (global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
+(global-set-key (kbd "C-s-d") 'ipdb-trace)
 (global-set-key [f2] 'visit-ansi-term)
 (global-set-key [f6] 'buffer-menu)
 (global-set-key [f7] 'my-custom-frames)
+
 (global-auto-revert-mode)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(setq-default indent-tabs-mode nil)
 (setq require-final-newline t)
+(setq-default indent-tabs-mode nil)
 (setq x-select-enable-clipboard t)
+(transient-mark-mode t)
 
 (require 'ido)
 (ido-mode t)
@@ -111,24 +129,26 @@
 (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
 (autoload 'coffee-mode "coffee-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(defun recompile-everything-under-the-sun ()
-  (interactive)
-  (dolist (path load-path)
-    (byte-recompile-directory path 0)))
 (set-fringe-mode 1)
 (column-number-mode 1)
 (show-paren-mode t)
-(scroll-bar-mode nil)
-(tool-bar-mode nil)
-(menu-bar-mode nil)
-(tooltip-mode nil)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(tooltip-mode -1)
+(setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 (setq ring-bell-function 'ignore)
 (fset 'yes-or-no-p 'y-or-n-p)
+(require 'autopair)
 
 ; Custom colors for rst mode
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(rst-level-1-face ((t (:foreground "Red"))) t)
  '(rst-level-2-face ((t (:foreground "Orange"))) t)
  '(rst-level-3-face ((t (:foreground "Yellow"))) t)
@@ -137,7 +157,7 @@
  '(rst-level-6-face ((t (:foreground "Purple"))) t))
  ;; (rst-level-7-face ((t (:foreground "LightSteelBlue"))) t)
  ;; (rst-level-8-face ((t (:foreground "LightSalmon"))) t)
-(custom-set-variables
- '(rst-level-face-base-light 0))
+
+(add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 (put 'downcase-region 'disabled nil)
