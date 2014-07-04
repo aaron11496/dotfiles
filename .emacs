@@ -123,13 +123,13 @@
 
 (autoload 'css-mode "css-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
-(autoload 'js2-mode "js2" nil t)
+(autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 (autoload 'yaml-mode "yaml-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
 (autoload 'coffee-mode "coffee-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(set-fringe-mode 1)
+(set-fringe-mode 0)
 (column-number-mode 1)
 (show-paren-mode t)
 (scroll-bar-mode -1)
@@ -157,7 +157,5 @@
  '(rst-level-6-face ((t (:foreground "Purple"))) t))
  ;; (rst-level-7-face ((t (:foreground "LightSteelBlue"))) t)
  ;; (rst-level-8-face ((t (:foreground "LightSalmon"))) t)
-
-(add-hook 'after-init-hook 'global-color-identifiers-mode)
 
 (put 'downcase-region 'disabled nil)
