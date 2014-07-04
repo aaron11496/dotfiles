@@ -22,30 +22,6 @@
           (re-search-forward "[ \t\r\n]+" nil t)
           (replace-match " " nil nil))))))
 
-(require 'term)
-(defun visit-ansi-term ()
-  "Rename, restart if killed, or create and switch to an ansi-term buffer"
-  (interactive)
-  (let ((is-term (string= "term-mode" major-mode))
-        (is-running (term-check-proc (buffer-name)))
-        (term-cmd "/usr/bin/zsh")
-        (anon-term (get-buffer "*ansi-term*")))
-    (if is-term
-        (if is-running
-            (if (string= "*ansi-term*" (buffer-name))
-                (call-interactively 'rename-buffer)
-              (if anon-term
-                  (switch-to-buffer "*ansi-term*")
-                (ansi-term term-cmd)))
-          (kill-buffer (buffer-name))
-          (ansi-term term-cmd))
-      (if anon-term
-          (if (term-check-proc "*ansi-term*")
-              (switch-to-buffer "*ansi-term*")
-            (kill-buffer "*ansi-term*")
-            (ansi-term term-cmd))
-        (ansi-term term-cmd)))))
-
 (defun my-custom-frames ()
   "Set the frames to three even-width columns"
   (interactive)
@@ -85,7 +61,6 @@
 (global-set-key [C-tab] 'next-multiframe-window)
 (global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
 (global-set-key (kbd "C-s-d") 'ipdb-trace)
-(global-set-key [f2] 'visit-ansi-term)
 (global-set-key [f6] 'buffer-menu)
 (global-set-key [f7] 'my-custom-frames)
 
