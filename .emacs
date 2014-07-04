@@ -69,8 +69,6 @@
 (set-frame-font "DroidSansMono-10")
 
 (add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/color-theme")
-(add-to-list 'load-path "~/.emacs.d/predictive")
 (require 'color-theme)
 (color-theme-initialize)
 (require 'color-theme-aaron)
@@ -121,14 +119,6 @@
           '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 (require 'python)
 
-(autoload 'css-mode "css-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
-(autoload 'yaml-mode "yaml-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)$" . yaml-mode))
-(autoload 'coffee-mode "coffee-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
 (set-fringe-mode 0)
 (column-number-mode 1)
 (show-paren-mode t)
