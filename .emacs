@@ -6,11 +6,6 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(defun recompile-everything-under-the-sun ()
-  (interactive)
-  (dolist (path load-path)
-    (byte-recompile-directory path 0)))
-
 (defun condense-whitespace ()
   "Kill the whitespace between two non-whitespace characters"
   (interactive "*")
@@ -34,7 +29,9 @@
   (interactive)
   (insert "import ipdb; ipdb.set_trace()"))
 
-;(package-refresh-contents)
+(add-to-list 'load-path "~/.emacs.d")
+(require 'color-theme-aaron)
+(color-theme-aaron)
 ; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
 ; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
 ; !@#$%^&*()[]{}<>-_=+\|;:'",./?
@@ -44,11 +41,19 @@
 ;; (set-frame-font "Inconsolata-12")
 (set-frame-font "DroidSansMono-10")
 
-(add-to-list 'load-path "~/.emacs.d")
-(require 'color-theme)
-(color-theme-initialize)
-(require 'color-theme-aaron)
-(color-theme-aaron)
+(set-fringe-mode 0)
+(column-number-mode 1)
+(show-paren-mode t)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(tooltip-mode -1)
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(setq ring-bell-function 'ignore)
+(fset 'yes-or-no-p 'y-or-n-p)
+(put 'downcase-region 'disabled nil)
 
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -85,7 +90,7 @@
            (local-file (file-relative-name
                         temp-file
                         (file-name-directory buffer-file-name))))
-      (list "~/.emacs.d/bin/lintrunner.py"(list local-file))))
+      (list "~/.emacs.d/bin/lintrunner.py" (list local-file))))
 
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-pylint-init)))
@@ -93,34 +98,3 @@
 (add-hook 'python-mode-hook
           '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
 (require 'python)
-
-(set-fringe-mode 0)
-(column-number-mode 1)
-(show-paren-mode t)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(tooltip-mode -1)
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-(setq ring-bell-function 'ignore)
-(fset 'yes-or-no-p 'y-or-n-p)
-(require 'autopair)
-
-; Custom colors for rst mode
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(rst-level-1-face ((t (:foreground "Red"))) t)
- '(rst-level-2-face ((t (:foreground "Orange"))) t)
- '(rst-level-3-face ((t (:foreground "Yellow"))) t)
- '(rst-level-4-face ((t (:foreground "Green"))) t)
- '(rst-level-5-face ((t (:foreground "Blue"))) t)
- '(rst-level-6-face ((t (:foreground "Purple"))) t))
- ;; (rst-level-7-face ((t (:foreground "LightSteelBlue"))) t)
- ;; (rst-level-8-face ((t (:foreground "LightSalmon"))) t)
-
-(put 'downcase-region 'disabled nil)
