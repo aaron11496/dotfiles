@@ -1,13 +1,11 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
 (defun condense-whitespace ()
-  "Kill the whitespace between two non-whitespace characters"
+  "Kill the whitespace between two non-whitespace characters."
   (interactive "*")
   (save-excursion
     (save-restriction
@@ -18,7 +16,7 @@
           (replace-match " " nil nil))))))
 
 (defun my-custom-frames ()
-  "Set the frames to three even-width columns"
+  "Set the frames to three even-width columns."
   (interactive)
   (delete-other-windows)
   (split-window-horizontally)
@@ -26,20 +24,9 @@
   (balance-windows))
 
 (defun ipdb-trace ()
+  "Handy for debugging Python code."
   (interactive)
   (insert "import ipdb; ipdb.set_trace()"))
-
-(add-to-list 'load-path "~/.emacs.d")
-(require 'color-theme-aaron)
-(color-theme-aaron)
-; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
-; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
-; !@#$%^&*()[]{}<>-_=+\|;:'",./?
-;; (set-frame-font "Terminus-12")
-;; (set-frame-font "DejaVuSansMono-10")
-;; (set-frame-font "UbuntuMono-12")
-;; (set-frame-font "Inconsolata-12")
-(set-frame-font "DroidSansMono-10")
 
 (set-fringe-mode 0)
 (column-number-mode 1)
@@ -66,7 +53,6 @@
 (global-set-key [C-tab] 'next-multiframe-window)
 (global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
 (global-set-key (kbd "C-s-d") 'ipdb-trace)
-(global-set-key [f6] 'buffer-menu)
 (global-set-key [f7] 'my-custom-frames)
 
 (global-auto-revert-mode)
@@ -83,18 +69,57 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-(when (load "flymake" t)
-  (defun flymake-pylint-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list "~/.emacs.d/bin/lintrunner.py" (list local-file))))
+;; npm install jsonlint -g
+;; npm install jshint -g
+;; The javascript checker, javascript-jshint, might require `node' to be installed
+;; as `node' and not `nodejs'. Fix it using something like this:
+;; sudo ln -s /usr/bin/nodejs /usr/bin/node
 
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pylint-init)))
+(global-flycheck-mode 1)
 
-(add-hook 'python-mode-hook
-          '(lambda () (if (not (null buffer-file-name)) (flymake-mode))))
-(require 'python)
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+(setq flycheck-highlighting-mode 'lines)
+(setq flycheck-display-errors-delay 0)
+
+; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
+; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
+;!@#$%^&*()[]{}<>-_=+\|;:'",./?
+;; (set-frame-font "Inconsolata-11")
+;; (set-frame-font "Terminus-12")
+;;(set-frame-font "UbuntuMono-11")
+(set-frame-font "DejaVuSansMono-10")
+;; (set-frame-font "DroidSansMono-10")
+
+(set-face-attribute 'default nil
+                    :background "black"
+                    :foreground "light gray"
+                    :stipple nil
+                    :box nil
+                    :strike-through nil
+                    :overline nil
+                    :underline nil
+                    :slant 'normal
+                    :weight 'normal
+                    :inverse-video nil)
+
+(set-face-attribute 'vertical-border nil :foreground "dim gray")
+
+(set-face-attribute 'font-lock-builtin-face nil :foreground "sandy brown")
+(set-face-attribute 'font-lock-comment-face nil :foreground "dim gray")
+(set-face-attribute 'font-lock-comment-delimiter-face nil :foreground "medium blue")
+(set-face-attribute 'font-lock-constant-face nil :foreground "pale violet red")
+(set-face-attribute 'font-lock-doc-face nil :foreground "khaki")
+(set-face-attribute 'font-lock-function-name-face nil :foreground "firebrick")
+(set-face-attribute 'font-lock-keyword-face nil :foreground "steel blue")
+(set-face-attribute 'font-lock-preprocessor-face nil :foreground "khaki")
+(set-face-attribute 'font-lock-string-face nil :foreground "forest green")
+(set-face-attribute 'font-lock-variable-name-face nil :foreground "indian red")
+
+; To make modeline look like a button, use `:box '(:line-width 2 :style released-button)'
+(set-face-attribute 'mode-line nil :foreground "gray60" :background "gray8" :box nil)
+(set-face-attribute 'mode-line-inactive nil :foreground "gray40" :background "gray4" :box nil)
+(set-face-attribute 'mode-line-highlight nil :background "gray20" :box nil)
+
+(set-face-attribute 'flycheck-info nil :background "lime green" :underline nil :inherit nil)
+(set-face-attribute 'flycheck-warning nil :background "midnight blue" :underline nil :inherit nil)
+(set-face-attribute 'flycheck-error nil :background "dark red" :underline nil :inherit nil)
