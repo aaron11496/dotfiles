@@ -1,29 +1,6 @@
-My personal configuration files.
+My personal configuration files. To install, just run
 
     ./install.sh
-
-Ubuntu:
-
-    sudo apt-get install xmonad suckless-tools zsh rxvt-unicode emacs vim pidgin git
-
-
-
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
-    sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list.d/spotify.list'
-
-    sudo add-apt-repository ppa:upubuntu-com/chat
-
-    sudo add-apt-repository ppa:keks9n/skypetab
-
-
-Arch:
-
-    https://github.com/davidbrazdil/volnoti
-
-    localectl set-x11-keymap us pc105 'compose:menu,terminate:ctrl_alt_bksp,ctrl:nocaps'
 
 
 Debian:
@@ -40,3 +17,10 @@ Debian:
     /etc/default/keyboard
     XKBOPTIONS="compose:menu,ctrl:nocaps"
 
+
+
+Arch:
+
+    https://github.com/davidbrazdil/volnoti
+
+    localectl set-x11-keymap us pc105 'compose:menu,terminate:ctrl_alt_bksp,ctrl:nocaps'
