@@ -7,8 +7,10 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig
 
+
 myModMask = mod4Mask -- set mod key to windows key
 ---myModMask = mod1Mask -- set mod key to alt key
+
 
 myLayoutHook = avoidStruts
                $ smartBorders
@@ -18,6 +20,7 @@ myManageHook = composeAll
     [ manageHook gnomeConfig
     , isFullscreen --> doFullFloat -- make full-screen windows work
     ]
+
 
 main = xmonad $ defaultConfig
        { manageHook = myManageHook
