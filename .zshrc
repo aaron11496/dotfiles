@@ -1,4 +1,4 @@
-# Use emacs keybindings even if our EDITOR is set to vi
+#!/bin/zsh
 
 bindkey -e
 
@@ -38,9 +38,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 [[ -x /usr/bin/lesspipe ]] && eval $(SHELL=/bin/sh lesspipe)
 [[ -e ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
-[[ -e /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
-[[ -d /var/lib/gems/1.8/bin ]] && export PATH=$PATH:/var/lib/gems/1.8/bin
-[[ -s ~/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
+[[ -e /usr/local/bin/virtualenvwrapper_lazy.sh ]] && source /usr/local/bin/virtualenvwrapper_lazy.sh
 
 # Automatically activate Git projects' virtual environments based on the
 # directory name of the project. Virtual environment name can be overridden
