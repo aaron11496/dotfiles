@@ -42,38 +42,11 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# Automatically activate Git projects' virtual environments based on the
-# directory name of the project. Virtual environment name can be overridden
-# by placing a .venv file in the project root with a virtualenv name in it
-WORKON_CWD_ON="1"
-function workon_cwd {
-    # Check that this is a Git repo
-    if [ -z "$WORKON_CWD_ON" ]; then
-        return;  # prevent infinite loops when virtualenv scripts use cd
-    fi
-    WORKON_CWD_ON=""
-    GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
-    if [[ $? == 0 ]]; then
-        # Find the repo root and check for virtualenv name override
-        GIT_DIR=`readlink -e $GIT_DIR`
-        PROJECT_ROOT=`dirname "$GIT_DIR"`
-        ENV_NAME=`basename "$PROJECT_ROOT"`
-        if [ -f "$PROJECT_ROOT/.venv" ]; then
-            ENV_NAME=`cat "$PROJECT_ROOT/.venv"`
-        fi
-        # Activate the environment only if it is not already active
-        if [ "$VIRTUAL_ENV" != "$WORKON_HOME/$ENV_NAME" ]; then
-            if [ -e "$WORKON_HOME/$ENV_NAME/bin/activate" ]; then
-                workon "$ENV_NAME" && export CD_VIRTUAL_ENV="$ENV_NAME"
-            fi
-        fi
-    elif [ $CD_VIRTUAL_ENV ]; then
-        # We've just left the repo, deactivate the environment
-        # Note: this only happens if the virtualenv was activated automatically
-        deactivate && unset CD_VIRTUAL_ENV
-    fi
-    WORKON_CWD_ON="1"
-}
+export WORKON_HOME="$HOME/.virtualenvs"
+
+source ~/config/autoworkon.sh
+
+chpwd() { auto_workon }
 
 autoload -U colors && colors
 autoload -Uz vcs_info
@@ -87,7 +60,7 @@ zstyle ':vcs_info:git*' formats " %F{yellow}%b"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
 
 precmd() { vcs_info }
-chpwd() { workon_cwd }
+
 
 if [ $SSH_CLIENT ]; then
     DOMAIN='%F{red}%m'
