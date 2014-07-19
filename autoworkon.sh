@@ -16,11 +16,9 @@
 # chpwd() { auto_workon }
 
 
-function git_venv_name {
+git_venv_name () {
     GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
-    if [[ $? != 0 ]]; then
-        return
-    fi
+    [[ $? != 0 ]] && return
 
     GIT_DIR=`readlink -e $GIT_DIR`
     PROJECT_ROOT=`dirname "$GIT_DIR"`
@@ -31,12 +29,10 @@ function git_venv_name {
         ENV_NAME=`basename "$PROJECT_ROOT"`
     fi
 
-    if [ -e "$WORKON_HOME/$ENV_NAME/bin/activate" ]; then
-        echo $ENV_NAME
-    fi
+    [ -e "$WORKON_HOME/$ENV_NAME/bin/activate" ] && echo $ENV_NAME
 }
 
-function auto_workon {
+auto_workon () {
     ENV_NAME=`git_venv_name`
     if [ -z "$ENV_NAME" ]; then
         if [ "$CD_VIRTUAL_ENV" -a "$VIRTUAL_ENV" ]; then

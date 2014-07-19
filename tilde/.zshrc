@@ -44,9 +44,10 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 export WORKON_HOME="$HOME/.virtualenvs"
 
-source ~/config/autoworkon.sh
-
-chpwd() { auto_workon }
+if [[ -e ~/config/autoworkon.sh ]]; then
+    source ~/config/autoworkon.sh
+    chpwd() { auto_workon }
+fi
 
 autoload -U colors && colors
 autoload -Uz vcs_info
