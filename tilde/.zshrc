@@ -1,19 +1,20 @@
 #!/bin/zsh
 
-bindkey -e
+bindkey -e  # emacs-style keybindings
+export EDITOR='emacs -nw'
+
+setopt auto_cd auto_pushd cdable_vars pushd_ignore_dups pushd_silent  # cd
+setopt always_to_end list_types  # completion
+
+setopt extendedglob hist_expire_dups_first hist_ignore_all_dups hist_ignore_space hist_verify share_history  # history
+HISTSIZE=10000
+SAVEHIST=100000
+HISTFILE=~/.zsh_history
+
+setopt check_jobs interactive_comments rcquotes transient_rprompt
 
 autoload -U select-word-style
 select-word-style bash
-export EDITOR=vim
-
-# History settings
-setopt hist_ignore_space hist_ignore_all_dups hist_expire_dups_first share_history extendedglob
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
-
-setopt autopushd autocd pushd_ignore_dups pushd_silent interactivecomments
-setopt rcquotes
 
 # Use modern completion system
 autoload -Uz compinit
