@@ -41,6 +41,7 @@
 (setq ring-bell-function 'ignore)
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -86,8 +87,10 @@
 ;!@#$%^&*()[]{}<>-_=+\|;:'",./?
 ;; (set-frame-font "Inconsolata-11")
 ;; (set-frame-font "Terminus-12")
-;;(set-frame-font "UbuntuMono-11")
-(set-frame-font "DejaVuSansMono-10")
+(set-frame-font "UbuntuMono-11")
+;; (set-frame-font "AndaleMono-10")
+;; (set-frame-font "Monaco-10")
+;; (set-frame-font "DejaVuSansMono-10")
 ;; (set-frame-font "DroidSansMono-10")
 
 (set-face-attribute 'default nil
@@ -103,6 +106,8 @@
                     :inverse-video nil)
 
 (set-face-attribute 'vertical-border nil :foreground "dim gray")
+
+(set-face-attribute 'region nil :background "navy")
 
 (set-face-attribute 'font-lock-builtin-face nil :foreground "sandy brown")
 (set-face-attribute 'font-lock-comment-face nil :foreground "dim gray")

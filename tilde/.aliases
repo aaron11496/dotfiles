@@ -1,3 +1,4 @@
+#!/bin/sh
 alias sudo='sudo '  # enable aliases in sudo commands
 
 alias p='popd'

@@ -7,7 +7,6 @@ Debian:
 
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
-
     keyboard mute button doesn't unmute:
     run xfce4-settings-editor
     go to xfce4-mixer
@@ -16,7 +15,6 @@ Debian:
 
     /etc/default/keyboard
     XKBOPTIONS="compose:menu,ctrl:nocaps"
-
 
 
 Arch:

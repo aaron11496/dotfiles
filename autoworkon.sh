@@ -17,6 +17,9 @@
 
 
 git_venv_name () {
+    # if cwd is a git repo, echo the venv name associated with it
+    # based on either the top-level dir name or the .venv file
+    # otherwise do nothing
     GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
     [[ $? != 0 ]] && return
 
