@@ -18,9 +18,9 @@ Debian:
     /etc/default/keyboard
     XKBOPTIONS="compose:menu,ctrl:nocaps"
 
-    Wireless doesn't work on Lenovo T440s with kernel 3.14:
-    Download iwlwifi drivers
-    cp iwlwifi-*.ucode /lib/firmware
+    Wireless 7260 doesn't work on Lenovo T440s with kernel 3.14:
+    sudo apt-get install firmware-iwlwifi
+    (may need to add non-free repos)
 
 Apt repos:
 
