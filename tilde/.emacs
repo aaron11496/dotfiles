@@ -88,6 +88,9 @@
 (setq flycheck-highlighting-mode 'lines)
 (setq flycheck-display-errors-delay 0)
 
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "google-chrome")
+
 ; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
 ; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
 ;!@#$%^&*()[]{}<>-_=+\|;:'",./?
