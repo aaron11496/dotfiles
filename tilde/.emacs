@@ -28,12 +28,6 @@
   (interactive)
   (insert "import ipdb; ipdb.set_trace()"))
 
-(defadvice ido-find-file (after find-file-sudo activate)
-  "Find file as root if necessary."
-  (unless (and buffer-file-name
-               (file-writable-p buffer-file-name))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
 (set-fringe-mode 0)
 (column-number-mode 1)
 (show-paren-mode t)
@@ -69,19 +63,25 @@
 (setq x-select-enable-clipboard t)
 (transient-mark-mode t)
 
+(setq markdown-css-path "http://kevinburke.bitbucket.org/markdowncss/markdown.css")
+
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
+(defadvice ido-find-file (after find-file-sudo activate)
+  "Make ido-mode find file as root if necessary."
+  (unless (and buffer-file-name
+               (file-writable-p buffer-file-name))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
 ;; npm install jsonlint -g
 ;; npm install jshint -g
-;; The javascript checker, javascript-jshint, might require `node' to be installed
-;; as `node' and not `nodejs'. Fix it using something like this:
+;; The javascript checker, javascript-jshint, might require `node' to be
+;; installed as `node' and not `nodejs'. Fix it using something like this:
 ;; sudo ln -s /usr/bin/nodejs /usr/bin/node
-
 (global-flycheck-mode 1)
 
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))

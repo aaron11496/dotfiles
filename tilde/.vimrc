@@ -29,4 +29,4 @@ set showcmd          " Show (partial) command in status line.
 set showmatch        " Briefly highlight matching brace/paranthese/bracket
 
 " Backups and files
-set backup                     " Enable creation of backup file.
+"set backup                     " Enable creation of backup file.
