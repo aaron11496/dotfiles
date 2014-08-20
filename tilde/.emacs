@@ -63,8 +63,6 @@
 (setq x-select-enable-clipboard t)
 (transient-mark-mode t)
 
-(setq markdown-css-path "http://kevinburke.bitbucket.org/markdowncss/markdown.css")
-
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t)

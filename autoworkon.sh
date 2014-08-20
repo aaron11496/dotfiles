@@ -1,25 +1,25 @@
 #!/bin/zsh
-# 'auto_workon' is meant to be used as a zsh 'chpwd' command.
-# It automatically activate Git projects' virtual environments based on the
-# directory name. Virtual environment name can be overridden by placing a
-# filed called .venv containing the desired virtualenv name.
+# `auto_workon` is meant to be used as a zsh `chpwd` command. It
+# automatically activate Git projects' virtual environments based on the
+# directory name. Virtual environment name can be overridden by placing
+# a filed called .venv containing the desired virtualenv name.
 
 # If you are using virtualenvwrapper_lazy then you must set WORKON_HOME
 # in your .zshrc for this to work.
 
 # With the current version of virtualenvwrapper, you must manually edit
-# 'virtualenvwrapper_cd' in virtualenvwrapper.sh to use 'cd -q' when in zsh.
+# `virtualenvwrapper_cd` in virtualenvwrapper.sh to use `cd -q` when in
+# zsh. Future versions of virtualenvwrapper should already have this.
 
-# To use, put something like the following in your .zshrc:
+# To use it, put something like this in your .zshrc:
 # export WORKON_HOME="$HOME/.virtualenvs"
 # source ~/config/autoworkon.sh
 # chpwd() { auto_workon }
 
 
 git_venv_name () {
-    # if cwd is a git repo, echo the venv name associated with it
-    # based on either the top-level dir name or the .venv file
-    # otherwise do nothing
+    # If cwd is a git repo, echo the venv name associated with it based
+    # on either the top-level dir name or the .venv file. Otherwise nothing
     GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
     [[ $? != 0 ]] && return
 
