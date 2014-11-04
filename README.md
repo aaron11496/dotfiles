@@ -10,6 +10,11 @@ To install or reinstall dotfiles just run `install.sh`
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
 
+### Use NTP to make sure clock automatically updates (especially for DST) ###
+
+    sudo apt-get install ntp
+
+
 ### Keyboard mute button doesn't unmute in Xfce4 ###
 
 Currently, `xfce4-volumed` sucks when working with `pulseaudio`. Fortunately, there's a fork called `xfce4-volumed-pulse` that works great:
