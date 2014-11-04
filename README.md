@@ -1,6 +1,6 @@
 # My Personal Linux Configuration #
 
-To install or reinstall dotfiles just run `install.sh`
+To install or re-install dotfiles just run `install.sh`
 
 
 ## Debian Jessie with Xfce4 ##
@@ -42,7 +42,7 @@ You may need to add non-free apt repos, but then do this:
 
     sudo apt-get install firmware-iwlwifi
 
-To fix connecting to certain routers, disabling IPv6 is necessary. Add these lines to `/etc/sysctl.conf`:
+To fix connecting to certain routers, disabling IPv6 is necessary. Add these lines to `/etc/sysctl.conf` then run `sysctl -p`:
 
     net.ipv6.conf.all.disable_ipv6 = 1
     net.ipv6.conf.default.disable_ipv6 = 1
