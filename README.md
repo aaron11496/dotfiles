@@ -58,6 +58,13 @@ Edit `/etc/pulse/default.pa` and add this line to the bottom:
     load-module module-switch-on-connect
 
 
+### Fix PulseAudio volume jumping when increased by 1% ###
+
+Edit `/etc/pulse/default.pa`, find the line loading `module-udev-detect` and change it to this:
+
+    load-module module-udev-detect ignore_dB=1
+
+
 ### Google Chrome ###
 
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
