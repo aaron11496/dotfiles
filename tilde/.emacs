@@ -59,7 +59,7 @@
 (global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
 (global-set-key [f7] 'my-custom-frames)
 
-(global-auto-revert-mode)
+(global-auto-revert-mode t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq require-final-newline t)
 (setq-default indent-tabs-mode nil)
@@ -95,12 +95,23 @@
 (add-to-list 'auto-mode-alist '("\\.env\\'" . shell-script-mode))
 (add-hook 'css-mode-hook 'rainbow-mode)
 
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode)
+
+(defvar ace-jump-mode-submode-list
+  '(ace-jump-char-mode
+    ace-jump-word-mode
+    ace-jump-line-mode))
+
 (defun ipdb-trace ()
   "Handy for debugging Python code."
   (interactive)
   (insert "import ipdb; ipdb.set_trace()"))
 (add-hook 'python-mode-hook (lambda() (local-set-key (kbd "C-s-d") 'ipdb-trace)))
-
+(add-hook 'python-mode-hook (lambda() (set-fill-column 80)))
 (add-hook 'python-mode-hook 'jedi:setup)
 (jedi:setup)
 (setq jedi:complete-on-dot t)
