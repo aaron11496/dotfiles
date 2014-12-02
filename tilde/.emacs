@@ -1,3 +1,18 @@
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(tooltip-mode -1)
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+(set-fringe-mode 0)
+(column-number-mode 1)
+(show-paren-mode t)
+(scroll-bar-mode -1)
+(setq ring-bell-function 'ignore)
+(fset 'yes-or-no-p 'y-or-n-p)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -23,29 +38,18 @@
   (split-window-horizontally)
   (balance-windows))
 
-(defun ipdb-trace ()
-  "Handy for debugging Python code."
-  (interactive)
-  (insert "import ipdb; ipdb.set_trace()"))
+;; save backup files to a single dir
+(defun make-backup-file-name (file)
+  (concat "~/.emacs_backups/" (file-name-nondirectory file) "~"))
 
-(set-fringe-mode 0)
-(column-number-mode 1)
-(show-paren-mode t)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(tooltip-mode -1)
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-(setq ring-bell-function 'ignore)
-(fset 'yes-or-no-p 'y-or-n-p)
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+;; Save point position between sessions
+(require 'saveplace)
+(setq-default save-place t)
+(setq save-place-file (expand-file-name ".places" user-emacs-directory))
+
 
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-;") 'dabbrev-expand)
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -53,7 +57,6 @@
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key [C-tab] 'next-multiframe-window)
 (global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
-(global-set-key (kbd "C-s-d") 'ipdb-trace)
 (global-set-key [f7] 'my-custom-frames)
 
 (global-auto-revert-mode)
@@ -89,6 +92,21 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
+(add-to-list 'auto-mode-alist '("\\.env\\'" . shell-script-mode))
+(add-hook 'css-mode-hook 'rainbow-mode)
+
+(defun ipdb-trace ()
+  "Handy for debugging Python code."
+  (interactive)
+  (insert "import ipdb; ipdb.set_trace()"))
+(add-hook 'python-mode-hook (lambda() (local-set-key (kbd "C-s-d") 'ipdb-trace)))
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(jedi:setup)
+(setq jedi:complete-on-dot t)
+(define-key jedi-mode-map (kbd "C-'") 'jedi:complete)
+(define-key jedi-mode-map (kbd "<C-tab>") nil)
+
 ; Illegal1 = 0.123456789 '"[](){} !@#$%^&*
 ; ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 abcdefghijklmnopqrstuvwxyz
 ;!@#$%^&*()[]{}<>-_=+\|;:'",./?
@@ -123,6 +141,7 @@
 (set-face-attribute 'font-lock-doc-face nil :foreground "khaki")
 (set-face-attribute 'font-lock-function-name-face nil :foreground "firebrick")
 (set-face-attribute 'font-lock-keyword-face nil :foreground "steel blue")
+(set-face-attribute 'font-lock-type-face nil :weight 'bold :foreground "cyan")
 (set-face-attribute 'font-lock-preprocessor-face nil :foreground "khaki")
 (set-face-attribute 'font-lock-string-face nil :foreground "forest green")
 (set-face-attribute 'font-lock-variable-name-face nil :foreground "indian red")
@@ -132,6 +151,8 @@
 (set-face-attribute 'mode-line-inactive nil :foreground "gray40" :background "gray4" :box nil)
 (set-face-attribute 'mode-line-highlight nil :background "gray20" :box nil)
 
-(set-face-attribute 'flycheck-info nil :background "lime green" :underline nil :inherit nil)
+(set-face-attribute 'flycheck-info nil :background "dark green" :underline nil :inherit nil)
 (set-face-attribute 'flycheck-warning nil :background "midnight blue" :underline nil :inherit nil)
 (set-face-attribute 'flycheck-error nil :background "dark red" :underline nil :inherit nil)
+
+(my-custom-frames)
