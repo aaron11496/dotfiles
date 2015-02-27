@@ -6,6 +6,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig
+import qualified XMonad.StackSet as W
 
 
 myModMask = mod4Mask -- set mod key to windows key
@@ -19,6 +20,7 @@ myLayoutHook = avoidStruts
 myManageHook = composeAll
     [ manageHook gnomeConfig
     , isFullscreen --> doFullFloat -- make full-screen windows work
+    , className =? "HipChat" --> doF (W.shift "9")
     ]
 
 
