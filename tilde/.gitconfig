@@ -27,10 +27,10 @@
         mailmap = yes
 
 [rerere]
-	enabled = 1
+	enabled = 0
 
 [push]
-	default = upstream
+	default = current
 
 [merge]
 	tool = meld

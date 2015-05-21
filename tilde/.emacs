@@ -60,11 +60,17 @@
 (global-set-key [f7] 'my-custom-frames)
 
 (global-auto-revert-mode t)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (setq require-final-newline t)
 (setq-default indent-tabs-mode nil)
 (setq x-select-enable-clipboard t)
 (transient-mark-mode t)
+
+(defun my-prog-nuke-trailing-whitespace ()
+  (when (derived-mode-p 'prog-mode)
+    (delete-trailing-whitespace)))
+(add-hook 'before-save-hook 'my-prog-nuke-trailing-whitespace)
+;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'ido)
 (ido-mode t)
@@ -111,7 +117,7 @@
   (interactive)
   (insert "import ipdb; ipdb.set_trace()"))
 (add-hook 'python-mode-hook (lambda() (local-set-key (kbd "C-s-d") 'ipdb-trace)))
-(add-hook 'python-mode-hook (lambda() (set-fill-column 80)))
+(add-hook 'python-mode-hook (lambda() (set-fill-column 79)))
 (add-hook 'python-mode-hook 'jedi:setup)
 (jedi:setup)
 (setq jedi:complete-on-dot t)

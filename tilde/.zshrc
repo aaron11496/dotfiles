@@ -2,6 +2,7 @@
 
 bindkey -e  # emacs-style keybindings
 export EDITOR='emacs -nw'
+export BROWSER='google-chrome'
 
 setopt auto_cd auto_pushd cdable_vars pushd_ignore_dups pushd_silent  # cd
 setopt always_to_end list_types  # completion
@@ -13,12 +14,15 @@ HISTFILE=~/.zsh_history
 
 setopt check_jobs interactive_comments rcquotes transient_rprompt
 
-autoload -U select-word-style
-select-word-style bash
+
+# autoload -U select-word-style
+# select-word-style bash
 
 # Use modern completion system
 autoload -Uz compinit
 compinit
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
 # zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 # zstyle ':completion:*' format 'Completing %d'
@@ -126,3 +130,7 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+
+autoload bashcompinit
+bashcompinit

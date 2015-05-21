@@ -1,6 +1,8 @@
 #!/bin/sh
 alias sudo='sudo '  # enable aliases in sudo commands
 
+alias d2u='sed 's/\r$//' '
+
 alias p='popd'
 
 alias ll='ls -l --group-directories-first'
@@ -54,3 +56,6 @@ alias gra='git remote add'
 alias grr='git remote rm'
 alias gs='git status -s'
 alias gt='git tag'
+
+alias dr='echo docker run -it --rm --net host --env-file /etc/accuvit.dev.env -v `realpath .`:/develop'
+alias dt='echo docker run -it --rm --net host --env-file /etc/accuvit.test.env -v `realpath .`:/develop'

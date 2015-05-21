@@ -1,31 +1,32 @@
-style "smoke-window"
+style "aaron-window"
 {
     bg[NORMAL] = "#4d4d4d"
-    XfceNotifyWindow::border-color = "#ffffff"
+    XfceNotifyWindow::border-color = "#dddddd"
     XfceNotifyWindow::border-radius = 10.0
-    XfceNotifyWindow::border-width-hover = 3.0
+    XfceNotifyWindow::border-width = 4.0
+    XfceNotifyWindow::border-width-hover = 6.0
     XfceNotifyWindow::summary-bold = 1
 }
-class "XfceNotifyWindow" style "smoke-window"
+class "XfceNotifyWindow" style "aaron-window"
 
-style "smoke-button"
+style "aaron-button"
 {
     bg[NORMAL] = "#202020"
     bg[PRELIGHT] = "#404040"
     fg[NORMAL] = "#ffffff"
     fg[PRELIGHT] = "#ffffff"
 }
-widget_class "XfceNotifyWindow.*.GtkButton*" style "smoke-button"
+widget_class "XfceNotifyWindow.*.GtkButton*" style "aaron-button"
 
-style "smoke-text"
+style "aaron-text"
 {
     fg[NORMAL] = "#ffffff"
     GtkWidget::link-color = "#a7a7a7"
 }
-widget_class "XfceNotifyWindow.*.<GtkLabel>" style "smoke-text"
+widget_class "XfceNotifyWindow.*.<GtkLabel>" style "aaron-text"
 
-style "smoke-summary"
+style "aaron-summary"
 {
-    font_name = "Bold"
+    font_name = "Bold 20"
 }
-widget "XfceNotifyWindow.*.summary" style "smoke-summary"
+widget "XfceNotifyWindow.*.summary" style "aaron-summary"

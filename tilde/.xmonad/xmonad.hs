@@ -24,7 +24,7 @@ myManageHook = composeAll
     ]
 
 
-main = xmonad $ defaultConfig
+main = xmonad $ ewmh defaultConfig
        { manageHook = myManageHook
        , handleEventHook = fullscreenEventHook
        , modMask = myModMask
