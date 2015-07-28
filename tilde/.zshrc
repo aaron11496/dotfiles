@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 bindkey -e  # emacs-style keybindings
-export EDITOR='emacs -nw'
+export EDITOR='vim'
 export BROWSER='google-chrome'
 
 setopt auto_cd auto_pushd cdable_vars pushd_ignore_dups pushd_silent  # cd
