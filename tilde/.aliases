@@ -1,8 +1,4 @@
 #!/bin/sh
-alias sudo='sudo '  # enable aliases in sudo commands
-
-alias d2u='sed 's/\r$//' '
-
 alias p='popd'
 
 alias ll='ls -l --group-directories-first'
@@ -24,11 +20,11 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias psm='ps aux | grep'
+alias nwd='notify-send "JOB COMPLETE"'
 
 alias ack='ack-grep'
 alias df='df -T'
-alias t='py.test --tb short'
-alias ymd='date +%Y%m%d'
+alias dfh='df -Th'
 
 alias ka='sudo killall -15'
 alias kan='sudo killall -9'
@@ -40,6 +36,7 @@ alias gb='git branch'
 alias gc='git checkout'
 alias gcl='git clone'
 alias gd='git diff'
+alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
 alias gds='git diff --stat'
 alias gf='git fetch'
@@ -48,6 +45,7 @@ alias ggi='git grep -i'
 alias gl='git log'
 alias gls='git log --stat'
 alias glp='git log -p --stat'
+alias gmend='git commit --amend'
 alias gm='git commit -m'
 alias gma='git commit -am'
 alias gp='git push'
@@ -56,6 +54,3 @@ alias gra='git remote add'
 alias grr='git remote rm'
 alias gs='git status -s'
 alias gt='git tag'
-
-alias dr='echo docker run -it --rm --net host --env-file /etc/accuvit.dev.env -v `realpath .`:/develop'
-alias dt='echo docker run -it --rm --net host --env-file /etc/accuvit.test.env -v `realpath .`:/develop'
