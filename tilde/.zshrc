@@ -58,11 +58,21 @@ autoload -U colors && colors
 autoload -Uz vcs_info
 setopt prompt_subst
 
+function +vi-git-stash() {
+    local -a stashes
+
+    if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
+        stashes=$(git stash list 2>/dev/null | wc -l)
+        hook_com[misc]+=" (${stashes} stashed)"
+    fi
+}
+
+zstyle ':vcs_info:git*+set-message:*' hooks git-stash
 zstyle ':vcs_info:*' stagedstr '%F{green}●'  # %c
 zstyle ':vcs_info:*' unstagedstr '%F{red}●'  # %u
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' enable git hg
-zstyle ':vcs_info:git*' formats " %F{yellow}%b"
+zstyle ':vcs_info:git*' formats " %F{yellow}%b%F{magenta}%m"
 zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
 
 precmd() { vcs_info }
