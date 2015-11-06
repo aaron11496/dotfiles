@@ -21,6 +21,7 @@ myManageHook = composeAll
     [ manageHook gnomeConfig
     , isFullscreen --> doFullFloat -- make full-screen windows work
     , className =? "HipChat" --> doF (W.shift "9")
+    , className =? "Xfce4-notifyd" --> doIgnore
     ]
 
 
