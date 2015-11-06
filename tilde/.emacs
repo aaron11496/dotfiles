@@ -66,11 +66,11 @@
 (setq x-select-enable-clipboard t)
 (transient-mark-mode t)
 
-(defun my-prog-nuke-trailing-whitespace ()
-  (when (derived-mode-p 'prog-mode)
-    (delete-trailing-whitespace)))
-(add-hook 'before-save-hook 'my-prog-nuke-trailing-whitespace)
-;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (require 'ido)
 (ido-mode t)
