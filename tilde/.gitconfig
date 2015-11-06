@@ -12,7 +12,7 @@
 	br = branch
 	ci = commit
 	co = checkout
-	df = diff --patience
+	df = diff
 	pl = pull
 	ps = push
 	st = status -s
@@ -34,3 +34,7 @@
 
 [merge]
 	tool = meld
+
+[diff]
+	algorithm = patience
+	mnemonicprefix = yes
