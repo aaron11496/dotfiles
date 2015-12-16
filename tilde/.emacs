@@ -120,6 +120,11 @@
   (setq save-place-file (expand-file-name ".places" user-emacs-directory))
   )
 
+(use-package beacon
+  :config
+  (beacon-mode 1)
+  )
+
 (use-package jedi
   :config
   (jedi:setup)
