@@ -13,7 +13,7 @@
 
 # To use it, put something like this in your .zshrc:
 # export WORKON_HOME="$HOME/.virtualenvs"
-# source ~/config/autoworkon.sh
+# source path/to/autoworkon.sh
 # chpwd() { auto_workon }
 
 

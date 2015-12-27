@@ -49,8 +49,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 export WORKON_HOME="$HOME/.virtualenvs"
 
-if [[ -e ~/config/autoworkon.sh ]]; then
-    source ~/config/autoworkon.sh
+if [[ -e ~/dotfiles/autoworkon.sh ]]; then
+    source ~/dotfiles/autoworkon.sh
     chpwd() { auto_workon }
 fi
 
