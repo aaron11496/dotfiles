@@ -103,15 +103,19 @@
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
-(use-package ace-jump-mode
-  :config
-  (defvar ace-jump-mode-submode-list
-    '(ace-jump-char-mode
-      ace-jump-word-mode
-      ace-jump-line-mode))
+(use-package avy
   :bind
-  ("C-c SPC" . ace-jump-mode)
-  ("C-c C-SPC" . ace-jump-mode)
+  ("C-c SPC" . avy-goto-char)
+  )
+
+(use-package anzu)
+
+(use-package buffer-move
+  :bind
+  ("C-S-<up>" . buf-move-up)
+  ("C-S-<down>" . buf-move-down)
+  ("C-S-<left>" . buf-move-left)
+  ("C-S-<right>" . buf-move-right)
   )
 
 (use-package saveplace
