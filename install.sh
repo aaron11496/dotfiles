@@ -3,16 +3,19 @@
 TILDE="$(readlink -f $(dirname $0)/tilde)"
 TARGET_FILES=$(find $TILDE -type f -exec readlink -f '{}' \;)
 
-pushd ~ > /dev/null
+pushd ~ >/dev/null
 
-for file in $TARGET_FILES; do
+for file in $TARGET_FILES
+do
     newlink=${file:${#TILDE}+1}
     newlinkdir=$(dirname $newlink)
 
-    [ ! -d $newlinkdir ] && mkdir -p -v $newlinkdir
+    [ ! -d "$newlinkdir" ] && mkdir -p -v "$newlinkdir"
 
-    ln -s -v $file $newlink
+    ln -s -v "$file" "$newlink"
 
 done
 
-popd > /dev/null
+popd >/dev/null
+
+echo "All done."
