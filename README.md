@@ -1,6 +1,8 @@
-# My Personal Linux Configuration #
+# Aaron's Dotfiles #
 
-To install or re-install dotfiles just run `install.sh`
+To install or re-install dotfiles just run `install.sh`. It installs every
+configuration file from this repo as a symlink from `~/`, creating
+subdirectories as necessary.
 
 
 ## Debian Jessie with Xfce4 ##
@@ -17,7 +19,8 @@ To install or re-install dotfiles just run `install.sh`
 
 ### Keyboard mute button doesn't unmute in Xfce4 ###
 
-Currently, `xfce4-volumed` sucks when working with `pulseaudio`. Fortunately, there's a fork called `xfce4-volumed-pulse` that works great:
+Currently, `xfce4-volumed` sucks when working with `pulseaudio`. Fortunately,
+there's a fork called `xfce4-volumed-pulse` that works great:
 
     https://launchpad.net/xfce4-volumed-pulse
 
@@ -25,7 +28,8 @@ Currently, `xfce4-volumed` sucks when working with `pulseaudio`. Fortunately, th
     make
     sudo make install
 
-It will bind to volume up/down/mute keys, but make sure you didn't already set shortcuts to those keys with `xfce4-keyboard-settings`.
+It will bind to volume up/down/mute keys, but make sure you didn't already set
+shortcuts to those keys with `xfce4-keyboard-settings`.
 
 
 ### Keyboard settings ###
@@ -42,7 +46,8 @@ You may need to add non-free apt repos, but then do this:
 
     sudo apt-get install firmware-iwlwifi
 
-To fix connecting to certain routers, disabling IPv6 is necessary. Add these lines to `/etc/sysctl.conf` then run `sysctl -p`:
+To fix connecting to certain routers, disabling IPv6 is necessary. Add these
+lines to `/etc/sysctl.conf` then run `sysctl -p`:
 
     net.ipv6.conf.all.disable_ipv6 = 1
     net.ipv6.conf.default.disable_ipv6 = 1
@@ -60,7 +65,8 @@ Edit `/etc/pulse/default.pa` and add this line to the bottom:
 
 ### Fix PulseAudio volume jumping when increased by 1% ###
 
-Edit `/etc/pulse/default.pa`, find the line loading `module-udev-detect` and change it to this:
+Edit `/etc/pulse/default.pa`, find the line loading `module-udev-detect` and
+change it to this:
 
     load-module module-udev-detect ignore_dB=1
 
