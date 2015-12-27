@@ -12,6 +12,8 @@ do
 
     [ ! -d "$newlinkdir" ] && mkdir -p -v "$newlinkdir"
 
+    [ -L "$newlink" ] && rm -v "$newlink"
+
     ln -s -v "$file" "$newlink"
 
 done
