@@ -39,6 +39,8 @@
 
 (eval-after-load "sql" '(progn (sql-set-product 'postgres)))
 
+(diminish 'auto-complete-mode)
+
 ;;
 ;; PACKAGE CONFIG
 ;;
@@ -58,6 +60,7 @@
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-delay 0)
+  :diminish flycheck-mode
   )
 
 (use-package multiple-cursors
@@ -127,6 +130,7 @@
 (use-package beacon
   :config
   (beacon-mode 1)
+  :diminish beacon-mode
   )
 
 (use-package jedi
@@ -151,6 +155,7 @@
 (use-package projectile
   :config
   (projectile-global-mode)
+  :diminish projectile-mode
   )
 
 ;;
