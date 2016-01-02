@@ -15,6 +15,7 @@
 (setq initial-scratch-message nil)
 (setq require-final-newline t)
 (setq ring-bell-function 'ignore)
+(setq uniquify-buffer-name-style 'post-forward)
 (setq x-select-enable-clipboard t)
 (setq-default sort-fold-case t)
 (setq-default fill-column 79)
@@ -39,17 +40,22 @@
 
 (eval-after-load "sql" '(progn (sql-set-product 'postgres)))
 
+(diminish 'auto-complete-mode)
+
 ;;
 ;; PACKAGE CONFIG
 ;;
 
 (require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ;("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+        ;("marmalade" . "http://marmalade-repo.org/packages/")
+        ("melpa" . "http://melpa.milkbox.net/packages/")
+        ))
 (package-initialize)
 
 (require 'use-package)
+(setq use-package-always-ensure t)
 (setq load-prefer-newer t)
 
 (use-package flycheck
@@ -58,6 +64,7 @@
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-delay 0)
+  :diminish flycheck-mode
   )
 
 (use-package multiple-cursors
@@ -93,11 +100,6 @@
   ("C-c C-c M-x" . execute-extended-command)
   )
 
-(use-package uniquify
-  :config
-  (setq uniquify-buffer-name-style 'forward)
-  )
-
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
@@ -108,7 +110,10 @@
   ("C-c SPC" . avy-goto-char)
   )
 
-(use-package anzu)
+(use-package anzu
+  :init
+  (anzu-mode)
+  )
 
 (use-package buffer-move
   :bind
@@ -127,6 +132,7 @@
 (use-package beacon
   :config
   (beacon-mode 1)
+  :diminish beacon-mode
   )
 
 (use-package jedi
@@ -139,6 +145,7 @@
   )
 
 (use-package robe-mode
+  :disabled t
   :config
   (add-hook 'ruby-mode-hook 'robe-mode)
   )
@@ -151,6 +158,7 @@
 (use-package projectile
   :config
   (projectile-global-mode)
+  :diminish projectile-mode
   )
 
 ;;
