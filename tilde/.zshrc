@@ -10,6 +10,7 @@ setopt always_to_end list_types  # completion
 
 setopt extendedglob hist_expire_dups_first hist_ignore_all_dups hist_ignore_space hist_verify share_history  # history
 HISTSIZE=2000
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 setopt check_jobs interactive_comments rcquotes transient_rprompt
@@ -144,3 +145,9 @@ fi
 
 autoload bashcompinit
 bashcompinit
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/home/aaron/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/home/aaron/google-cloud-sdk/completion.zsh.inc'

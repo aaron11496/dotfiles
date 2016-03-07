@@ -81,3 +81,10 @@ change it to this:
 
     wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
     sudo dpkg -i dropbox_*_amd64.deb
+
+
+### Xfsettingsd loses keyboard settings
+
+Edit /etc/xdg/autostart/xfsettingsd.desktop
+
+Exec=xfsettingsd --sync

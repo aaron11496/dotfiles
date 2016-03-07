@@ -1,8 +1,16 @@
 #!/bin/sh
+
+# This lets you have multiple ssh configs
+alias ssh='cat ~/.ssh/config.d/* >~/.ssh/config; ssh'
+
+alias jingle='cat /dev/urandom | hexdump -v -e '"'"'/1 "%u\n"'"'"' | awk '"'"'{ split("0,2,4,5,7,9,11,12",a,","); for (i = 0; i < 1; i+= 0.0001) printf("%08X\n", 100*sin(1382*exp((a[$1 % 8]/12)*log(2))*i)) }'"'"' | xxd -r -p | aplay -c 2 -f S32_LE -r 16000 2> /dev/null'
+alias jingle10='cat /dev/urandom | hexdump -v -e '"'"'/1 "%u\n"'"'"' | awk '"'"'{ split("0,2,4,5,7,9,11,12",a,","); for (i = 0; i < 1; i+= 0.0001) printf("%08X\n", 100*sin(1382*exp((a[$1 % 8]/12)*log(2))*i)) }'"'"' | xxd -r -p | timeout 10 aplay -c 2 -f S32_LE -r 16000 2> /dev/null'
+
 alias p='popd'
 
 alias ll='ls -l --group-directories-first'
 alias la='ls -A --group-directories-first'
+alias lh='ls -lh --group-directories-first'
 alias l='ls -CF --group-directories-first'
 alias lla='ls -lA --group-directories-first'
 
@@ -21,8 +29,10 @@ fi
 
 alias psm='ps aux | grep'
 alias nwd='notify-send "JOB COMPLETE"'
+alias uuid4='uuid -v 4'
 
-alias ack='ack-grep'
+alias xx='killall xfsettingsd'
+
 alias df='df -T'
 alias dfh='df -Th'
 
@@ -53,4 +63,17 @@ alias gpu='git pull'
 alias gra='git remote add'
 alias grr='git remote rm'
 alias gs='git status -s'
+alias gst='git stash'
+alias gstp='git stash show -p'
 alias gt='git tag'
+
+alias di='docker images'
+alias dp='docker ps'
+alias dpa='docker ps -a'
+alias dk='docker kill'
+alias dka='docker kill $(docker ps -q)'
+alias dr='docker run -it --rm --net host'
+alias dcleanp='docker rm $(docker ps -a -q -f status=exited)'  # removes all stopped containers
+alias dcleani='docker rmi $(docker images -q -f dangling=true)'  # removes all untagged images
+
+alias tiqssh='ssh -i ~/.ssh/TalkIQKeyPair2015-06-30.pem -l ubuntu'

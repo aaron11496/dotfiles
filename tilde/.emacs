@@ -18,7 +18,7 @@
 (setq uniquify-buffer-name-style 'post-forward)
 (setq x-select-enable-clipboard t)
 (setq-default sort-fold-case t)
-(setq-default fill-column 79)
+;;(setq-default fill-column 70)
 (setq-default indent-tabs-mode nil)
 (show-paren-mode t)
 (tool-bar-mode -1)
@@ -58,7 +58,7 @@
 
 (use-package diminish
   :config
-  (diminish 'auto-complete-mode)
+  ;(diminish 'auto-complete-mode)
   )
 
 (use-package flycheck
@@ -71,12 +71,12 @@
   )
 
 (use-package multiple-cursors
- :bind
- ("C-S-c C-S-c" . mc/edit-lines)
- ("C->" . mc/mark-next-like-this)
- ("C-<" . mc/mark-previous-like-this)
- ("C-c C-<" . mc/mark-all-like-this)
- )
+  :bind
+  ("C-S-c C-S-c" . mc/edit-lines)
+  ("C->" . mc/mark-next-like-this)
+  ("C-<" . mc/mark-previous-like-this)
+  ("C-c C-<" . mc/mark-all-like-this)
+  )
 
 (use-package flx-ido
   :config
@@ -85,7 +85,7 @@
   (setq ido-everywhere t)
   (setq ido-enable-flex-matching t)
   (setq ido-use-faces nil)
-  ;; (setq flx-ido-use-faces nil)
+  (setq flx-ido-use-faces nil)
   (defadvice ido-find-file (after find-file-sudo activate)
     "Make ido-mode find file as root if necessary."
     (unless (and buffer-file-name
@@ -117,6 +117,12 @@
   :init
   (anzu-mode)
   )
+
+(use-package image+
+  :init
+  (imagex-global-sticky-mode)
+  )
+
 
 (use-package buffer-move
   :bind
@@ -220,7 +226,7 @@
   (sort-regexp-fields reverse "\\w+" "\\&" beg end))
 
 
-(defun my-custom-frames ()
+(defun three-columns ()
   "Set the frames to three even-width columns."
   (interactive)
   (delete-other-windows)
@@ -231,6 +237,22 @@
   (next-multiframe-window)
   (switch-to-next-buffer)
   (balance-windows))
+
+(defun four-columns ()
+  "Set the frames to three even-width columns."
+  (interactive)
+  (delete-other-windows)
+  (split-window-horizontally)
+  (next-multiframe-window)
+  (switch-to-next-buffer)
+  (split-window-horizontally)
+  (next-multiframe-window)
+  (switch-to-next-buffer)
+  (split-window-horizontally)
+  (next-multiframe-window)
+  (switch-to-next-buffer)
+  (balance-windows))
+
 
 ;;
 ;; KEYBOARD SHORTCUTS
@@ -243,7 +265,8 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 (global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
 (global-set-key [C-tab] 'next-multiframe-window)
-(global-set-key [f7] 'my-custom-frames)
+(global-set-key [f7] 'three-columns)
+(global-set-key [f8] 'four-columns)
 (global-set-key [M-f12] 'revert-buffer)
 (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
 

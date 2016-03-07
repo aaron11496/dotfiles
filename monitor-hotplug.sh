@@ -12,7 +12,7 @@ sed_command="/bin/sed"
 connected_display=`DISPLAY=:0 $xrandr_command | $sed_command -n 's/\b\(DP[12]\)\b connected.*/\1/p'`
 
 if [ -n "$connected_display" ]; then
-    $xrandr_command --output $connected_display --right-of $normal_display --primary --preferred
+    $xrandr_command --output $connected_display --right-of $normal_display --primary --mode 2560x1440
 else
     $xrandr_command --auto
 fi
