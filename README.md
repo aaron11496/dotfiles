@@ -7,6 +7,15 @@ subdirectories as necessary.
 
 ## Debian Jessie with Xfce4 ##
 
+### Automatic Monitor Configuration ###
+
+Currently, xfce4 doesn't seem to have a way to automatically reconfigure displays when a monitor is plugged or unplugged. Fortunately, there's a tool called `autorandr` that can do that for us with a simple udev rule.
+
+Install this fork of `autorandr`: https://github.com/phillipberndt/autorandr
+
+Use the `autorandr` instructions to create profiles for all of your monitor setups.
+
+
 ### Disable system beep ###
 
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
