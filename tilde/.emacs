@@ -108,6 +108,12 @@
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
   )
 
+(use-package fill-column-indicator
+  :config
+  (setq fci-rule-color "dark slate gray")
+  (setq fci-rule-use-dashes t)
+  )
+
 (use-package avy
   :bind
   ("C-c SPC" . avy-goto-char)
