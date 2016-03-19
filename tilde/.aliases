@@ -31,8 +31,6 @@ alias psm='ps aux | grep'
 alias nwd='notify-send "JOB COMPLETE"'
 alias uuid4='uuid -v 4'
 
-alias xx='killall xfsettingsd'
-
 alias df='df -T'
 alias dfh='df -Th'
 
