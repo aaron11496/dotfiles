@@ -332,4 +332,4 @@
 ;;
 ;; STARTUP
 ;;
-(when (equal command-line-args (list "emacs")) (my-custom-frames))
+(when (equal command-line-args (list "emacs")) (three-columns))
