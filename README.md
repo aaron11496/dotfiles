@@ -9,11 +9,15 @@ subdirectories as necessary.
 
 ### Automatic Monitor Configuration ###
 
-Currently, xfce4 doesn't seem to have a way to automatically reconfigure displays when a monitor is plugged or unplugged. Fortunately, there's a tool called `autorandr` that can do that for us with a simple udev rule.
+Currently, xfce4 doesn't seem to have a way to automatically reconfigure
+displays when a monitor is plugged or unplugged. Fortunately, there's a
+tool called `autorandr` that can do that for us with a simple udev rule.
 
-Install this fork of `autorandr`: https://github.com/phillipberndt/autorandr
+Install this fork of `autorandr`:
+https://github.com/phillipberndt/autorandr
 
-Use the `autorandr` instructions to create profiles for all of your monitor setups.
+Use the `autorandr` instructions to create profiles for all of your
+monitor setups.
 
 
 ### Disable system beep ###
@@ -28,8 +32,10 @@ Use the `autorandr` instructions to create profiles for all of your monitor setu
 
 ### Keyboard mute button doesn't unmute in Xfce4 ###
 
-Currently, `xfce4-volumed` sucks when working with `pulseaudio`. Fortunately,
-there's a fork called `xfce4-volumed-pulse` that works great:
+Currently, `xfce4-volumed` sucks when working with
+`pulseaudio`. Fortunately, there's a fork called `xfce4-volumed-pulse`
+that works great. Make sure you install the `libnotify-dev` package before
+building or else you won't see pop-ups when changing the volume.
 
     https://launchpad.net/xfce4-volumed-pulse
 
@@ -37,8 +43,8 @@ there's a fork called `xfce4-volumed-pulse` that works great:
     make
     sudo make install
 
-It will bind to volume up/down/mute keys, but make sure you didn't already set
-shortcuts to those keys with `xfce4-keyboard-settings`.
+It will bind to volume up/down/mute keys, but make sure you didn't already
+set shortcuts to those keys with `xfce4-keyboard-settings`.
 
 
 ### Keyboard settings ###
@@ -55,8 +61,8 @@ You may need to add non-free apt repos, but then do this:
 
     sudo apt-get install firmware-iwlwifi
 
-To fix connecting to certain routers, disabling IPv6 is necessary. Add these
-lines to `/etc/sysctl.conf` then run `sysctl -p`:
+To fix connecting to certain routers, disabling IPv6 is necessary. Add
+these lines to `/etc/sysctl.conf` then run `sysctl -p`:
 
     net.ipv6.conf.all.disable_ipv6 = 1
     net.ipv6.conf.default.disable_ipv6 = 1
@@ -74,8 +80,8 @@ Edit `/etc/pulse/default.pa` and add this line to the bottom:
 
 ### Fix PulseAudio volume jumping when increased by 1% ###
 
-Edit `/etc/pulse/default.pa`, find the line loading `module-udev-detect` and
-change it to this:
+Edit `/etc/pulse/default.pa`, find the line loading `module-udev-detect`
+and change it to this:
 
     load-module module-udev-detect ignore_dB=1
 
@@ -101,4 +107,5 @@ Exec=xfsettingsd --sync
 
 ### Configuring Docker
 
-To make docker use a different directory for the graph, just create a symlink from `/var/lib/docker` to wherever you have space.
+To make docker use a different directory for the graph, just create a
+symlink from `/var/lib/docker` to wherever you have space.
