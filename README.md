@@ -97,3 +97,8 @@ change it to this:
 Edit /etc/xdg/autostart/xfsettingsd.desktop
 
 Exec=xfsettingsd --sync
+
+
+### Configuring Docker
+
+To make docker use a different directory for the graph, just create a symlink from `/var/lib/docker` to wherever you have space.
