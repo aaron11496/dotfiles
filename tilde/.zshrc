@@ -146,8 +146,6 @@ fi
 autoload bashcompinit
 bashcompinit
 
-# The next line updates PATH for the Google Cloud SDK.
-source '/home/aaron/google-cloud-sdk/path.zsh.inc'
 
-# The next line enables shell command completion for gcloud.
-source '/home/aaron/google-cloud-sdk/completion.zsh.inc'
+[[ -e "~/google-cloud-sdk/path.zsh.inc" ]] && source '~/google-cloud-sdk/path.zsh.inc'
+[[ -e "~/google-cloud-sdk/completion.zsh.inc" ]] && source '~/google-cloud-sdk/completion.zsh.inc'
