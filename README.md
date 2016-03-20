@@ -86,25 +86,6 @@ and change it to this:
     load-module module-udev-detect ignore_dB=1
 
 
-### Google Chrome ###
-
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-
-
-### DropBox (amd64) ###
-
-    wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-    sudo dpkg -i dropbox_*_amd64.deb
-
-
-### Xfsettingsd loses keyboard settings
-
-Edit /etc/xdg/autostart/xfsettingsd.desktop
-
-Exec=xfsettingsd --sync
-
-
 ### Configuring Docker
 
 To make docker use a different directory for the graph, just create a
