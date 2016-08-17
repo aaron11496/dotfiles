@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.CopyWindow
 import XMonad.Config.Gnome
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -10,7 +11,7 @@ import qualified XMonad.StackSet as W
 
 
 myModMask = mod4Mask -- set mod key to windows key
----myModMask = mod1Mask -- set mod key to alt key
+--myModMask = mod1Mask -- set mod key to alt key
 
 
 myLayoutHook = avoidStruts
