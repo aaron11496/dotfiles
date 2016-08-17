@@ -34,6 +34,7 @@ main = xmonad $ ewmh defaultConfig
        , normalBorderColor = "dim gray"
        }
        `additionalKeys`  -- see /usr/include/X11/keysymdef.h
-       [
-         ((myModMask, xK_grave), toggleWS)
+       [ ((myModMask, xK_grave), toggleWS)
+       , ((myModMask, xK_v ), windows copyToAll)
+       , ((myModMask .|. shiftMask, xK_v ), killAllOtherCopies)
        ]
