@@ -1,4 +1,5 @@
 import XMonad
+import XMonad.Actions.CopyWindow
 import XMonad.Actions.CycleWS
 import XMonad.Actions.CopyWindow
 import XMonad.Config.Gnome
