@@ -1,0 +1,90 @@
+---
+- hosts: localhost
+
+  tasks:
+
+    - name: Disable system beep
+      copy:
+        dest: /etc/modprobe.d/nobeep.conf
+        content: blacklist pcspkr
+
+    - name: Configure Keyboard
+      lineinfile:
+        dest: /etc/default/keyboard
+        regexp: '^XKBOPTIONS='
+        #line: 'XKBOPTIONS="compose:menu,ctrl:nocaps"'
+        line: 'XKBOPTIONS="compose:prsc,ctrl:nocaps"'
+
+    - name: Install APT packages
+      apt:
+        name: "{{ item }}"
+      with_lines: cat apt-packages.txt
+
+    - name: Clone Git source
+      git:
+        repo: https://github.com/git/git.git
+        version: v2.10.0
+        dest: /opt/git
+        accept_hostkey: yes
+
+    - name: Uninstall APT git
+      apt:
+        name: git
+        state: absent
+
+    - name: Install Git dependencies
+      apt:
+        name: libcurl4-gnutls-dev,libexpat1-dev,gettext,libz-dev,libssl-dev,asciidoc,xmlto,docbook2x
+
+    - name: Install Git
+      shell: |
+        make prefix=/usr/local doc all
+        make prefix=/usr/local install install-doc
+      args:
+        chdir: /opt/git/
+
+    - name: Clone RedShift source
+      git:
+        repo: https://github.com/jonls/redshift.git
+        version: v1.11
+        dest: /opt/redshift
+        accept_hostkey: yes
+
+    - name: Install RedShift
+      shell: |
+        ./bootstrap
+        ./configure
+        make
+        make install
+      args:
+        chdir: /opt/redshift/
+
+    - name: Install Slack
+      apt:
+        deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-2.2.1-amd64.deb
+
+    - name: Install Ubuntu Font
+      unarchive:
+        src: http://font.ubuntu.com/download/ubuntu-font-family-0.83.zip
+        dest: /usr/share/fonts/truetype
+
+    - name: Install Slock
+      unarchive:
+        src: http://dl.suckless.org/tools/slock-1.3.tar.gz
+        dest: /opt/slock-1.3
+
+    - name: Uninstall xscreensaver
+      apt:
+        name: xscreensaver
+        state: absent
+
+    - name: Use Slock as xflock4
+      shell: |
+        mv /usr/bin/xflock4 /usr/bin/xflock4.orig
+        ln -s /usr/local/bin/slock /usr/bin/xflock4
+
+    - name: PulseAudo switch-on-connect
+      lineinfile:
+        dest: /etc/pulse/default.pa
+        insertafter: EOF
+        line: load-module module-switch-on-connect

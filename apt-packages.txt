@@ -1,0 +1,16 @@
+emacs
+fonts-dejavu
+fonts-inconsolata
+fonts-liberation
+fonts-sil-gentium-basic
+geoclue-2.0
+git
+linux-headers-amd64
+linux-image-amd64
+ntp
+rxvt-unicode
+sudo
+vim
+ntp
+xmonad
+zsh

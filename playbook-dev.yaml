@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+
+  tasks:
+
+    - name: Install ZeroTier One
+      shell: curl -s https://install.zerotier.com/ | bash
+
+    - name: Install Docker
+      shell: curl -sSL https://get.docker.com/ | sed 's/sleep /sleep ./g' | sh
+      args:
+        creates: /usr/bin/docker
+
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: yes
