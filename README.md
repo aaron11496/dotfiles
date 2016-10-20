@@ -43,16 +43,6 @@ You may need to add non-free apt repos, but then do this:
 
     sudo apt-get install firmware-iwlwifi
 
-To fix connecting to certain routers, disabling IPv6 is necessary. Add
-these lines to `/etc/sysctl.conf` then run `sysctl -p`:
-
-    net.ipv6.conf.all.disable_ipv6 = 1
-    net.ipv6.conf.default.disable_ipv6 = 1
-    net.ipv6.conf.lo.disable_ipv6 = 1
-    net.ipv6.conf.eth0.disable_ipv6 = 1
-    net.ipv6.conf.wlan0.disable_ipv6 = 1
-
-
 ### Fix PulseAudio volume jumping when increased by 1% ###
 
 Edit `/etc/pulse/default.pa`, find the line loading `module-udev-detect`
@@ -65,3 +55,7 @@ and change it to this:
 
 To make docker use a different directory for the graph, just create a
 symlink from `/var/lib/docker` to wherever you have space.
+
+
+### Playbook
+ sshpass

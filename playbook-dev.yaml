@@ -3,8 +3,26 @@
 
   tasks:
 
+    - name: Create ~/.docker
+      file:
+        state: directory
+        path: "{{ ansible_user_dir }}/.docker"
+
+- hosts: localhost
+  become: yes
+  gather_facts: no
+
+  tasks:
+
     - name: Install ZeroTier One
       shell: curl -s https://install.zerotier.com/ | bash
+
+    - name: Link /var/lib/docker to ~/.docker
+      file:
+        state: link
+        force: yes
+        src: "{{ ansible_user_dir }}/.docker"
+        dest: /var/lib/docker
 
     - name: Install Docker
       shell: curl -sSL https://get.docker.com/ | sed 's/sleep /sleep ./g' | sh
