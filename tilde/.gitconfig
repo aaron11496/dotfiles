@@ -19,8 +19,17 @@
 	lg = log --stat
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
 	last = cat-file commit HEAD
 	merge = merge --no-ff
+	unmerged = diff --name-only --diff-filter=U
+	branches = branch -a
+	tags = tag
+	stashes = stash list
+	unstage = reset -q HEAD --
+	discard = checkout --
+	uncommit = reset --mixed HEAD~
+	amend = commit --amend
 	fuckit = reset --hard
 
 [log]
@@ -36,5 +45,6 @@
 	tool = meld
 
 [diff]
+	staged = yes
 	algorithm = patience
 	mnemonicprefix = yes

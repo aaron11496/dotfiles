@@ -50,7 +50,7 @@
 
 (require 'package)
 (setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
+      '(;("gnu" . "http://elpa.gnu.org/packages/")
         ;("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.milkbox.net/packages/")
         ))
@@ -178,6 +178,12 @@
   :config
   (projectile-global-mode)
   :diminish projectile-mode
+  )
+
+(use-package ace-window
+  :config
+  (global-set-key (kbd "M-p") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   )
 
 ;;

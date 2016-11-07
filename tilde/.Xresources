@@ -5,10 +5,6 @@ urxvt*scrollTtyKeypress: true
 urxvt*saveLines: 10000
 urxvt*foreground: white
 urxvt*background: black
-! urxvt*font: xft:SourceCodePro:pixelsize=13
-! urxvt*boldFont: xft:SourceCodePro:bold:pixelsize=13
-! urxvt*font: xft:AnonymousPro:pixelsize=14
-! urxvt*boldFont: xft:AnonymousPro:bold:pixelsize=14
 urxvt*font: xft:Inconsolata:pixelsize=16
 urxvt*boldFont: xft:Inconsolata:bold:pixelsize=16
 
