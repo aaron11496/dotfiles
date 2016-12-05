@@ -14,6 +14,14 @@
 
   tasks:
 
+    - name: Download Gcloud SDK
+      unarchive:
+        copy: no
+        src: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-135.0.0-linux-x86_64.tar.gz
+        dest: /opt/
+
+    - fail:
+
     - name: Install ZeroTier One
       shell: curl -s https://install.zerotier.com/ | bash
 

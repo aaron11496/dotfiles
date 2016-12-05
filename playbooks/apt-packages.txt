@@ -1,3 +1,15 @@
+#xfwm4
+xfconf
+xfce4-settings
+xfce4-panel
+thunar
+gtk2-engines-xfce
+xfce4-session
+xfce4-appfinder
+xfce4-mixer
+libxfce4ui-utils
+xorg
+xfce4-notifyd
 build-essential
 emacs
 fonts-dejavu
@@ -13,6 +25,7 @@ rxvt-unicode
 silversearcher-ag
 spotify-client
 sudo
+tree
 vim
 xmonad
 zsh

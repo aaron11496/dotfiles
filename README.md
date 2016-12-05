@@ -4,6 +4,16 @@ To install or re-install dotfiles just run `install.sh`. It installs every
 configuration file from this repo as a symlink from `~/`, creating
 subdirectories as necessary.
 
+To install software and configure a machine:
+
+    # As root:
+    apt-get build-dep -y ansible
+    apt-get install -y libssl-dev python-dev
+    easy_install pip
+    pip install ansible==2.2.0.0
+
+    # As user:
+    ansible-playbook -i "localhost," playbooks/common.yaml -c local -K
 
 ## Debian Jessie with Xfce4 ##
 
@@ -55,7 +65,3 @@ and change it to this:
 
 To make docker use a different directory for the graph, just create a
 symlink from `/var/lib/docker` to wherever you have space.
-
-
-### Playbook
- sshpass
