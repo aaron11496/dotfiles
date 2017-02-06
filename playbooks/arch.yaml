@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+
+    - name: Disable system beep
+      copy:
+        dest: /etc/modprobe.d/nobeep.conf
+        content: blacklist pcspkr
+
+    - name: Copy packages file
+      copy:
+        src: arch-packages.txt
+        dest: /tmp/arch-packages.txt
+
+    - name: Install pacaur
+      shell: pacman -Syu --noconfirm pacaur
+
+    # - name: Install pacakges
+    #   shell: pacaur -Syu --noedit --noconfirm - < /tmp/arch-packages.txt
+    #   become: no
+
+    - name: Set keyboard repeat rate
+      lineinfile:
+        dest: /etc/lightdm/lightdm.conf
+        regexp: '# xserver-command=X.*'
+        line: 'xserver-command=X -ardelay 200 -arinterval 25'
