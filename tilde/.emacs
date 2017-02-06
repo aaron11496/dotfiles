@@ -26,13 +26,10 @@
 (transient-mark-mode t)
 
 ;; save backup files to a single dir
-(setq backup-dir "~/.emacs_backups/")
-
+(defvar backup-dir "~/.emacs_backups/")
+(if (not (file-exists-p backup-dir)) (make-directory backup-dir))
 (defun make-backup-file-name (file)
-  (if (not (file-accessible-directory-p backup-dir))
-      (make-directory backup-dir))
   (concat backup-dir (file-name-nondirectory file) "~"))
-
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
@@ -146,12 +143,6 @@
   :config
   (setq-default save-place t)
   (setq save-place-file (expand-file-name ".places" user-emacs-directory))
-  )
-
-(use-package beacon
-  :config
-  (beacon-mode 1)
-  :diminish beacon-mode
   )
 
 (use-package jedi
@@ -349,3 +340,17 @@
 ;; STARTUP
 ;;
 (when (equal command-line-args (list "emacs")) (three-columns))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yaml-mode use-package smex sequential-command sequences rainbow-delimiters projectile multiple-cursors jedi image+ flycheck flx-ido fill-column-indicator buffer-move anzu ace-window))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
