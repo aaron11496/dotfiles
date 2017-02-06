@@ -26,9 +26,10 @@
 (transient-mark-mode t)
 
 ;; save backup files to a single dir
+(defvar backup-dir "~/.emacs_backups/")
+(if (not (file-exists-p backup-dir)) (make-directory backup-dir))
 (defun make-backup-file-name (file)
-  (concat "~/.emacs_backups/" (file-name-nondirectory file) "~"))
-
+  (concat backup-dir (file-name-nondirectory file) "~"))
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
