@@ -145,12 +145,6 @@
   (setq save-place-file (expand-file-name ".places" user-emacs-directory))
   )
 
-(use-package beacon
-  :config
-  (beacon-mode 1)
-  :diminish beacon-mode
-  )
-
 (use-package jedi
   :config
   (jedi:setup)
