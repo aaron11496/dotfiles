@@ -270,8 +270,6 @@
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
-(global-set-key [C-tab] 'next-multiframe-window)
 (global-set-key [f7] 'three-columns)
 (global-set-key [f8] 'four-columns)
 (global-set-key [M-f12] 'revert-buffer)
