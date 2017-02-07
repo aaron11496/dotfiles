@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: localhost
   become: yes
   gather_facts: no
 
@@ -18,9 +18,9 @@
     - name: Install pacaur
       shell: pacman -Syu --noconfirm pacaur
 
-    # - name: Install pacakges
-    #   shell: pacaur -Syu --noedit --noconfirm - < /tmp/arch-packages.txt
-    #   become: no
+    - name: Install pacakges
+      shell: pacaur -Syu --noedit --noconfirm - < /tmp/arch-packages.txt
+      become: no
 
     - name: Set keyboard repeat rate
       lineinfile:

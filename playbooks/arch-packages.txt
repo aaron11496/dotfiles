@@ -12,6 +12,7 @@ dhcpcd
 dialog
 diffutils
 dmenu
+docker
 e2fsprogs
 emacs
 fakeroot
@@ -56,6 +57,7 @@ netctl
 network-manager-applet
 networkmanager
 nmap
+npm
 nss-mdns
 openssh
 otf-fira-mono
