@@ -27,3 +27,13 @@
         dest: /etc/lightdm/lightdm.conf
         regexp: '# xserver-command=X.*'
         line: 'xserver-command=X -ardelay 200 -arinterval 25'
+
+
+- hosts: localhost
+  become: no
+  gather_facts: no
+
+  tasks:
+
+    - name: Enable Redshift
+      shell: systemctl --user enable redshift
