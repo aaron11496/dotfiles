@@ -6,7 +6,7 @@ subdirectories as necessary.
 
 To install software and configure a machine:
 
-    # on UBUNTU as root
+    # on DEBIAN as root
     apt-get build-dep -y ansible
     apt-get install -y libssl-dev python-dev
     easy_install pip
@@ -15,7 +15,7 @@ To install software and configure a machine:
     # on ARCH as root
     pacman -Syu ansible=2.2.1.0-1
 
-    # then, as user
+    # then, as user, pick a playbook
     ansible-playbook -i "localhost," playbooks/common.yaml -c local -K
 
 ## Debian Jessie with Xfce4 ##
@@ -70,6 +70,9 @@ To make docker use a different directory for the graph, just create a
 symlink from `/var/lib/docker` to wherever you have space.
 
 
-virtualbox-guest-dkms
-virtualbox-guest-iso
-virtualbox-guest-utils
+### Virtualbox Arch Guest
+
+
+
+    pacaur -S virtualbox-guest-dkms virtualbox-guest-iso virtualbox-guest-
+    VBoxClient-all  # add to .xinitrc or /etc/rc.local
