@@ -72,7 +72,5 @@ symlink from `/var/lib/docker` to wherever you have space.
 
 ### Virtualbox Arch Guest
 
-
-
     pacaur -S virtualbox-guest-dkms virtualbox-guest-iso virtualbox-guest-
     VBoxClient-all  # add to .xinitrc or /etc/rc.local

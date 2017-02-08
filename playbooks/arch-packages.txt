@@ -1,3 +1,4 @@
+alsa-utils
 ansible
 arch-wiki-cli
 autoconf
@@ -71,6 +72,8 @@ pkg-config
 plymouth
 procps-ng
 psmisc
+pulseaudio
+pulseaudio-alsa
 python2-setuptools
 redshift
 reiserfsprogs
