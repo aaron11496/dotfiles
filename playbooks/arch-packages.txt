@@ -80,7 +80,7 @@ screenfetch
 scrot
 sed
 shadow
-slack
+slack-desktop
 sudo
 sysfsutils
 systemd-sysvcompat
