@@ -1,0 +1,3 @@
+VBoxClient-all
+setxkbmap -option compose:paus,ctrl:nocaps
+xbanish &
