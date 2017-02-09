@@ -1,7 +1,16 @@
 ---
 - hosts: localhost
+  become: no
+
+  tasks:
+
+    - name: Create ~/.docker
+      file:
+        state: directory
+        path: '{{ ansible_user_dir }}/.docker'
+
+- hosts: localhost
   become: yes
-  gather_facts: no
 
   tasks:
 
@@ -25,15 +34,43 @@
     - name: Set keyboard repeat rate
       lineinfile:
         dest: /etc/lightdm/lightdm.conf
-        regexp: '# xserver-command=X.*'
+        regexp: '(# )?xserver-command=X.*'
         line: 'xserver-command=X -ardelay 200 -arinterval 25'
 
+    - name: Stop Docker service
+      service:
+        name: docker
+        state: stopped
 
-- hosts: localhost
-  become: no
-  gather_facts: no
+    - name: Link /var/lib/docker to ~/.docker
+      file:
+        state: link
+        force: yes
+        src: '{{ ansible_user_dir }}/.docker'
+        dest: /var/lib/docker
 
-  tasks:
+    - name: Add user to docker group
+      user:
+        name: '{{ ansible_user_id }}'
+        groups: docker
+        append: yes
+
+    - name: Restart Docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Download ZeroTier-One
+      git:
+        repo: https://github.com/zerotier/ZeroTierOne.git
+        dest: /opt/ZeroTierOne
+        accept_hostkey: yes
+
+    - name: Install ZeroTier-One
+      shell: 'make && make install'
+      args:
+        chdir: /opt/ZeroTierOne
 
     - name: Enable Redshift
       shell: systemctl --user enable redshift
+      become: no
