@@ -4,20 +4,14 @@
 
   tasks:
 
-    - name: Create ~/.docker
-      file:
-        state: directory
-        path: '{{ ansible_user_dir }}/.docker'
+    - set_fact:
+        target_user_name: '{{ ansible_user_id }}'
+        target_home_dir: '{{ ansible_user_dir }}'
 
 - hosts: localhost
   become: yes
 
   tasks:
-
-    - name: Disable system beep
-      copy:
-        dest: /etc/modprobe.d/nobeep.conf
-        content: blacklist pcspkr
 
     - name: Copy packages file
       copy:
@@ -31,27 +25,20 @@
       shell: pacaur -Syu --noedit --noconfirm - < /tmp/arch-packages.txt
       become: no
 
-    - name: Set keyboard repeat rate
+    - name: Disable system beep
+      copy:
+        dest: /etc/modprobe.d/nobeep.conf
+        content: blacklist pcspkr
+
+    - name: Set X keyboard repeat rate in LightDM
       lineinfile:
         dest: /etc/lightdm/lightdm.conf
         regexp: '(# )?xserver-command=X.*'
         line: 'xserver-command=X -ardelay 200 -arinterval 25'
 
-    - name: Stop Docker service
-      service:
-        name: docker
-        state: stopped
-
-    - name: Link /var/lib/docker to ~/.docker
-      file:
-        state: link
-        force: yes
-        src: '{{ ansible_user_dir }}/.docker'
-        dest: /var/lib/docker
-
     - name: Add user to docker group
       user:
-        name: '{{ ansible_user_id }}'
+        name: '{{ target_user_name }}'
         groups: docker
         append: yes
 
@@ -59,6 +46,10 @@
       service:
         name: docker
         state: started
+
+    - name: Enable Redshift
+      shell: systemctl --user enable redshift
+      become: no
 
     - name: Download ZeroTier-One
       git:
@@ -70,7 +61,3 @@
       shell: 'make && make install'
       args:
         chdir: /opt/ZeroTierOne
-
-    - name: Enable Redshift
-      shell: systemctl --user enable redshift
-      become: no
