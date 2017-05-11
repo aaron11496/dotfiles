@@ -1,5 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore
+	fileMode = yes
 
 [user]
 	name = Aaron Adelson
@@ -48,3 +49,4 @@
 	staged = yes
 	algorithm = patience
 	mnemonicprefix = yes
+	renames = yes
