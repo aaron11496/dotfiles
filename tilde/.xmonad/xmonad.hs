@@ -7,8 +7,11 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
+import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
+
+import XMonad.Hooks.SetWMName
 
 
 myModMask = mod4Mask -- set mod key to windows key
@@ -17,7 +20,9 @@ myModMask = mod4Mask -- set mod key to windows key
 
 myLayoutHook = avoidStruts
                $ smartBorders
-               $ (Tall 1 (4/100) (1/2) ||| Full)
+               -- $ (Tall 1 (4/100) (1/2) ||| Full ||| ThreeColMid 1 (4/100) (2/5))
+               $ (ThreeColMid 1 (4/100) (4/10) ||| Full)
+
 
 myManageHook = composeAll
     [ manageHook gnomeConfig
