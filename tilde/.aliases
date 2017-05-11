@@ -1,7 +1,10 @@
 #!/bin/sh
 
-alias jingle='cat /dev/urandom | hexdump -v -e '"'"'/1 "%u\n"'"'"' | awk '"'"'{ split("0,2,4,5,7,9,11,12",a,","); for (i = 0; i < 1; i+= 0.0001) printf("%08X\n", 100*sin(1382*exp((a[$1 % 8]/12)*log(2))*i)) }'"'"' | xxd -r -p | aplay -c 2 -f S32_LE -r 16000 2> /dev/null'
-alias jingle10='cat /dev/urandom | hexdump -v -e '"'"'/1 "%u\n"'"'"' | awk '"'"'{ split("0,2,4,5,7,9,11,12",a,","); for (i = 0; i < 1; i+= 0.0001) printf("%08X\n", 100*sin(1382*exp((a[$1 % 8]/12)*log(2))*i)) }'"'"' | xxd -r -p | timeout --foreground 10 aplay -c 2 -f S32_LE -r 16000 2> /dev/null'
+function kkh {
+    sed --in-place "${1}d" /home/aaron/.ssh/known_hosts
+}
+
+alias capslockoff='python -c ''from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'''
 
 alias p='popd'
 
@@ -10,6 +13,8 @@ alias la='ls -A --group-directories-first'
 alias lh='ls -lh --group-directories-first'
 alias l='ls -CF --group-directories-first'
 alias lla='ls -lA --group-directories-first'
+alias lah='ls -lah --group-directories-first'
+alias lash='ls -laSh --group-directories-first'
 
 # colorful ls/dir/grep
 if [ -x /usr/bin/dircolors ]; then
@@ -24,9 +29,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias zgrep='zgrep --color=auto'
 fi
 
-alias psm='ps aux | grep'
+alias psg='ps -ef | grep'
 alias nwd='notify-send "JOB COMPLETE"'
 alias uuid4='uuid -v 4'
+alias duh='du -h -d 1 . | sort -n'
+alias c='pygmentize -g'
 
 alias df='df -T'
 alias dfh='df -Th'
@@ -41,6 +48,7 @@ alias gb='git branch'
 alias gc='git checkout'
 alias gcl='git clone'
 alias gd='git diff'
+alias gdw='git diff --word-diff=color'
 alias gdh='git diff HEAD'
 alias gdc='git diff --cached'
 alias gds='git diff --stat'
@@ -67,8 +75,8 @@ alias dp='docker ps'
 alias dpa='docker ps -a'
 alias dk='docker kill'
 alias dka='docker kill $(docker ps -q)'
+alias de='docker exec -it'
 alias dr='docker run -it --rm --net host'
 alias dcleanp='docker rm $(docker ps -a -q -f status=exited)'  # removes all stopped containers
 alias dcleani='docker rmi $(docker images -q -f dangling=true)'  # removes all untagged images
-
-alias tiqssh='ssh -i ~/.ssh/TalkIQKeyPair2015-06-30.pem -l ubuntu'
+alias dcmp='docker-compose'
