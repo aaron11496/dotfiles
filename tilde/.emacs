@@ -26,6 +26,8 @@
 (transient-mark-mode t)
 
 ;; save backup files to a single dir
+(defvar backup-dir "~/.emacs_backups/")
+(if (not (file-exists-p backup-dir)) (make-directory backup-dir))
 (defun make-backup-file-name (file)
   (concat "~/.emacs_backups/" (file-name-nondirectory file) "~"))
 
@@ -54,7 +56,7 @@
 
 (require 'package)
 (setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
+      '(;("gnu" . "http://elpa.gnu.org/packages/")
         ;("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.milkbox.net/packages/")
         ))
@@ -178,12 +180,6 @@
   :config
   (setq-default save-place t)
   (setq save-place-file (expand-file-name ".places" user-emacs-directory))
-  )
-
-(use-package beacon
-  :config
-  (beacon-mode 1)
-  :diminish beacon-mode
   )
 
 (use-package jedi
