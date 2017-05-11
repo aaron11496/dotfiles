@@ -29,6 +29,14 @@
 (defun make-backup-file-name (file)
   (concat "~/.emacs_backups/" (file-name-nondirectory file) "~"))
 
+(add-hook 'pug-mode-hook
+      (lambda ()
+        (setq tab-width 2)
+        ))
+(add-hook 'json-mode-hook
+          (lambda ()
+            (make-local-variable 'js-indent-level)
+            (setq js-indent-level 2)))
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
@@ -61,13 +69,41 @@
   ;(diminish 'auto-complete-mode)
   )
 
+(require 'flycheck)
+
+;; We can safely declare this function, since we'll only call it in Python Mode,
+;; that is, when python.el was already loaded.
+(declare-function python-shell-calculate-exec-path "python")
+
+(defun flycheck-virtualenv-executable-find (executable)
+  "Find an EXECUTABLE in the current virtualenv if any."
+  (if (bound-and-true-p python-shell-virtualenv-root)
+      (let ((exec-path (python-shell-calculate-exec-path)))
+        (executable-find executable))
+    (executable-find executable)))
+
+(defun flycheck-virtualenv-setup ()
+  "Setup Flycheck for the current virtualenv."
+  (setq-local flycheck-executable-find #'flycheck-virtualenv-executable-find))
+
+(provide 'flycheck-virtualenv)
+(add-hook 'sh-mode-hook 'flycheck-mode)
+
 (use-package flycheck
   :config
   (global-flycheck-mode 1)
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-delay 0)
+  (setq-default flycheck-shellcheck-excluded-warnings '("SC2086", "SC2046"))
+  (add-hook 'flycheck-mode-hook #'flycheck-virtualenv-setup)
   :diminish flycheck-mode
+  )
+
+(use-package default-text-scale
+  :bind
+  ("C-M-=" . default-text-scale-increase)
+  ("C-M--" . default-text-scale-decrease)
   )
 
 (use-package multiple-cursors
@@ -159,6 +195,13 @@
   (define-key jedi-mode-map (kbd "<C-tab>") nil)
   )
 
+(use-package js2-mode
+  :config
+  (setq js2-basic-offset 2)
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-use-font-lock-faces t)
+  )
+
 (use-package robe-mode
   :disabled t
   :config
@@ -180,6 +223,11 @@
   :config
   (global-set-key (kbd "M-p") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  )
+
+(use-package bind-key
+  :config
+  (bind-key* "M-p" 'ace-window)
   )
 
 ;;
@@ -250,10 +298,13 @@
   (switch-to-next-buffer)
   (balance-windows))
 
-(defun four-columns ()
+(defun five-columns ()
   "Set the frames to three even-width columns."
   (interactive)
   (delete-other-windows)
+  (split-window-horizontally)
+  (next-multiframe-window)
+  (switch-to-next-buffer)
   (split-window-horizontally)
   (next-multiframe-window)
   (switch-to-next-buffer)
@@ -270,19 +321,20 @@
 ;; KEYBOARD SHORTCUTS
 ;;
 
+(global-set-key (kbd "C-z") nil)
 (global-set-key (kbd "C-+") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-_") 'text-scale-decrease)
 (global-set-key (kbd "C-\\") 'condense-whitespace)
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key [C-S-iso-lefttab] 'previous-multiframe-window)
-(global-set-key [C-tab] 'next-multiframe-window)
 (global-set-key [f7] 'three-columns)
-(global-set-key [f8] 'four-columns)
+(global-set-key [f8] 'five-columns)
 (global-set-key [M-f12] 'revert-buffer)
 (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
 
 (add-hook 'python-mode-hook (lambda() (local-set-key (kbd "C-s-d") 'ipdb-trace)))
+;(eval-after-load 'flycheck '(flycheck-clojure-setup))
+;(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;; This is mapped to ESC ESC ESC "keyboard-escape-quit", which
 ;; destroys other windows which is annoying when you accidentally
@@ -344,4 +396,52 @@
 ;;
 ;; STARTUP
 ;;
-(when (equal command-line-args (list "emacs")) (three-columns))
+
+;; (when (equal command-line-args (list "emacs")) (three-columns))
+
+;;
+;; OTHER
+;;
+
+(setq ruby-use-smie nil)
+;;(setq ruby-deep-indent-paren nil)
+
+;; (defun set-flychecker-executables ()
+;;   "Configure virtualenv for flake8 and lint."
+;;   (when (get-current-buffer-flake8)
+;; (flycheck-set-checker-executable (quote python-flake8)
+;;                  (get-current-buffer-flake8)))
+;;   (when (get-current-buffer-pylint)
+;; (flycheck-set-checker-executable (quote python-pylint)
+;;                  (get-current-buffer-pylint))))
+;; (add-hook 'flycheck-before-syntax-check-hook
+;;       #'set-flychecker-executables 'local)
+
+
+
+(add-hook 'cider-mode-hook
+   '(lambda () (add-hook 'after-save-hook
+    '(lambda ()
+       (if (and (boundp 'cider-mode) cider-mode)
+    (cider-namespace-refresh)
+         )))))
+
+(defun cider-namespace-refresh ()
+  (interactive)
+  (cider-interactive-eval
+   "(require 'clojure.tools.namespace.repl)
+  (clojure.tools.namespace.repl/refresh)"))
+
+;;(define-key clojure-mode-map (kbd "C-c C-r") 'cider-namespace-refresh)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((nil)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
