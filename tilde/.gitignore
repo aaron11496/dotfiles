@@ -3,3 +3,5 @@
 .\#*
 .venv
 .cache
+.lein-repl-history
+.nrepl-port
