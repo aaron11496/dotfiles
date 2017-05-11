@@ -5,9 +5,8 @@ urxvt*scrollTtyKeypress: true
 urxvt*saveLines: 10000
 urxvt*foreground: white
 urxvt*background: black
-urxvt*font: xft:Inconsolata:pixelsize=16
-urxvt*boldFont: xft:Inconsolata:bold:pixelsize=16
-
+urxvt*font: xft:Inconsolata:pixelsize=18
+urxvt*boldFont: xft:Inconsolata:bold:pixelsize=18
 urxvt*scrollBar: false
 urxvt*scrollBar_right: true
 urxvt*scrollstyle: rxvt
