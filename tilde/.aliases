@@ -4,15 +4,17 @@ function kkh {
     sed --in-place "${1}d" /home/aaron/.ssh/known_hosts
 }
 
+alias sqlite3='rlwrap sqlite3'
+
 alias capslockoff='python -c ''from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'''
 
 alias p='popd'
 
 alias ll='ls -l --group-directories-first'
 alias la='ls -A --group-directories-first'
+alias lla='ls -lA --group-directories-first'
 alias lh='ls -lh --group-directories-first'
 alias l='ls -CF --group-directories-first'
-alias lla='ls -lA --group-directories-first'
 alias lah='ls -lah --group-directories-first'
 alias lash='ls -laSh --group-directories-first'
 
@@ -31,22 +33,14 @@ fi
 
 alias psg='ps -ef | grep'
 alias nwd='notify-send "JOB COMPLETE"'
-alias uuid4='uuid -v 4'
 alias duh='du -h -d 1 . | sort -n'
 alias c='pygmentize -g'
 
 alias df='df -T'
 alias dfh='df -Th'
 
-alias ka='sudo killall -15'
-alias kan='sudo killall -9'
-
-alias wi='whois -H'
-
 alias ga='git add'
 alias gb='git branch'
-alias gc='git checkout'
-alias gcl='git clone'
 alias gd='git diff'
 alias gdw='git diff --word-diff=color'
 alias gdh='git diff HEAD'
@@ -63,8 +57,6 @@ alias gm='git commit -m'
 alias gma='git commit -am'
 alias gp='git push'
 alias gpu='git pull'
-alias gra='git remote add'
-alias grr='git remote rm'
 alias gs='git status -s'
 alias gst='git stash'
 alias gstp='git stash show -p'
@@ -77,6 +69,7 @@ alias dk='docker kill'
 alias dka='docker kill $(docker ps -q)'
 alias de='docker exec -it'
 alias dr='docker run -it --rm --net host'
-alias dcleanp='docker rm $(docker ps -a -q -f status=exited)'  # removes all stopped containers
-alias dcleani='docker rmi $(docker images -q -f dangling=true)'  # removes all untagged images
+
 alias dcmp='docker-compose'
+alias dcb='docker-compose build'
+alias dcr='docker-compose run --rm --service-ports'
