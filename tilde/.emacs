@@ -73,6 +73,12 @@
 
 (require 'flycheck)
 
+(use-package protobuf-mode
+  :config
+  (setq tab-width 2)
+  )
+
+
 ;; We can safely declare this function, since we'll only call it in Python Mode,
 ;; that is, when python.el was already loaded.
 (declare-function python-shell-calculate-exec-path "python")
@@ -176,6 +182,14 @@
   ("C-S-<right>" . buf-move-right)
   )
 
+(use-package string-inflection
+  :bind
+  ("C-c i" . string-inflection-cycle)
+  ("C-c C" . string-inflection-camelcase)        ;; Force to CamelCase
+  ("C-c L" . string-inflection-lower-camelcase)  ;; Force to lowerCamelCase
+  ("C-c J" . string-inflection-java-style-cycle) ;; Cycle through Java styles
+  )
+
 (use-package saveplace
   :config
   (setq-default save-place t)
@@ -196,6 +210,7 @@
   (setq js2-basic-offset 2)
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-use-font-lock-faces t)
+  (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
   )
 
 (use-package robe-mode
@@ -385,7 +400,7 @@
 (set-face-attribute 'mode-line-inactive nil :foreground "gray40" :background "gray4" :box nil)
 (set-face-attribute 'mode-line-highlight nil :background "gray20" :box nil)
 
-(set-face-attribute 'flycheck-info nil :background "dark green" :underline nil :inherit nil)
+(set-face-attribute 'flycheck-info nil :background "midnight blue" :underline nil :inherit nil)
 (set-face-attribute 'flycheck-warning nil :background "midnight blue" :underline nil :inherit nil)
 (set-face-attribute 'flycheck-error nil :background "dark red" :underline nil :inherit nil)
 
