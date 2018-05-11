@@ -1,4 +1,4 @@
-urxvt*termName:rxvt-unicode
+urxvt*termName: rxvt-unicode
 urxvt.cursorBlink: true
 urxvt*scrollTtyOutput: false
 urxvt*scrollTtyKeypress: true
@@ -12,12 +12,22 @@ urxvt*scrollBar_right: true
 urxvt*scrollstyle: rxvt
 urxvt*scrollBar_floating: true
 
-urxvt.perl-ext-common: default,matcher,keyboard-select
+
+urxvt.perl-ext-common: default,matcher,keyboard-select,font-size
 urxvt.perl-lib: /home/aaron/.perl-lib
 urxvt.keysym.M-Escape: perl:keyboard-select:activate
 ! urxvt.keysym.M-s: perl:keyboard-select:search
 urxvt.urlLauncher: /usr/bin/google-chrome
 urxvt.matcher.button: 2
+
+
+URxvt.keysym.C-Up:     perl:font-size:increase
+URxvt.keysym.C-Down:   perl:font-size:decrease
+URxvt.keysym.C-S-Up:   perl:font-size:incglobal
+URxvt.keysym.C-S-Down: perl:font-size:decglobal
+URxvt.keysym.C-equal:  perl:font-size:reset
+! URxvt.keysym.C-slash:  perl:font-size:show
+
 
 ! Tango Color Scheme
 urxvt*color0: #2e3436
