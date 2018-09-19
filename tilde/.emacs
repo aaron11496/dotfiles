@@ -210,13 +210,22 @@
   (setq js2-basic-offset 2)
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-use-font-lock-faces t)
-  (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
+  :mode ("\\.js\\'" . js2-mode)
   )
 
 (use-package robe-mode
   :disabled t
   :config
   (add-hook 'ruby-mode-hook 'robe-mode)
+  )
+
+(use-package bitbake
+  :config
+  :mode ("\\.inc\\'" . bitbake-mode)
+  )
+
+(use-package jinja2-mode
+  :mode "\\.j2\\'"
   )
 
 (use-package re-builder
@@ -240,6 +249,8 @@
   :config
   (bind-key* "M-p" 'ace-window)
   )
+
+
 
 ;;
 ;; CUSTOM FUNCTIONS
@@ -344,6 +355,8 @@
 (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
 
 (add-hook 'python-mode-hook (lambda() (local-set-key (kbd "C-s-d") 'ipdb-trace)))
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'protobuf-mode-hook 'flyspell-prog-mode)
 ;(eval-after-load 'flycheck '(flycheck-clojure-setup))
 ;(add-hook 'after-init-hook #'global-flycheck-mode)
 
