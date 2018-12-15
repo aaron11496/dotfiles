@@ -4,37 +4,30 @@ bindkey -e  # emacs-style keybindings
 
 export EDITOR='vim'
 export BROWSER='google-chrome'
+export MINICOM='-c on'
 
-setopt auto_cd auto_pushd cdable_vars pushd_ignore_dups pushd_silent  # cd
+setopt auto_cd auto_pushd cdable_vars pushd_ignore_dups pushd_silent auto_param_slash  # cd
 setopt always_to_end list_types  # completion
-
-setopt extendedglob hist_expire_dups_first hist_ignore_all_dups hist_ignore_space hist_verify share_history  # history
+setopt hist_expire_dups_first hist_ignore_all_dups hist_ignore_space hist_verify share_history  # history
 HISTSIZE=2000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
-setopt check_jobs interactive_comments rcquotes transient_rprompt
-
-
-# autoload -U select-word-style
-# select-word-style bash
+setopt extendedglob check_jobs interactive_comments rcquotes transient_rprompt  # etc
 
 # Use modern completion system
 autoload -Uz compinit
+eval "$(dircolors -b)"
 compinit
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-# zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
-# zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
+# zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
@@ -44,7 +37,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 [[ -x /usr/bin/lesspipe ]] && eval $(SHELL=/bin/sh lesspipe)
 [[ -e ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
-[[ -e /usr/local/bin/virtualenvwrapper_lazy.sh ]] && source /usr/local/bin/virtualenvwrapper_lazy.sh
+[[ -e /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]] && source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
@@ -56,96 +49,72 @@ if [[ -e ~/dotfiles/autoworkon.sh ]]; then
 fi
 
 autoload -U colors && colors
-autoload -Uz vcs_info
 setopt prompt_subst
 
-function +vi-git-stash() {
-    local -a stashes
+# source ~/zsh-git-prompt/zshrc.sh
+# GIT_PROMPT_EXECUTABLE="haskell"
 
-    if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
-        stashes=$(git stash list 2>/dev/null | wc -l)
-        hook_com[misc]+=" (${stashes} stashed)"
-    fi
-}
-
-zstyle ':vcs_info:git*+set-message:*' hooks git-stash
-zstyle ':vcs_info:*' stagedstr '%F{green}●'  # %c
-zstyle ':vcs_info:*' unstagedstr '%F{red}●'  # %u
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' enable git hg
-zstyle ':vcs_info:git*' formats " %F{yellow}%b%F{magenta}%m"
-zstyle ':vcs_info:git*' actionformats " %F{red}%b|%a"
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' formats " %B%F{magenta}%b%%b%f%m%u%c"
+zstyle ':vcs_info:git:*' actionformats " %F{red}%b|%a%%b%f%m%u%c"
+zstyle ':vcs_info:git:*' stagedstr "%B%F{green}+%f%b"
+zstyle ':vcs_info:git:*' unstagedstr "%B%F{red}?%f%b"
 
 precmd() { vcs_info }
 
+DOMAIN=
+[ $SSH_CLIENT ] && DOMAIN='%B%(!.%F{red}.%F{green})%n@%F{red}%m%F{white}%b:'
 
-if [ $SSH_CLIENT ]; then
-    DOMAIN='%F{red}%m'
-else
-    DOMAIN='%m'
-fi
-
-PROMPT='%B%(!.%F{red}.%F{green})%n@$DOMAIN%F{white}%b:%B%F{blue}%~%f${vcs_info_msg_0_}%f %F{cyan}${VIRTUAL_ENV:t}%b%f
+PROMPT='$DOMAIN%B%F{blue}%~%b%f${vcs_info_msg_0_}%B%F{cyan} ${VIRTUAL_ENV:t}%b%f
 %# '
-RPROMPT=''
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
-
-COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
-COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
-export COMP_WORDBREAKS
-
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${COMP_WORDS[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
-fi
-###-end-npm-completion-###
-
+# PROMPT='$DOMAIN%B%F{blue}%~%f $(git_super_status) %B%F{cyan}${VIRTUAL_ENV:t}%b%f
+# %# '
+RPROMPT=
 
 autoload bashcompinit
 bashcompinit
 
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+        man "$@"
+}
 
-[[ -e "~/google-cloud-sdk/path.zsh.inc" ]] && source '~/google-cloud-sdk/path.zsh.inc'
-[[ -e "~/google-cloud-sdk/completion.zsh.inc" ]] && source '~/google-cloud-sdk/completion.zsh.inc'
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.inc; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
+
+
+# export NVM_DIR="/home/aaron/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# see http://broken-by.me/lazy-load-nvm/
+nvm() {
+    unset -f nvm
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    nvm "$@"
+}
+
+node() {
+    unset -f node
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    node "$@"
+}
+
+npm() {
+    unset -f npm
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    npm "$@"
+}
