@@ -1,5 +1,4 @@
 #!/bin/zsh
-alias -g pjson='| python -m json.tool'
 
 if [ -f ~/.aliases ]; then
     . ~/.aliases
