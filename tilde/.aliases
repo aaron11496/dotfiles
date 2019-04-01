@@ -71,5 +71,6 @@ alias de='docker exec -it'
 alias dr='docker run -it --rm --net host'
 
 alias dcmp='docker-compose'
+alias dcu='docker-compose up'
 alias dcb='docker-compose build'
 alias dcr='docker-compose run --rm --service-ports'
