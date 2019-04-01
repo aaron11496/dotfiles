@@ -20,6 +20,13 @@ Use the `autorandr` instructions to create profiles for all of your
 monitor setups.
 
 
+### Use Slock instead of other lockers ###
+
+    sudo apt-get install slock
+    sudo mv /usr/bin/xflock4{,.bak}
+    sudo ln -s /usr/bin/slock /usr/bin/xflock4
+
+
 ### Disable system beep ###
 
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
