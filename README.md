@@ -5,19 +5,17 @@ configuration file from this repo as a symlink from `~/`, creating
 subdirectories as necessary.
 
 
-## Debian Jessie with Xfce4 ##
+## Debian Stretch with Xfce4 ##
 
-### Automatic Monitor Configuration ###
+### Packages ###
 
-Currently, xfce4 doesn't seem to have a way to automatically reconfigure
-displays when a monitor is plugged or unplugged. Fortunately, there's a
-tool called `autorandr` that can do that for us with a simple udev rule.
+    sudo apt-get install accountsservice arandr blueman build-essential ca-certificates coreutils curl feh fonts-droid-fallback fonts-inconsolata fonts-ubuntu-title ntp pulseaudio-module-bluetooth python-pip redshift-gtk rsync rxvt-unicode silversearcher-ag software-properties-common suckless-tools tree ttf-dejavu virtualenvwrapper wireless-tools wpasupplicant xbindkeys xmonad zsh
 
-Install this fork of `autorandr`:
-https://github.com/phillipberndt/autorandr
-
-Use the `autorandr` instructions to create profiles for all of your
-monitor setups.
+Slack https://slack.com/downloads/instructions/ubuntu
+Google Chrome https://www.google.com/chrome/
+Docker CE https://docs.docker.com/install/linux/docker-ce/debian/
+Spotify https://www.spotify.com/us/download/linux/
+Autorandr https://github.com/wertarbyte/autorandr
 
 
 ### Use Slock instead of other lockers ###
@@ -30,11 +28,6 @@ monitor setups.
 ### Disable system beep ###
 
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
-
-
-### Use NTP to make sure clock automatically updates (especially for DST) ###
-
-    sudo apt-get install ntp
 
 
 ### Keyboard mute button doesn't unmute in Xfce4 ###
