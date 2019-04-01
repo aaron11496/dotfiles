@@ -50,3 +50,4 @@
 	algorithm = patience
 	mnemonicprefix = yes
 	renames = yes
+	submodule = diff
