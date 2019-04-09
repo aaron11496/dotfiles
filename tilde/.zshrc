@@ -15,6 +15,9 @@ HISTFILE=~/.zsh_history
 
 setopt extendedglob check_jobs interactive_comments rcquotes transient_rprompt  # etc
 
+autoload bashcompinit
+bashcompinit
+
 # Use modern completion system
 autoload -Uz compinit
 eval "$(dircolors -b)"
@@ -38,15 +41,9 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 [[ -e ~/.zsh_aliases ]] && source ~/.zsh_aliases
 
 [[ -e /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]] && source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
-
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-
 export WORKON_HOME="$HOME/.virtualenvs"
-
-if [[ -e ~/dotfiles/autoworkon.sh ]]; then
-    source ~/dotfiles/autoworkon.sh
-    chpwd() { auto_workon }
-fi
+complete -F 'lsvirtualenv -b' workon
 
 autoload -U colors && colors
 setopt prompt_subst
@@ -67,14 +64,12 @@ precmd() { vcs_info }
 DOMAIN=
 [ $SSH_CLIENT ] && DOMAIN='%B%(!.%F{red}.%F{green})%n@%F{red}%m%F{white}%b:'
 
-PROMPT='$DOMAIN%B%F{blue}%~%b%f${vcs_info_msg_0_}%B%F{cyan} ${VIRTUAL_ENV:t}%b%f
+PROMPT='$DOMAIN%B%F{blue}%~%b%f${vcs_info_msg_0_}%B%F{cyan}${VIRTUAL_ENV+ ${VIRTUAL_ENV:t}}%b%f
 %# '
 # PROMPT='$DOMAIN%B%F{blue}%~%f $(git_super_status) %B%F{cyan}${VIRTUAL_ENV:t}%b%f
 # %# '
 RPROMPT=
 
-autoload bashcompinit
-bashcompinit
 
 man() {
     env \
