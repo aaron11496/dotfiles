@@ -15,7 +15,7 @@ Slack https://slack.com/downloads/instructions/ubuntu
 Google Chrome https://www.google.com/chrome/
 Docker CE https://docs.docker.com/install/linux/docker-ce/debian/
 Spotify https://www.spotify.com/us/download/linux/
-Autorandr https://github.com/wertarbyte/autorandr
+Autorandr https://packages.debian.org/sid/x11/autorandr
 
 
 ### Use Slock instead of other lockers ###
