@@ -30,23 +30,6 @@ Autorandr https://packages.debian.org/sid/x11/autorandr
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
 
-### Keyboard mute button doesn't unmute in Xfce4 ###
-
-Currently, `xfce4-volumed` sucks when working with
-`pulseaudio`. Fortunately, there's a fork called `xfce4-volumed-pulse`
-that works great. Make sure you install the `libnotify-dev` package before
-building or else you won't see pop-ups when changing the volume.
-
-    https://launchpad.net/xfce4-volumed-pulse
-
-    ./configure
-    make
-    sudo make install
-
-It will bind to volume up/down/mute keys, but make sure you didn't already
-set shortcuts to those keys with `xfce4-keyboard-settings`.
-
-
 ### Keyboard settings ###
 
 Edit `/etc/default/keyboard` and use one of these:
@@ -76,14 +59,6 @@ these lines to `/etc/sysctl.conf` then run `sysctl -p`:
 Edit `/etc/pulse/default.pa` and add this line to the bottom:
 
     load-module module-switch-on-connect
-
-
-### Fix PulseAudio volume jumping when increased by 1% ###
-
-Edit `/etc/pulse/default.pa`, find the line loading `module-udev-detect`
-and change it to this:
-
-    load-module module-udev-detect ignore_dB=1
 
 
 ### Configuring Docker
