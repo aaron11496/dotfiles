@@ -11,11 +11,11 @@ subdirectories as necessary.
 
     sudo apt-get install accountsservice arandr blueman build-essential ca-certificates coreutils curl feh fonts-droid-fallback fonts-inconsolata fonts-ubuntu-title ntp pulseaudio-module-bluetooth python-pip redshift-gtk rsync rxvt-unicode silversearcher-ag software-properties-common suckless-tools tree ttf-dejavu virtualenvwrapper wireless-tools wpasupplicant xbindkeys xmonad zsh
 
-Slack https://slack.com/downloads/instructions/ubuntu
-Google Chrome https://www.google.com/chrome/
-Docker CE https://docs.docker.com/install/linux/docker-ce/debian/
-Spotify https://www.spotify.com/us/download/linux/
-Autorandr https://github.com/wertarbyte/autorandr
+* Slack https://slack.com/downloads/instructions/ubuntu
+* Google Chrome https://www.google.com/chrome/
+* Docker CE https://docs.docker.com/install/linux/docker-ce/debian/
+* Spotify https://www.spotify.com/us/download/linux/
+* Autorandr https://github.com/wertarbyte/autorandr
 
 
 ### Use Slock instead of other lockers ###
