@@ -8,46 +8,39 @@
 (menu-bar-mode -1)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
-(scroll-bar-mode -1)
+
 (set-fringe-mode 0)
+(show-paren-mode t)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(transient-mark-mode t)
+
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 (setq require-final-newline t)
 (setq ring-bell-function 'ignore)
 (setq uniquify-buffer-name-style 'post-forward)
-(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 (setq-default sort-fold-case t)
-;;(setq-default fill-column 70)
 (setq-default indent-tabs-mode nil)
-(show-paren-mode t)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(transient-mark-mode t)
 
-;; save backup files to a single dir
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
 (defvar backup-dir "~/.emacs_backups/")
 (if (not (file-exists-p backup-dir)) (make-directory backup-dir))
 (defun make-backup-file-name (file)
   (concat "~/.emacs_backups/" (file-name-nondirectory file) "~"))
 
-(add-hook 'pug-mode-hook
-      (lambda ()
-        (setq tab-width 2)
-        ))
-(add-hook 'json-mode-hook
-          (lambda ()
-            (make-local-variable 'js-indent-level)
-            (setq js-indent-level 2)))
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'css-mode-hook 'rainbow-mode)
+
 (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("\\.env\\'" . shell-script-mode))
-
 (eval-after-load "sql" '(progn (sql-set-product 'postgres)))
 
 ;;
@@ -56,46 +49,24 @@
 
 (require 'package)
 (setq package-archives
-      '(;("gnu" . "http://elpa.gnu.org/packages/")
+      '(("gnu" . "http://elpa.gnu.org/packages/")
         ;("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.milkbox.net/packages/")
         ))
 (package-initialize)
-
 (require 'use-package)
 (setq use-package-always-ensure t)
 (setq load-prefer-newer t)
 
-(use-package diminish
-  :config
-  ;(diminish 'auto-complete-mode)
+(use-package bind-key)
+(use-package diminish)
+(use-package flycheck)
+
+(use-package default-text-scale
+  :bind
+  ("C-M-=" . default-text-scale-increase)
+  ("C-M--" . default-text-scale-decrease)
   )
-
-(require 'flycheck)
-
-(use-package protobuf-mode
-  :config
-  (setq tab-width 2)
-  )
-
-
-;; We can safely declare this function, since we'll only call it in Python Mode,
-;; that is, when python.el was already loaded.
-(declare-function python-shell-calculate-exec-path "python")
-
-(defun flycheck-virtualenv-executable-find (executable)
-  "Find an EXECUTABLE in the current virtualenv if any."
-  (if (bound-and-true-p python-shell-virtualenv-root)
-      (let ((exec-path (python-shell-calculate-exec-path)))
-        (executable-find executable))
-    (executable-find executable)))
-
-(defun flycheck-virtualenv-setup ()
-  "Setup Flycheck for the current virtualenv."
-  (setq-local flycheck-executable-find #'flycheck-virtualenv-executable-find))
-
-(provide 'flycheck-virtualenv)
-(add-hook 'sh-mode-hook 'flycheck-mode)
 
 (use-package flycheck
   :config
@@ -104,14 +75,9 @@
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-delay 0)
   (setq-default flycheck-shellcheck-excluded-warnings '("SC2086", "SC2046"))
-  (add-hook 'flycheck-mode-hook #'flycheck-virtualenv-setup)
+  (add-hook 'sh-mode-hook 'flycheck-mode)
+  ;; (add-hook 'flycheck-mode-hook #'flycheck-virtualenv-setup)
   :diminish flycheck-mode
-  )
-
-(use-package default-text-scale
-  :bind
-  ("C-M-=" . default-text-scale-increase)
-  ("C-M--" . default-text-scale-decrease)
   )
 
 (use-package multiple-cursors
@@ -147,11 +113,6 @@
   ("C-c C-c M-x" . execute-extended-command)
   )
 
-(use-package rainbow-delimiters
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-  )
-
 (use-package fill-column-indicator
   :config
   (setq fci-rule-color "dark slate gray")
@@ -168,20 +129,6 @@
   (anzu-mode)
   )
 
-(use-package image+
-  :init
-  (imagex-global-sticky-mode)
-  )
-
-
-(use-package buffer-move
-  :bind
-  ("C-S-<up>" . buf-move-up)
-  ("C-S-<down>" . buf-move-down)
-  ("C-S-<left>" . buf-move-left)
-  ("C-S-<right>" . buf-move-right)
-  )
-
 (use-package string-inflection
   :bind
   ("C-c i" . string-inflection-cycle)
@@ -196,46 +143,14 @@
   (setq save-place-file (expand-file-name ".places" user-emacs-directory))
   )
 
-(use-package jedi
+(use-package projectile
   :config
-  (jedi:setup)
-  (setq jedi:complete-on-dot t)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (define-key jedi-mode-map (kbd "C-'") 'jedi:complete)
-  (define-key jedi-mode-map (kbd "<C-tab>") nil)
-  )
-
-(use-package js2-mode
-  :config
-  (setq js2-basic-offset 2)
-  (setq js2-strict-missing-semi-warning nil)
-  (setq js2-use-font-lock-faces t)
-  :mode ("\\.js\\'" . js2-mode)
-  )
-
-(use-package robe-mode
-  :disabled t
-  :config
-  (add-hook 'ruby-mode-hook 'robe-mode)
-  )
-
-(use-package bitbake
-  :config
-  :mode ("\\.inc\\'" . bitbake-mode)
-  )
-
-(use-package jinja2-mode
-  :mode "\\.j2\\'"
-  )
-
-(use-package re-builder
-  :config
-  (setq reb-re-syntax 'string)
-  )
+  (define-key projectile-mode-map (kbd "M-n") 'projectile-command-map)
+  (projectile-mode +1))
 
 (use-package projectile
   :config
-  (projectile-global-mode)
+  (projectile-mode)
   :diminish projectile-mode
   )
 
@@ -245,11 +160,46 @@
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   )
 
-(use-package bind-key
+
+;; FILE MODES
+
+(use-package pug-mode
   :config
-  (bind-key* "M-p" 'ace-window)
+  (setq tab-width 2)
+  )
+(use-package json-mode)
+(use-package haskell-mode)
+(use-package protobuf-mode
+  :config
+  (setq tab-width 2)
+  )
+(use-package dockerfile-mode)
+(use-package yaml-mode)
+(use-package markdown-mode)
+(use-package python-mode
+  :config
+  (unbind-key "C-<backspace>" python-mode-map)
+  (unbind-key "C-c C-p" python-mode-map)
+  
+  )
+(use-package js2-mode
+  :config
+  (setq js2-basic-offset 2)
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-use-font-lock-faces t)
+  :mode "\\.js\\'"
+  )
+(use-package jinja2-mode
+  :mode "\\.j2\\'"
   )
 
+(use-package jedi
+  :config
+  (add-hook 'python-mode-hook 'jedi:setup)
+  ;(add-hook 'python-mode-hook 'jedi:ac-setup)
+  (setq jedi:complete-on-dot t)
+  (setq jedi:use-shortcuts t)
+  )
 
 
 ;;
@@ -289,12 +239,6 @@
     (back-to-indentation)
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
-
-(defun ipdb-trace ()
-  "Handy for debugging Python code."
-  (interactive)
-  (insert "import ipdb; ipdb.set_trace()"))
-
 
 (defun sort-words (reverse beg end)
   "Sort words in region alphabetically, in REVERSE if negative.
@@ -354,11 +298,8 @@
 (global-set-key [M-f12] 'revert-buffer)
 (global-set-key [remap move-beginning-of-line] 'smarter-move-beginning-of-line)
 
-(add-hook 'python-mode-hook (lambda() (local-set-key (kbd "C-s-d") 'ipdb-trace)))
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-(add-hook 'protobuf-mode-hook 'flyspell-prog-mode)
-;(eval-after-load 'flycheck '(flycheck-clojure-setup))
-;(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+;; (add-hook 'protobuf-mode-hook 'flyspell-prog-mode)
 
 ;; This is mapped to ESC ESC ESC "keyboard-escape-quit", which
 ;; destroys other windows which is annoying when you accidentally
@@ -374,7 +315,7 @@
 ;!@#$%^&*()[]{}<>-_=+\|;:'",./?
 ;; (set-frame-font "Inconsolata-11")
 ;; (set-frame-font "Terminus-12")
-(set-frame-font "UbuntuMono-11")
+(set-frame-font "UbuntuMono-12")
 ;; (set-frame-font "AndaleMono-10")
 ;; (set-frame-font "Monaco-10")
 ;; (set-frame-font "DejaVuSansMono-10")
@@ -418,50 +359,17 @@
 (set-face-attribute 'flycheck-error nil :background "dark red" :underline nil :inherit nil)
 
 ;;
-;; STARTUP
-;;
-
-;; (when (equal command-line-args (list "emacs")) (three-columns))
-
-;;
 ;; OTHER
 ;;
 
-(setq ruby-use-smie nil)
-;;(setq ruby-deep-indent-paren nil)
-
-;; (defun set-flychecker-executables ()
-;;   "Configure virtualenv for flake8 and lint."
-;;   (when (get-current-buffer-flake8)
-;; (flycheck-set-checker-executable (quote python-flake8)
-;;                  (get-current-buffer-flake8)))
-;;   (when (get-current-buffer-pylint)
-;; (flycheck-set-checker-executable (quote python-pylint)
-;;                  (get-current-buffer-pylint))))
-;; (add-hook 'flycheck-before-syntax-check-hook
-;;       #'set-flychecker-executables 'local)
-
-
-
-(add-hook 'cider-mode-hook
-   '(lambda () (add-hook 'after-save-hook
-    '(lambda ()
-       (if (and (boundp 'cider-mode) cider-mode)
-    (cider-namespace-refresh)
-         )))))
-
-(defun cider-namespace-refresh ()
-  (interactive)
-  (cider-interactive-eval
-   "(require 'clojure.tools.namespace.repl)
-  (clojure.tools.namespace.repl/refresh)"))
-
-;;(define-key clojure-mode-map (kbd "C-c C-r") 'cider-namespace-refresh)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (pyimpsort markdown-mode elpy dumb-jump haskell-mode yaml-mode mmm-mode bitbake use-package string-inflection smex rainbow-delimiters protobuf-mode projectile multiple-cursors js2-mode jinja2-mode jedi image+ flycheck flx-ido fill-column-indicator diminish default-text-scale buffer-move anzu ace-window)))
  '(safe-local-variable-values (quote ((nil)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

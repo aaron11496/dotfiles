@@ -9,7 +9,8 @@ subdirectories as necessary.
 
 ### Packages ###
 
-    sudo apt-get install accountsservice arandr blueman build-essential ca-certificates coreutils curl feh fonts-droid-fallback fonts-inconsolata fonts-ubuntu-title ntp pulseaudio-module-bluetooth python-pip redshift-gtk rsync rxvt-unicode silversearcher-ag software-properties-common suckless-tools tree ttf-dejavu virtualenvwrapper wireless-tools wpasupplicant xbindkeys xmonad zsh
+    sudo apt-get update
+    sudo apt-get install accountsservice arandr blueman build-essential ca-certificates coreutils curl feh fonts-droid-fallback fonts-inconsolata fonts-ubuntu-title magic-wormhole ntp pulseaudio-module-bluetooth python-pip redshift-gtk rsync rxvt-unicode silversearcher-ag software-properties-common suckless-tools tree ttf-dejavu virtualenvwrapper wireless-tools wpasupplicant xbindkeys xmonad zsh
 
 * Slack https://slack.com/downloads/instructions/ubuntu
 * Google Chrome https://www.google.com/chrome/
