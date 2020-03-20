@@ -1,13 +1,3 @@
-#!/bin/sh
-
-function kkh {
-    sed --in-place "${1}d" /home/aaron/.ssh/known_hosts
-}
-
-alias sqlite3='rlwrap sqlite3'
-
-alias capslockoff='python -c ''from ctypes import *; X11 = cdll.LoadLibrary("libX11.so.6"); display = X11.XOpenDisplay(None); X11.XkbLockModifiers(display, c_uint(0x0100), c_uint(2), c_uint(0)); X11.XCloseDisplay(display)'''
-
 alias p='popd'
 
 alias ll='ls -l --group-directories-first'
@@ -70,7 +60,13 @@ alias dka='docker kill $(docker ps -q)'
 alias de='docker exec -it'
 alias dr='docker run -it --rm --net host'
 
-alias dcmp='docker-compose'
-alias dcu='docker-compose up'
-alias dcb='docker-compose build'
-alias dcr='docker-compose run --rm --service-ports'
+if [ "$ZSH_NAME" != '' ]; then
+    ALIAS_FLAGS="-g"
+else
+    ALIAS_CMD=""
+fi
+
+alias $ALIAS_FLAGS dcmp='docker-compose'
+alias $ALIAS_FLAGS dcu='docker-compose up'
+alias $ALIAS_FLAGS dcb='docker-compose build'
+alias $ALIAS_FLAGS dcr='docker-compose run --rm --service-ports'

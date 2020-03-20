@@ -38,7 +38,7 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 [[ -x /usr/bin/lesspipe ]] && eval $(SHELL=/bin/sh lesspipe)
-[[ -e ~/.zsh_aliases ]] && source ~/.zsh_aliases
+[[ -e ~/.aliases ]] && source ~/.aliases
 
 [[ -e /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]] && source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 export VIRTUAL_ENV_DISABLE_PROMPT=1
