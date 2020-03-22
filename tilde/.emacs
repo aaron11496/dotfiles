@@ -34,11 +34,6 @@
 (defun make-backup-file-name (file)
   (concat "~/.emacs_backups/" (file-name-nondirectory file) "~"))
 
-
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "google-chrome")
-
-
 (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
 (add-to-list 'auto-mode-alist '("\\.env\\'" . shell-script-mode))
 (eval-after-load "sql" '(progn (sql-set-product 'postgres)))
@@ -61,6 +56,7 @@
 (use-package bind-key)
 (use-package diminish)
 (use-package flycheck)
+(use-package flycheck-color-mode-line)
 
 (use-package default-text-scale
   :bind
@@ -88,14 +84,19 @@
   ("C-c C-<" . mc/mark-all-like-this)
   )
 
+(use-package ido-vertical-mode
+  :config
+  (ido-vertical-mode t)
+  (setq ido-vertical-show-count t)
+  )
+
 (use-package flx-ido
   :config
   (ido-mode t)
   (flx-ido-mode t)
   (setq ido-everywhere t)
   (setq ido-enable-flex-matching t)
-  (setq ido-use-faces nil)
-  (setq flx-ido-use-faces nil)
+  (setq ido-use-faces t)
   (defadvice ido-find-file (after find-file-sudo activate)
     "Make ido-mode find file as root if necessary."
     (unless (and buffer-file-name
@@ -180,13 +181,12 @@
   :config
   (unbind-key "C-<backspace>" python-mode-map)
   (unbind-key "C-c C-p" python-mode-map)
-  
+
   )
 (use-package js2-mode
   :config
   (setq js2-basic-offset 2)
   (setq js2-strict-missing-semi-warning nil)
-  (setq js2-use-font-lock-faces t)
   :mode "\\.js\\'"
   )
 (use-package jinja2-mode
@@ -197,8 +197,10 @@
   :config
   (add-hook 'python-mode-hook 'jedi:setup)
   ;(add-hook 'python-mode-hook 'jedi:ac-setup)
+  (setq ac-use-quick-help nil)
   (setq jedi:complete-on-dot t)
   (setq jedi:use-shortcuts t)
+  (setq jedi:tooltip-method nil)
   )
 
 
@@ -369,11 +371,5 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (pyimpsort markdown-mode elpy dumb-jump haskell-mode yaml-mode mmm-mode bitbake use-package string-inflection smex rainbow-delimiters protobuf-mode projectile multiple-cursors js2-mode jinja2-mode jedi image+ flycheck flx-ido fill-column-indicator diminish default-text-scale buffer-move anzu ace-window)))
+    (ido-vertical-mode flycheck-color-mode-line magit pyimpsort markdown-mode elpy dumb-jump haskell-mode yaml-mode mmm-mode bitbake use-package string-inflection smex rainbow-delimiters protobuf-mode projectile multiple-cursors js2-mode jinja2-mode jedi image+ flycheck flx-ido fill-column-indicator diminish default-text-scale buffer-move anzu ace-window)))
  '(safe-local-variable-values (quote ((nil)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
