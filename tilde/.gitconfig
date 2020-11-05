@@ -51,3 +51,12 @@
 	mnemonicprefix = yes
 	renames = yes
 	submodule = diff
+[pager]
+	branch = false
+        tag = less -F -X
+	diff = less -F -X
+	stash = cat
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true

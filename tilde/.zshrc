@@ -37,8 +37,13 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+[[ -e /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 [[ -x /usr/bin/lesspipe ]] && eval $(SHELL=/bin/sh lesspipe)
 [[ -e ~/.aliases ]] && source ~/.aliases
+
+[[ -e ~/.zsh/zsh-z.plugin.zsh ]] && source ~/.zsh/zsh-z.plugin.zsh
+[[ -e /usr/local/aws-cli/v2/current/bin/aws_completer ]] && complete -C '/usr/local/aws-cli/v2/current/bin/aws_completer' aws
 
 [[ -e /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]] && source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 export VIRTUAL_ENV_DISABLE_PROMPT=1
@@ -47,9 +52,6 @@ complete -F 'lsvirtualenv -b' workon
 
 autoload -U colors && colors
 setopt prompt_subst
-
-# source ~/zsh-git-prompt/zshrc.sh
-# GIT_PROMPT_EXECUTABLE="haskell"
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git svn
@@ -70,7 +72,6 @@ PROMPT='$DOMAIN%B%F{blue}%~%b%f${vcs_info_msg_0_}%B%F{cyan}${VIRTUAL_ENV+ ${VIRT
 # %# '
 RPROMPT=
 
-
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -83,33 +84,13 @@ man() {
         man "$@"
 }
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.inc; fi
+export LESS='--jump-target=5 --status-column --quit-on-intr --long-prompt --chop-long-lines --RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen --no-init'
 
-# The next line enables shell command completion for gcloud.
-if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
+[[ -e ~/.local-zshrc ]] && source ~/.local-zshrc
+
+PATH=$PATH:~/.local/bin
+PATH=$PATH:~/go/bin
 
 
-# export NVM_DIR="/home/aaron/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-# see http://broken-by.me/lazy-load-nvm/
-nvm() {
-    unset -f nvm
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    nvm "$@"
-}
-
-node() {
-    unset -f node
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    node "$@"
-}
-
-npm() {
-    unset -f npm
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    npm "$@"
-}
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+[[ $commands[gh] ]] && source <(gh completion -s zsh)

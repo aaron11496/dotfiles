@@ -84,7 +84,7 @@ c.TerminalIPythonApp.display_banner = False
 # c.TerminalIPythonApp.log_level = 30
 
 # lines of code to run at IPython startup.
-# c.TerminalIPythonApp.exec_lines = []
+c.TerminalIPythonApp.exec_lines = ['%doctest_mode']
 
 # Enable GUI event loop integration ('qt', 'wx', 'gtk').
 # c.TerminalIPythonApp.gui = None

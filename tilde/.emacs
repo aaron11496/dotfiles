@@ -26,8 +26,12 @@
 (setq-default sort-fold-case t)
 (setq-default indent-tabs-mode nil)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(if (display-graphic-p)
+    (progn
+      (desktop-save-mode 1)
+      (savehist-mode 1)))
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (defvar backup-dir "~/.emacs_backups/")
 (if (not (file-exists-p backup-dir)) (make-directory backup-dir))
@@ -46,7 +50,7 @@
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ;("marmalade" . "http://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.milkbox.net/packages/")
+        ("melpa" . "https://melpa.org/packages/")
         ))
 (package-initialize)
 (require 'use-package)
@@ -55,8 +59,6 @@
 
 (use-package bind-key)
 (use-package diminish)
-(use-package flycheck)
-(use-package flycheck-color-mode-line)
 
 (use-package default-text-scale
   :bind
@@ -70,11 +72,18 @@
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-delay 0)
+  ;(setq flycheck-python-flake8-executable "python3")
   (setq-default flycheck-shellcheck-excluded-warnings '("SC2086", "SC2046"))
   (add-hook 'sh-mode-hook 'flycheck-mode)
+  (custom-set-variables
+   '(flycheck-python-flake8-executable "python3.8")
+   '(flycheck-python-pycompile-executable "python3.8")
+   '(flycheck-python-pylint-executable "python3.8"))
   ;; (add-hook 'flycheck-mode-hook #'flycheck-virtualenv-setup)
   :diminish flycheck-mode
   )
+
+(use-package flycheck-color-mode-line)
 
 (use-package multiple-cursors
   :bind
@@ -147,12 +156,7 @@
 (use-package projectile
   :config
   (define-key projectile-mode-map (kbd "M-n") 'projectile-command-map)
-  (projectile-mode +1))
-
-(use-package projectile
-  :config
-  (projectile-mode)
-  :diminish projectile-mode
+  (setq projectile-mode-line-function '(lambda () (format " [%s]" (projectile-project-name))))
   )
 
 (use-package ace-window
@@ -175,8 +179,13 @@
   (setq tab-width 2)
   )
 (use-package dockerfile-mode)
+(use-package groovy-mode)
 (use-package yaml-mode)
-(use-package markdown-mode)
+(use-package markdown-mode
+  :config
+  (unbind-key "M-p" markdown-mode-map)
+  (unbind-key "M-q" markdown-mode-map)
+  )
 (use-package python-mode
   :config
   (unbind-key "C-<backspace>" python-mode-map)
@@ -337,6 +346,8 @@
 
 (set-face-attribute 'vertical-border nil :foreground "gray16")
 
+(set-face-attribute 'vertical-border nil :foreground "gray16")
+
 (set-face-attribute 'region nil :background "navy")
 
 (set-face-attribute 'font-lock-builtin-face nil :foreground "sandy brown")
@@ -369,7 +380,43 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flycheck-python-flake8-executable "python3.8")
+ '(flycheck-python-pycompile-executable "python3.8")
+ '(flycheck-python-pylint-executable "python3.8")
  '(package-selected-packages
    (quote
-    (ido-vertical-mode flycheck-color-mode-line magit pyimpsort markdown-mode elpy dumb-jump haskell-mode yaml-mode mmm-mode bitbake use-package string-inflection smex rainbow-delimiters protobuf-mode projectile multiple-cursors js2-mode jinja2-mode jedi image+ flycheck flx-ido fill-column-indicator diminish default-text-scale buffer-move anzu ace-window)))
+    (google-this sqlformat groovy-mode ido-vertical-mode flycheck-color-mode-line magit pyimpsort markdown-mode elpy dumb-jump haskell-mode yaml-mode mmm-mode bitbake use-package string-inflection smex rainbow-delimiters protobuf-mode projectile multiple-cursors js2-mode jinja2-mode jedi image+ flycheck flx-ido fill-column-indicator diminish default-text-scale buffer-move anzu ace-window)))
  '(safe-local-variable-values (quote ((nil)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(fixed-pitch ((t nil))))
+
+
+(defun flycheck-python--find-project-root (_checker)
+  "Compute an appropriate working-directory for flycheck-ruby.
+This is either a parent directory containing a Gemfile, or nil."
+  (and
+   buffer-file-name
+   (locate-dominating-file buffer-file-name ".git")))
+(flycheck-define-checker python-pycompile
+  "A Python syntax checker using Python's builtin compiler.
+See URL `https://docs.python.org/3.4/library/py_compile.html'."
+  :command ("python3" "-m" "py_compile" source)
+  :error-patterns
+  ;; Python 2.7
+  ((error line-start "  File \"" (file-name) "\", line " line "\n"
+          (>= 2 (zero-or-more not-newline) "\n")
+          "SyntaxError: " (message) line-end)
+   (error line-start "Sorry: IndentationError: "
+          (message) "(" (file-name) ", line " line ")"
+          line-end)
+   ;; 2.6
+   (error line-start "SyntaxError: ('" (message (one-or-more (not (any "'"))))
+          "', ('" (file-name (one-or-more (not (any "'")))) "', "
+          line ", " column ", " (one-or-more not-newline) line-end))
+  :modes python-mode
+  :next-checkers ((warning . python-mypy))
+  :working-directory flycheck-python--find-project-root)

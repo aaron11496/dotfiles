@@ -21,6 +21,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias zgrep='zgrep --color=auto'
 fi
 
+alias pup='pup -c'
 alias psg='ps -ef | grep'
 alias nwd='notify-send "JOB COMPLETE"'
 alias duh='du -h -d 1 . | sort -n'
@@ -51,6 +52,8 @@ alias gs='git status -s'
 alias gst='git stash'
 alias gstp='git stash show -p'
 alias gt='git tag'
+
+
 
 alias di='docker images'
 alias dp='docker ps'
