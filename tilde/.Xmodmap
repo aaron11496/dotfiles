@@ -1,8 +1,0 @@
-! esc -> grave/tilde
-keycode 9 = grave asciitilde
-
-! l_ctrl -> esc
-keycode 66 = Escape
-
-!keycode 9 = Escape
-!keycode 66 = Control_L
