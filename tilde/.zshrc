@@ -15,10 +15,10 @@ HISTFILE=~/.zsh_history
 
 setopt extendedglob check_jobs interactive_comments rcquotes transient_rprompt  # etc
 
+# Use modern completion system
+fpath+=~/.zfunc
 autoload bashcompinit
 bashcompinit
-
-# Use modern completion system
 autoload -Uz compinit
 eval "$(dircolors -b)"
 compinit
@@ -66,10 +66,7 @@ DOMAIN=
 
 PROMPT='$DOMAIN%B%F{blue}%~%b%f${vcs_info_msg_0_}%B%F{cyan}${VIRTUAL_ENV+ ${VIRTUAL_ENV:t}}%b%f
 %# '
-# PROMPT='$DOMAIN%B%F{blue}%~%f $(git_super_status) %B%F{cyan}${VIRTUAL_ENV:t}%b%f
-# %# '
 RPROMPT=
-
 
 man() {
     env \
@@ -89,27 +86,4 @@ if [ -f ~/google-cloud-sdk/path.zsh.inc ]; then . ~/google-cloud-sdk/path.zsh.in
 # The next line enables shell command completion for gcloud.
 if [ -f ~/google-cloud-sdk/completion.zsh.inc ]; then . ~/google-cloud-sdk/completion.zsh.inc; fi
 
-
-# export NVM_DIR="/home/aaron/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-# see http://broken-by.me/lazy-load-nvm/
-nvm() {
-    unset -f nvm
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    nvm "$@"
-}
-
-node() {
-    unset -f node
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    node "$@"
-}
-
-npm() {
-    unset -f npm
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    npm "$@"
-}
+PATH="$PATH:$HOME/.local/bin"
