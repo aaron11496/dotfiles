@@ -68,6 +68,7 @@ PROMPT='$DOMAIN%B%F{blue}%~%b%f${vcs_info_msg_0_}%B%F{cyan}${VIRTUAL_ENV+ ${VIRT
 %# '
 RPROMPT=
 
+export LESS="--jump-target=4 --hilite-search --hilite-unread --RAW-CONTROL-CHARS --quit-if-one-screen"
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
