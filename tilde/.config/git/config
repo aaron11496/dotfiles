@@ -2,6 +2,9 @@
 	name = Aaron Adelson
 	email = aaronsadelson@gmail.com
 
+[core]
+	pager = "less --quit-if-one-screen"
+
 [color]
 	ui = auto
 
@@ -44,5 +47,5 @@
 [diff]
 	cached = yes
 	algorithm = histogram
-	mnemonicprefix = yes
+	noprefix = yes
 	submodule = diff
